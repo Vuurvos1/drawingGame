@@ -1,6 +1,6 @@
 # multiplayerGame
 
-##Steps:
+## Steps:
 
 1:
 ```
