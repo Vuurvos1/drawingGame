@@ -1,19 +1,19 @@
 
 
 // Using express: http://expressjs.com/
-var express = require('express');
+const express = require('express');
 // Create the app
-var app = express();
+const app = express();
 
 // Set up the server
 // process.env.PORT is related to deploying on heroku
-var server = app.listen(process.env.PORT || 3000, listen);
+let server = app.listen(process.env.PORT || 3000, listen);
 
 // This call back just tells us that the server has started
 function listen() {
-  var host = server.address().address;
-  var port = server.address().port;
-  console.log('Example app listening at http://' + host + ':' + port);
+  let host = server.address().address;
+  let port = server.address().port;
+  console.log(`Example app listening at http://localhost:${port}`);
 }
 
 app.use(express.static('public'));
@@ -21,7 +21,7 @@ app.use(express.static('public'));
 
 // WebSocket Portion
 // WebSockets work with the HTTP server
-var io = require('socket.io')(server);
+let io = require('socket.io')(server);
 
 // Register a callback function to run when we have an individual connection
 // This is run for each individual user that connects
