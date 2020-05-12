@@ -9,5 +9,5 @@ Npm install
 
 2:
 ```
-node server.js or nodemon server.sj
+node server.js or nodemon server.js
 ```
