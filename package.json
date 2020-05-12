@@ -15,5 +15,12 @@
   "bugs": {
     "url": "https://github.com/Vuurvos1/multiplayerGame/issues"
   },
-  "homepage": "https://github.com/Vuurvos1/multiplayerGame#readme"
+  "homepage": "https://github.com/Vuurvos1/multiplayerGame#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^2.3.0"
+  },
+  "devDependencies": {
+    "webpack": "^4.43.0"
+  }
 }
