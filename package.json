@@ -1,26 +1,15 @@
 {
-  "name": "multiplayergame",
+  "name": "sockets_p5",
   "version": "1.0.0",
-  "description": "Multiplayer game",
-  "main": "index.js",
+  "description": "This is an example for how to use sockets with p5.js.",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Vuurvos1/multiplayerGame.git"
-  },
-  "author": "Sam de Kanter | Rowin Ruizendaal",
+  "author": "Daniel Shiffman",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Vuurvos1/multiplayerGame/issues"
-  },
-  "homepage": "https://github.com/Vuurvos1/multiplayerGame#readme",
   "dependencies": {
-    "express": "^4.17.1",
-    "socket.io": "^2.3.0"
-  },
-  "devDependencies": {
-    "webpack": "^4.43.0"
+    "express": "^4.13.4",
+    "socket.io": "^1.4.5"
   }
 }
