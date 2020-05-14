@@ -1,52 +1,65 @@
-
-
 // Keep track of our socket connection
-var socket;
+let socket;
 
 function setup() {
-  createCanvas(400, 400);
-  background(0);
-  // Start a socket connection to the server
-  // Some day we would run this server somewhere else
-  socket = io.connect('https://multiplayer-game-testing.herokuapp.com/');
-  // We make a named event called 'mouse' and write an
-  // anonymous callback function
-  socket.on('mouse',
-    // When we receive data
-    function(data) {
-      console.log("Got: " + data.x + " " + data.y);
-      // Draw a blue circle
-      fill(0,0,255);
-      noStroke();
-      ellipse(data.x, data.y, 20, 20);
-    }
-  );
+    createCanvas(400, 400);
+    background(0);
+    // Start a socket connection to the server
+    // Some day we would run this server somewhere else
+    socket = io.connect('https://multiplayer-game-testing.herokuapp.com/');
+    // socket = io.connect('localhost:3000');
+    // We make a named event called 'mouse' and write an
+    // anonymous callback function
+    socket.on('mouse',
+        // When we receive data
+        function(data) {
+            let str = window.location.search.slice(1);
+
+            console.log(str);
+            console.log(data.roomId)
+
+            if (str == data.url && str != '') {
+                // console.log("Got: " + data.x + " " + data.y);
+                // Draw a blue circle
+                fill(0, 0, 255);
+                noStroke();
+                ellipse(data.x, data.y, 20, 20);
+            }
+        }
+    );
 }
 
 function draw() {
-  // Nothing
+    // Nothing
 }
 
 function mouseDragged() {
-  // Draw some white circles
-  fill(255);
-  noStroke();
-  ellipse(mouseX,mouseY,20,20);
-  // Send the mouse coordinates
-  sendmouse(mouseX,mouseY);
+    // Draw some white circles
+    fill(255);
+    noStroke();
+    ellipse(mouseX, mouseY, 20, 20);
+    // Send the mouse coordinates
+    sendmouse(mouseX, mouseY);
 }
 
 // Function for sending to the socket
 function sendmouse(xpos, ypos) {
-  // We are sending!
-  console.log("sendmouse: " + xpos + " " + ypos);
-  
-  // Make a little object with  and y
-  var data = {
-    x: xpos,
-    y: ypos
-  };
+    // We are sending!
+    // console.log("sendmouse: " + xpos + " " + ypos);
 
-  // Send that object to the socket
-  socket.emit('mouse',data);
+    // Make a little object with  and y
+
+    let str = window.location.search;
+    str = str.slice(1);
+
+    var data = {
+        url: str,
+        x: xpos,
+        y: ypos
+    };
+
+    console.log(data)
+
+    // Send that object to the socket
+    socket.emit('mouse', data);
 }
