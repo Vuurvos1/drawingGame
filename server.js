@@ -21,6 +21,7 @@ app.use(express.static('public'));
 // WebSockets work with the HTTP server
 let io = require('socket.io')(server);
 
+/*
 // Register a callback function to run when we have an individual connection
 // This is run for each individual user that connects
 io.sockets.on('connection',
@@ -61,3 +62,47 @@ io.sockets.on('connection',
         });
     }
 );
+*/
+
+io.sockets.on('connection', (socket) => {
+    console.log('a user connected');
+
+    socket.on('join', (params, callback) => {
+        // if (!isString) {
+        //     console.log('yikes this no string');
+        //     return
+        // }
+
+
+
+        socket.join(params.room);
+        // users.removeUser(socket.id);
+        // users.addUser(socket.id, params.name, params.room);
+
+        // io.to(params.room).emit('updateUsersList', users.getUserList(params.room));
+        // socket.emit('newMessage', generateMessage('Admin', `Welocome to ${params.room}!`));
+
+        // socket.broadcast.to(params.room).emit('newMessage', generateMessage('Admin', "New User Joined!"));
+
+    });
+
+    socket.on('createMessage', (message, callback) => {
+        console.log('create a message');
+        // let user = users.getUser(socket.id);
+
+        // if (user && isRealString(message.text)) {
+        //     io.to(user.room).emit('newMessage', generateMessage(user.name, message.text));
+        // }
+    })
+
+    socket.on('disconnect', () => {
+        // let user = users.removeUser(socket.id);
+
+        console.log("Client has disconnected");
+
+        // if (user) {
+        //     io.to(user.room).emit('updateUsersList', users.getUserList(user.room));
+        //     io.to(user.room).emit('newMessage', generateMessage('Admin', `${user.name} has left ${user.room} chat room.`))
+        // }
+    });
+});
