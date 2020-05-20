@@ -2,6 +2,15 @@ let socket;
 socket = io.connect('localhost:3000');
 
 
+socket.on('joinRoom', (data) => {
+    console.log(data);
+});
+
+socket.on('message', (data) => {
+    console.log(data);
+});
+
+
 // function setup() {
 //     console.log('yeeps')
 //         // createCanvas(400, 400);
