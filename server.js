@@ -1,6 +1,4 @@
-// Using express: http://expressjs.com/
 const express = require('express');
-// Create the app
 const app = express();
 
 // Set up the server
@@ -17,47 +15,31 @@ function listen() {
 app.use(express.static('public'));
 
 
-// WebSocket Portion
 // WebSockets work with the HTTP server
 let io = require('socket.io')(server);
 
-// Register a callback function to run when we have an individual connection
-// This is run for each individual user that connects
-io.sockets.on('connection',
-    // We are given a websocket object in our function
-    function(socket) {
-        // const roomId = Math.random();
-        const roomId = socket.id;
-        console.log(`room Id is ${roomId}`);
-        console.log("We have a new client: " + socket.id);
+io.on('connection', (socket) => {
+    console.log('We have a new client: ' + socket.id);
 
-        // When this user emits, client side: socket.emit('otherevent',some data);
-        socket.on('mouse',
-            function(data) {
-                // Data comes in as whatever was sent, including objects
+    socket.on('joinRoom', (room) => {
+        console.log(room);
+        socket.join(room);
+    });
 
-                console.log(data);
+    socket.on('message', (data) => {
+        console.log(data.room);
+        console.log(data.message);
 
-                let dataObj = {
-                    // roomId: roomId,
-                    url: data.url,
-                    x: data.x,
-                    y: data.y
-                }
+        let data2 = {
+            room: data.room,
+            name: '🦐',
+            message: data.message
+        }
 
-                console.log("Received: 'mouse' " + data.x + " " + data.y);
-                console.log(dataObj);
+        socket.to(data.room).emit('message', data2);
+    });
 
-                // Send it to all other clients
-                socket.broadcast.emit('mouse', dataObj);
-
-                // This is a way to send to everyone including sender
-                // io.sockets.emit('message', "this goes to everyone");
-            }
-        );
-
-        socket.on('disconnect', function() {
-            console.log("Client has disconnected");
-        });
-    }
-);
+    socket.on('disconnect', function() {
+        console.log('Client has disconnected');
+    });
+});
