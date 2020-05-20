@@ -1,7 +1,7 @@
 let socket;
 socket = io.connect('localhost:3000');
 
-
+// Incomming
 socket.on('joinRoom', (data) => {
     console.log(data);
 });
@@ -10,73 +10,28 @@ socket.on('message', (data) => {
     console.log(data);
 });
 
+// Outgoing
+const roomTxt = document.querySelector('#room input[type=text]');
+const roomSend = document.querySelector('#room button');
 
-// function setup() {
-//     console.log('yeeps')
-//         // createCanvas(400, 400);
-//         // background(0);
-//         // Start a socket connection to the server
-//         // Some day we would run this server somewhere else
-//     socket = io.connect('https://multiplayer-game-testing.herokuapp.com/');
-//     // socket = io.connect('localhost:3000');
-//     // We make a named event called 'mouse' and write an
-//     // anonymous callback function
-//     socket.on('mouse',
-//         // When we receive data
-//         function(data) {
-//             let str = window.location.search.slice(1);
-
-//             console.log(str);
-//             console.log(data.roomId)
-
-//             if (str == data.url && str != '') {
-//                 // console.log("Got: " + data.x + " " + data.y);
-//                 // Draw a blue circle
-//                 fill(0, 0, 255);
-//                 noStroke();
-//                 ellipse(data.x, data.y, 20, 20);
-//             }
-//         }
-//     );
-// }
-
-// setup();
+const msgTxt = document.querySelector('#send input[type=text]');
+const msgSend = document.querySelector('#send button');
 
 
+roomSend.addEventListener('click', () => {
+    console.log('join room send');
+    console.log(roomTxt.value);
+    let data = roomTxt.value;
 
-// socket.on('connect', () => {
+    socket.emit('joinRoom', data);
+});
 
-//     socket.emit('join', (err) => {
-//         if (err) {
-//             alert('something went wong');
-//             window.location.href = '/';
-//         } else {
-//             console.log('no error 🦐');
-//         }
-//     });
+msgSend.addEventListener('click', () => {
+    console.log('text msg send');
+    let data = {
+        room: roomTxt.value,
+        message: msgTxt.value
+    };
 
-//     socket.on('disconnect', () => {
-//         console.log('Disconected 🦀');
-//     });
-
-//     socket.on('newMessage', (message) => {
-//         console.log(message);
-//     });
-// });
-
-
-
-// const sendButton = document.querySelector('#sendText');
-// const message = document.querySelector('#textMessage');
-
-// sendButton.addEventListener('click', (e) => {
-//     e.preventDefault();
-
-//     let data = {
-//         text: message.value
-//     }
-
-//     socket.emit('createMessage', data);
-
-//     message.value = '';
-// });
+    socket.emit('message', data);
+});
