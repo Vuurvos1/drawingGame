@@ -1,51 +1,54 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    background-image: url('../img/background.png');
+  background-image: url('../img/background.png');
 }
 
 main {
-    padding: 2rem;
+  margin: 0 auto;
+  padding: 2rem;
+  max-width: 30rem;
 }
 
 .container {
-    height: 30rem;
-    width: 30%;
-    background-color: white;
-    box-shadow: 0 0 10px #000000;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  height: 30rem;
+  width: 30%;
+  background-color: white;
+  box-shadow: 0 0 10px #000000;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 button,
-input[type="text"],
-[type="name"],
-[type="email"],
-[type="number"],
-[type="password"] {
-    width: 30%;
-    padding: 12px 20px;
-    font-size: 1rem;
-    display: block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    position: relative;
-    margin: 1rem auto;
-    transition: all .1s ease-out;
+input[type='text'],
+[type='name'],
+[type='email'],
+[type='number'],
+[type='password'] {
+  width: 100%;
+  /* min-width: 250px; */
+  padding: 12px 20px;
+  font-size: 1rem;
+  display: block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  position: relative;
+  margin: 1rem auto;
+  transition: all 0.1s ease-out;
 }
 
 button:hover,
 button:focus {
-    background-color: rgb(143, 143, 143);
+  background-color: rgb(143, 143, 143);
 }
 
 #room {
-    margin-bottom: 3rem;
+  margin-bottom: 3rem;
 }
