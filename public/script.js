@@ -1,5 +1,6 @@
 let socket;
 socket = io.connect('localhost:3000');
+// socket = io.connect('https://multiplayer-game-testing.herokuapp.com/');
 
 let searchRoom = window.location.search;
 // Remove questionmark
