@@ -1,5 +1,4 @@
-let socket;
-socket = io.connect(settings.url);
+let socket = io.connect(window.location.host);
 
 let searchRoom = window.location.search;
 // Remove questionmark

@@ -2,8 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 
-// Set up the server
-// process.env.PORT is related to deploying on heroku
+// Setup server
 let server = app.listen(process.env.PORT || 3000, listen);
 
 // This call back just tells us that the server has started
