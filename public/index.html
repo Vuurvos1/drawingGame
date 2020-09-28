@@ -1,30 +1,61 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Sockets Example</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css" />
 
-    <script type="text/javascript" src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
-</head>
+    <script
+      type="text/javascript"
+      src="https://cdn.socket.io/socket.io-1.4.5.js"
+    ></script>
+  </head>
 
-<body>
+  <body>
     <main>
-        <div id="room">
-            <input type="text">
-            <button>Join Room</button>
-        </div>
+      <div id="room">
+        <input type="text" />
+        <button>Join Room</button>
+      </div>
 
-        <div id="send">
-            <input type="text">
-            <button>Send Message</button>
+      <div id="send">
+        <input type="text" />
+        <button>Send Message</button>
+      </div>
+
+      <section class="players">
+        <h2>Players</h2>
+        <div class="players__grid">
+          <div class="players__user">
+            <img src="img/userImg/user1.png" alt="" />
+            <h3>username</h3>
+            <h4>You</h4>
+          </div>
+          <!-- <div class="players__user">
+            <img src="img/userImg/user1.png" alt="" />
+            <h3>username</h3>
+            <h4>You</h4>
+          </div>
+          <div class="players__user">
+            <img src="img/userImg/user1.png" alt="" />
+            <h3>username</h3>
+            <h4>You</h4>
+          </div>
+          <div class="players__user">
+            <img src="img/userImg/user1.png" alt="" />
+            <h3>username</h3>
+            <h4>You</h4>
+          </div>
+          <div class="players__user">
+            <img src="img/userImg/user1.png" alt="" />
+            <h3>username</h3>
+            <h4>You</h4>
+          </div> -->
         </div>
+      </section>
     </main>
 
-    <script src="settings.js"></script>
     <script src="script.js"></script>
-</body>
-
+  </body>
 </html>
