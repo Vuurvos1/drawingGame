@@ -3,14 +3,14 @@ const express = require('express');
 const app = express();
 
 // Setup server
-let server = app.listen(process.env.PORT || 3000, listen);
-
-// This call back just tells us that the server has started
-function listen() {
-  let host = server.address().address;
+let server = app.listen(process.env.PORT || 3000, () => {
+  // let host = server.address().address;
   let port = server.address().port;
   console.log(`Example app listening at http://localhost:${port}`);
-}
+});
+
+// This call back just tells us that the server has started
+function listen() {}
 
 app.use(express.static('public'));
 
