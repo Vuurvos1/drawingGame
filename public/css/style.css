@@ -75,3 +75,27 @@ button:focus {
 .players__grid img {
   width: 100%;
 }
+
+textarea {
+  width: 100%;
+}
+
+#roomCode {
+  display: flex;
+  flex-direction: row;
+}
+
+#roomCode .roomCode__Text {
+  color: transparent;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+#roomCode .roomCode__Text:hover {
+  color: black;
+  text-shadow: initial;
+  transition: all 0.2s ease-out;
+}
+
+#roomCode .button--copyLink {
+  width: auto;
+}

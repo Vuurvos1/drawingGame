@@ -13,31 +13,53 @@ let server = app.listen(process.env.PORT || 3000, () => {
 
 app.use(express.static('public'));
 
-let roomName = '';
-
 // WebSockets work with the HTTP server
 let io = require('socket.io')(server);
 
 io.on('connection', (socket) => {
   console.log(`We have a new client: ${socket.id}`);
+  let roomName = '';
+
+  // console.log(socket);
 
   socket.on('joinRoom', (room) => {
     if (room) {
+      // join existing room
       roomName = room;
       socket.join(room);
-      socket.broadcast.emit('userJoin', ~~(Math.random() * 7));
+
+      const data = {
+        id: socket.id,
+        imageId: ~~(Math.random() * 7),
+        you: false,
+      };
+
+      // send to all other user
+      socket.broadcast.emit('userJoin', data);
     } else {
+      // if no room is specified
       console.log(socket.id);
       roomName = socket.id;
       socket.join(socket.id);
       socket.emit('roomValue', socket.id);
+
+      const data = {
+        id: socket.id,
+        imageId: ~~(Math.random() * 7),
+        you: true,
+      };
+
+      // update client user only
+      socket.emit('userJoin', data);
     }
   });
 
   socket.on('message', (data) => {
     console.log(data.message);
 
-    let data2 = {
+    console.log(socket.users);
+
+    const data2 = {
       name: '🦐',
       message: data.message,
     };
@@ -47,5 +69,12 @@ io.on('connection', (socket) => {
 
   socket.on('disconnect', () => {
     console.log('Client has disconnected');
+
+    const data = {
+      id: socket.id,
+    };
+
+    // remove client form user list
+    socket.to(roomName).emit('userLeave', data);
   });
 });
