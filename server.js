@@ -27,13 +27,13 @@ io.on('connection', (socket) => {
       // join existing room
       roomName = room;
       socket.join(room);
-
       const data = {
-        id: socket.id,
-        imageId: ~~(Math.random() * 7),
-        you: false,
-      };
-
+          id: socket.id,
+          imageId: ~~(Math.random() * 7),
+          you: false,
+        };
+        io.sockets.adapter.rooms[roomName].users.push(data);
+        console.log(io.sockets.adapter.rooms[roomName]);
       // send to all other user
       socket.broadcast.emit('userJoin', data);
     } else {
@@ -42,12 +42,13 @@ io.on('connection', (socket) => {
       roomName = socket.id;
       socket.join(socket.id);
       socket.emit('roomValue', socket.id);
-
       const data = {
-        id: socket.id,
-        imageId: ~~(Math.random() * 7),
-        you: true,
-      };
+          id: socket.id,
+          imageId: ~~(Math.random() * 7),
+          you: true,
+        };
+        io.sockets.adapter.rooms[roomName].users = [data]
+        socket.emit('roomUser', io.sockets.adapter.rooms)
 
       // update client user only
       socket.emit('userJoin', data);

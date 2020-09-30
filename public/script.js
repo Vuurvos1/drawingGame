@@ -37,6 +37,10 @@ socket.on('userJoin', (data) => {
 `;
 });
 
+socket.on('roomUser', (data) => {
+    console.log(data)
+})
+
 socket.on('userLeave', (data) => {
   const el = document.querySelector(`.${data.id}`);
   el.parentNode.removeChild(el);
