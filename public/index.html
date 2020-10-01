@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Sockets Example</title>
+    <title>Drawing Game</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="css/style.css" />
 
@@ -74,11 +74,44 @@
         <input class="roomCode__Text" type="text" readonly />
         <button class="button button--copyLink">Copy</button>
       </div>
+
+      <section class="canvas">
+        <div class="canvas__tools">
+          <div class="canvas__tool--undo canvas__tool" data-tool="undo"></div>
+          <div class="canvas__tool--brush canvas__tool" data-tool="brush"></div>
+          <div
+            class="canvas__tool--bucket canvas__tool"
+            data-tool="bucket"
+          ></div>
+          <div class="canvas__tool--erase canvas__tool" data-tool="erase"></div>
+        </div>
+
+        <div class="canvas__brushSize">
+          <div class="canvas__brushSize__item" data-brushSize="3"></div>
+          <div class="canvas__brushSize__item" data-brushSize="5"></div>
+          <div class="canvas__brushSize__item" data-brushSize="10"></div>
+          <div class="canvas__brushSize__item" data-brushSize="15"></div>
+          <div class="canvas__brushSize__item" data-brushSize="20"></div>
+        </div>
+
+        <canvas id="canvas"></canvas>
+
+        <div class="canvas__brushColor">
+          <div class="canvas__color" data-brushColor="#ffffff"></div>
+          <div class="canvas__color" data-brushColor="#08050e"></div>
+          <div class="canvas__color" data-brushColor="#d66f24"></div>
+          <div class="canvas__color" data-brushColor="#83b535"></div>
+          <div class="canvas__color" data-brushColor="#dc443c"></div>
+          <div class="canvas__color" data-brushColor="#e4ba32"></div>
+          <div class="canvas__color" data-brushColor="#21913b"></div>
+          <div class="canvas__color" data-brushColor="#387cee"></div>
+        </div>
+      </section>
     </main>
 
     <script src="js/script.js"></script>
     <script src="js/users.js"></script>
-    <script src="js/canvas.js"></script>
+    <script type="module" src="js/canvas.js"></script>
     <script src="js/interaction.js"></script>
   </body>
 </html>
