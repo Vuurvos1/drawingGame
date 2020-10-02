@@ -6,6 +6,7 @@ let paint = new Paint('#canvas');
 paint.activeTool = 'brush';
 paint.lineWidth = '3';
 paint.color = '#000000';
+paint.selectColor = '#000000';
 // initialize paint
 paint.init();
 

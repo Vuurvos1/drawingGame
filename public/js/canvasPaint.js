@@ -1,5 +1,6 @@
 import getMouseCoordsOnCanvas from './canvasUtility.js';
 import Tool from './canvasTools.js';
+import Fill from './canvasFill.js';
 
 export default class Paint {
   constructor(canvasId) {
@@ -33,9 +34,11 @@ export default class Paint {
     this.startPos = getMouseCoordsOnCanvas(this.canvas, e);
     console.log(this.startPos);
 
-    if ((this.tool = Tool.TOOL_BRUSH)) {
+    if (this.tool == Tool.TOOL_BRUSH) {
       this.ctx.beginPath();
       this.ctx.moveTo(this.startPos.x, this.startPos.y);
+    } else if (this.tool == Tool.TOOL_BUCKET) {
+      new Fill(this.canvas, this.startPos, this.color);
     }
   }
 
