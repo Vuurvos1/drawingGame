@@ -43,6 +43,14 @@ export default class Paint {
       this.ctx.moveTo(this.startPos.x, this.startPos.y);
     } else if (this.tool == Tool.TOOL_BUCKET) {
       new Fill(this.canvas, this.startPos, this.color);
+    } else if (this.tool == Tool.TOOL_ERASER) {
+      console.log('errasor');
+      this.ctx.clearRect(
+        this.startPos.x,
+        this.startPos.y,
+        this._lineWidth,
+        this._lineWidth
+      );
     }
   }
 
@@ -56,6 +64,12 @@ export default class Paint {
       case Tool.TOOL_BUCKET:
         break;
       case Tool.TOOL_ERASER:
+        this.ctx.clearRect(
+          this.currentPos.x,
+          this.currentPos.y,
+          this._lineWidth,
+          this._lineWidth
+        );
         break;
 
       default:

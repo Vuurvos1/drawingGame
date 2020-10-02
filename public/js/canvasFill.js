@@ -4,17 +4,12 @@ export default class Fill {
   constructor(canvas, point, color) {
     this.ctx = canvas.getContext('2d');
 
-    // console.log(canvas);
-    // console.log(point);
-
     this.imageData = this.ctx.getImageData(
       0,
       0,
       this.ctx.canvas.width,
       this.ctx.canvas.height
     );
-
-    // console.log(this.imageData);
 
     const targetColor = this.getPixel(point);
 
