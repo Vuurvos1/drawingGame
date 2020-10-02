@@ -15,12 +15,11 @@ document.querySelectorAll('[data-tool]').forEach((item) => {
   item.addEventListener('click', (e) => {
     const selectedTool = item.getAttribute('data-tool');
     console.log(selectedTool);
-    paint.activeTool = selectedTool;
 
-    switch (selectedTool) {
-      case Tool.TOOL_BRUSH:
-      case Tool.TOOL_BUCKET:
-      case Tool.TOOL_ERASER:
+    if (selectedTool == 'undo') {
+      paint.undoMove();
+    } else {
+      paint.activeTool = selectedTool;
     }
   });
 });
@@ -46,7 +45,6 @@ document.querySelectorAll('[data-brushColor').forEach((item) => {
 
 // build canvas
 // add canvas
-// toolbar to pick brush and stuff
 
 // chat / place to guess
 

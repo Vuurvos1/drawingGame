@@ -12,12 +12,7 @@ export default class Fill {
     );
 
     const targetColor = this.getPixel(point);
-
     const fillColor = this.hexToRgba(color);
-
-    console.log(color);
-    console.log(fillColor);
-    console.log(targetColor);
 
     this.fillStack = [];
 

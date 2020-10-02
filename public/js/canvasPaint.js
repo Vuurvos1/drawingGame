@@ -6,6 +6,9 @@ export default class Paint {
   constructor(canvasId) {
     this.canvas = document.querySelector(canvasId);
     this.ctx = canvas.getContext('2d');
+
+    this.undoStack = [];
+    this.undoLimit = 3; // max 3 undo moves
   }
 
   set activeTool(tool) {
@@ -32,6 +35,18 @@ export default class Paint {
   }
 
   onMouseDown(e) {
+    this.savedData = this.ctx.getImageData(
+      0,
+      0,
+      this.ctx.canvas.width,
+      this.ctx.canvas.height
+    );
+
+    if (this.undoStack.length >= this.undoLimit) {
+      this.undoStack.shift();
+    }
+    this.undoStack.push(this.savedData);
+
     this.canvas.onmousemove = (e) => this.onMouseMove(e);
     document.onmouseup = (e) => this.onMouseUp(e);
 
@@ -44,7 +59,6 @@ export default class Paint {
     } else if (this.tool == Tool.TOOL_BUCKET) {
       new Fill(this.canvas, this.startPos, this.color);
     } else if (this.tool == Tool.TOOL_ERASER) {
-      console.log('errasor');
       this.ctx.clearRect(
         this.startPos.x,
         this.startPos.y,
@@ -71,9 +85,6 @@ export default class Paint {
           this._lineWidth
         );
         break;
-
-      default:
-        break;
     }
   }
 
@@ -86,5 +97,14 @@ export default class Paint {
     this.ctx.lineWidth = lineWidth;
     this.ctx.lineTo(this.currentPos.x, this.currentPos.y);
     this.ctx.stroke();
+  }
+
+  undoMove() {
+    if (this.undoStack.length > 0) {
+      this.ctx.putImageData(this.undoStack[this.undoStack.length - 1], 0, 0);
+      this.undoStack.pop();
+    } else {
+      // no undos availible
+    }
   }
 }
