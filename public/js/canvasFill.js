@@ -4,8 +4,8 @@ export default class Fill {
   constructor(canvas, point, color) {
     this.ctx = canvas.getContext('2d');
 
-    console.log(point);
-    console.log(color);
+    // console.log(canvas);
+    // console.log(point);
 
     this.imageData = this.ctx.getImageData(
       0,
@@ -14,11 +14,15 @@ export default class Fill {
       this.ctx.canvas.height
     );
 
+    // console.log(this.imageData);
+
     const targetColor = this.getPixel(point);
 
-    console.log(targetColor);
-
     const fillColor = this.hexToRgba(color);
+
+    console.log(color);
+    console.log(fillColor);
+    console.log(targetColor);
 
     this.fillStack = [];
 
@@ -61,14 +65,12 @@ export default class Fill {
         targetCol,
         fillCol,
       ]);
-
-      // recursion
     }
   }
 
   fillColor() {
-    if (this.fillColor.length > 0) {
-      let range = this.fillStack.length;
+    if (this.fillStack.length > 0) {
+      const range = this.fillStack.length;
       for (let i = 0; i < range; i++) {
         this.floodFill(
           this.fillStack[i][0],
@@ -120,14 +122,7 @@ export default class Fill {
   }
 
   hexToRgba(hex) {
-    // const r = parseInt(hex.slice(1, 3), 16);
-    // const g = parseInt(hex.slice(3, 5), 16);
-    // const b = parseInt(hex.slice(5, 7), 16);
-
     const [r, g, b] = hex.match(/\w\w/g).map((x) => parseInt(x, 16));
     return [r, g, b, 255];
-    // return `rgba(${r},${g},${b},${alpha})`;
-
-    let result;
   }
 }

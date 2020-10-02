@@ -114,12 +114,17 @@ canvas {
 }
 
 .canvas__tool {
-  width: 2rem;
-  height: 2rem;
+  width: 2.4rem;
+  height: 2.4rem;
   background-color: green;
   margin: 0.2rem;
 
   cursor: pointer;
+}
+
+.canvas__tool img {
+  width: 100%;
+  height: auto;
 }
 
 .canvas__brushSize {

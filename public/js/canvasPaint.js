@@ -25,6 +25,10 @@ export default class Paint {
 
   init() {
     this.canvas.onmousedown = (e) => this.onMouseDown(e);
+
+    // ensure right canvas scale (width and height)
+    this.canvas.width = this.canvas.getBoundingClientRect().width;
+    this.canvas.height = this.canvas.getBoundingClientRect().height;
   }
 
   onMouseDown(e) {
@@ -44,7 +48,6 @@ export default class Paint {
 
   onMouseMove(e) {
     this.currentPos = getMouseCoordsOnCanvas(this.canvas, e);
-    console.log(this.currentPos);
 
     switch (this.tool) {
       case Tool.TOOL_BRUSH:
