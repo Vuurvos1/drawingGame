@@ -54,6 +54,34 @@ io.on('connection', (socket) => {
     socket.to(roomName).emit('message', data2);
   });
 
+  // canvas events
+  socket.on('startStoke', (data) => {
+    console.log('startStroke');
+    console.log(data);
+
+    socket.broadcast.emit('startStroke', data);
+  });
+
+  socket.on('floodFill', (data) => {
+    console.log('floodFill');
+    console.log(data);
+
+    socket.broadcast.emit('floodFill', data);
+  });
+
+  socket.on('drawStroke', (data) => {
+    socket.broadcast.emit('drawStroke', data);
+  });
+
+  socket.on('changeColor', (data) => {
+    socket.broadcast.emit('changeColor', data);
+  });
+
+  socket.on('erase', (data) => {
+    socket.broadcast.emit('erase', data);
+  });
+
+  // socket leave logic
   socket.on('disconnect', () => {
     console.log('Client has disconnected');
 
