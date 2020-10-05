@@ -77,6 +77,18 @@ io.on('connection', (socket) => {
     socket.broadcast.emit('changeColor', data);
   });
 
+  socket.on('changeLineWidth', (data) => {
+    socket.broadcast.emit('changeLineWidth', data);
+  });
+
+  socket.on('saveMove', (data) => {
+    socket.broadcast.emit('saveMove', data);
+  });
+
+  socket.on('undoMove', (data) => {
+    socket.broadcast.emit('undoMove', data);
+  });
+
   socket.on('erase', (data) => {
     socket.broadcast.emit('erase', data);
   });

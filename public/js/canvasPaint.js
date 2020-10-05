@@ -1,5 +1,4 @@
 import getMouseCoordsOnCanvas from './canvasUtility.js';
-import Tool from './canvasTools.js';
 import Fill from './canvasFill.js';
 
 // limit imput rate to requestAnimationFrame (should be same as screen refresh rate)
@@ -30,19 +29,25 @@ export default class Paint {
     // _ to prevent conflict
     this._lineWidth = lineWidth;
     this.ctx.lineWidth = this._lineWidth;
+
+    socket.emit('changeLineWidth', lineWidth);
   }
 
   set selectColor(col) {
     this.color = col;
     this.ctx.strokeStyle = this.color;
+
+    // send event to server
+    socket.emit('changeColor', col);
   }
 
   init() {
     this.canvas.onmousedown = (e) => this.onMouseDown(e);
-
     // ensure right canvas scale (width and height)
     this.canvas.width = this.canvas.getBoundingClientRect().width;
     this.canvas.height = this.canvas.getBoundingClientRect().height;
+
+    this.ctx.lineWidth = 3;
   }
 
   onMouseDown(e) {
@@ -62,33 +67,53 @@ export default class Paint {
     document.onmouseup = (e) => this.onMouseUp(e);
 
     this.startPos = getMouseCoordsOnCanvas(this.canvas, e);
-    console.log(this.startPos);
 
-    if (this.tool == Tool.TOOL_BRUSH) {
-      const data = {
-        x: this.startPos.x,
-        y: this.startPos.y,
-      };
+    // save array to other clients
+    socket.emit('saveMove', true);
 
-      socket.emit('startStoke', data);
+    let data = {};
+    switch (this.tool) {
+      case 'brush':
+        this.ctx.beginPath();
+        this.ctx.moveTo(this.startPos.x, this.startPos.y);
 
-      this.ctx.beginPath();
-      this.ctx.moveTo(this.startPos.x, this.startPos.y);
-    } else if (this.tool == Tool.TOOL_BUCKET) {
-      new Fill(this.canvas, this.startPos, this.color);
-      const data = {
-        pos: this.startPos,
-        col: this.color,
-      };
+        // send event to server
+        data = {
+          x: this.startPos.x,
+          y: this.startPos.y,
+        };
 
-      socket.emit('floodFill', data);
-    } else if (this.tool == Tool.TOOL_ERASER) {
-      this.ctx.clearRect(
-        this.startPos.x,
-        this.startPos.y,
-        this._lineWidth,
-        this._lineWidth
-      );
+        socket.emit('startStoke', data);
+        break;
+
+      case 'bucket':
+        new Fill(this.canvas, this.startPos, this.color);
+
+        // send event to server
+        data = {
+          pos: this.startPos,
+          col: this.color,
+        };
+
+        socket.emit('floodFill', data);
+        break;
+
+      case 'eraser':
+        this.ctx.clearRect(
+          this.startPos.x,
+          this.startPos.y,
+          this._lineWidth,
+          this._lineWidth
+        );
+
+        // send event to server
+        data = {
+          x: this.currentPos.x,
+          y: this.currentPos.y,
+        };
+
+        socket.emit('erase', data);
+        break;
     }
   }
 
@@ -99,22 +124,20 @@ export default class Paint {
 
     this.currentPos = getMouseCoordsOnCanvas(this.canvas, e);
 
+    let data = {};
     switch (this.tool) {
-      case Tool.TOOL_BRUSH:
-        this.drawFreeLine(this._lineWidth);
+      case 'brush':
+        this.drawFreeLine();
 
-        // diffirent event for line with since it doesn't change during drawing?
-        const data = {
-          lineWidth: this._lineWidth,
+        // send event to server
+        data = {
           x: this.currentPos.x,
           y: this.currentPos.y,
         };
 
         socket.emit('drawStroke', data);
         break;
-      case Tool.TOOL_BUCKET:
-        break;
-      case Tool.TOOL_ERASER:
+      case 'eraser':
         this.ctx.clearRect(
           this.currentPos.x,
           this.currentPos.y,
@@ -122,13 +145,13 @@ export default class Paint {
           this._lineWidth
         );
 
-        const data2 = {
+        // send event to server
+        data = {
           x: this.currentPos.x,
           y: this.currentPos.y,
-          width: this._lineWidth,
         };
 
-        socket.emit('erase', data2);
+        socket.emit('erase', data);
         break;
     }
   }
@@ -138,8 +161,7 @@ export default class Paint {
     document.onmouseup = null;
   }
 
-  drawFreeLine(lineWidth) {
-    this.ctx.lineWidth = lineWidth;
+  drawFreeLine() {
     this.ctx.lineTo(this.currentPos.x, this.currentPos.y);
     this.ctx.stroke();
   }

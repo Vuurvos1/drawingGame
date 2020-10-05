@@ -4,12 +4,12 @@ import Paint from './canvasPaint.js';
 const canvasId = '#canvas';
 const canvasEl = document.querySelector(canvasId);
 const ctx = canvasEl.getContext('2d');
+let lineWidth = 3;
 
 const paint = new Paint(canvasId, socket);
 // set defealt tools
 paint.activeTool = 'brush';
-paint.lineWidth = '3';
-paint.color = '#000000';
+paint.lineWidth = 3;
 paint.selectColor = '#000000';
 // initialize paint
 paint.init();
@@ -22,6 +22,9 @@ document.querySelectorAll('[data-tool]').forEach((item) => {
 
     if (selectedTool == 'undo') {
       paint.undoMove();
+
+      // send undo to server
+      socket.emit('undoMove');
     } else {
       paint.activeTool = selectedTool;
     }
@@ -44,8 +47,6 @@ document.querySelectorAll('[data-brushColor').forEach((item) => {
     const color = item.getAttribute('data-brushColor');
     console.log(color);
     paint.selectColor = color;
-
-    socket.emit('changeColor', color);
   });
 });
 
@@ -59,7 +60,7 @@ socket.on('startStroke', (data) => {
 });
 
 socket.on('drawStroke', (data) => {
-  ctx.lineWidth = data.lineWidth;
+  ctx.lineWidth = lineWidth;
   ctx.lineTo(data.x, data.y);
   ctx.stroke();
 });
@@ -68,19 +69,28 @@ socket.on('changeColor', (col) => {
   ctx.strokeStyle = col;
 });
 
-socket.on('undoMove', (data) => {});
-
-socket.on('erase', (data) => {
-  ctx.clearRect(data.x, data.y, data.width, data.width);
+socket.on('changeLineWidth', (width) => {
+  lineWidth = width;
 });
 
-// build canvas
-// add canvas
+let undoStack = [];
+const undoLimit = 3;
+socket.on('saveMove', (data) => {
+  const savedData = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
 
-// chat / place to guess
+  if (undoStack.length >= undoLimit) {
+    undoStack.shift();
+  }
+  undoStack.push(savedData);
+});
 
-// let canvas = document.querySelector('main').appendChild(canvas);
-// const canvas = document.querySelector('canvas');
+socket.on('undoMove', (data) => {
+  if (undoStack) {
+    ctx.putImageData(undoStack[undoStack.length - 1], 0, 0);
+    undoStack.pop();
+  }
+});
 
-// body.appendChild(canvas);
-// document.querySelector('main').appendChild(canvas);
+socket.on('erase', (data) => {
+  ctx.clearRect(data.x, data.y, lineWidth, lineWidth);
+});
