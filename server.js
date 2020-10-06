@@ -41,6 +41,15 @@ io.on('connection', (socket) => {
 
     // update all clients user list
     io.in(roomName).emit('userJoin', io.sockets.adapter.rooms[roomName].users);
+
+    console.log(roomName, socket.id);
+    console.log(roomName == socket.id);
+
+    // request canvas for new users
+    if (socket.id != roomName) {
+      // request canvas from host
+      io.to(roomName).emit('requestCanvas', { id: socket.id });
+    }
   });
 
   socket.on('message', (data) => {
@@ -91,6 +100,11 @@ io.on('connection', (socket) => {
 
   socket.on('erase', (data) => {
     socket.broadcast.emit('erase', data);
+  });
+
+  // send canvas to requested socket
+  socket.on('sendCanvas', (data) => {
+    io.to(data.id).emit('recieveCanvas', data);
   });
 
   // socket leave logic
