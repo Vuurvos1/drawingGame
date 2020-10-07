@@ -12,9 +12,14 @@ const msgSend = document.querySelector('#send button');
 
 const playerGrid = document.querySelector('.players .players__grid');
 
+const chatroom = document.querySelector('.chatroom div')
+
 // Incomming
 socket.on('message', (data) => {
-  console.log(data);
+  chatroom.innerHTML += `
+  <p>
+  ${data.name} says: ${data.message}
+  </p>`
 });
 
 socket.on('roomValue', (data) => {
@@ -30,7 +35,12 @@ msgSend.addEventListener('click', () => {
   console.log('text msg send');
   let data = {
     message: msgTxt.value,
+    id: socket.id,
   };
+  chatroom.innerHTML += `
+  <p>
+  ${data.id} says: ${data.message}
+  </p>`
 
   socket.emit('message', data);
 });
