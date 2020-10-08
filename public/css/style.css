@@ -154,3 +154,10 @@ canvas {
 
   cursor: pointer;
 }
+
+.chatroom div {
+  height: 280px;
+  width: 100%;
+  background-color: white;
+  margin-top: 2rem;
+}
