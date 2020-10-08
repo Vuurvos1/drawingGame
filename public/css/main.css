@@ -1,0 +1,115 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif; }
+
+:root {
+  --white: #ffffff;
+  --black: #000000;
+  --highlight: #25a4aa;
+  --selected: #ff2c2c; }
+
+body {
+  background-color: hotpink; }
+
+header {
+  min-height: 6rem; }
+
+.game {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+  display: grid;
+  grid-template-columns: 160px 1fr 224px;
+  grid-template-rows: auto;
+  grid-template-areas: 'gameHeader gameHeader gameHeader ' 'gameUsers gameCanvas gameChat';
+  grid-row-gap: 1rem;
+  grid-column-gap: 1rem; }
+  .game__header {
+    grid-area: gameHeader;
+    background-color: var(--highlight);
+    width: 100%;
+    height: 2rem; }
+  .game__users {
+    grid-area: gameUsers;
+    background-color: var(--white);
+    min-height: 2.5rem;
+    width: 100%;
+    height: 2rem; }
+  .game__canvas {
+    grid-area: gameCanvas;
+    background-color: orange;
+    width: 100%;
+    height: 2rem; }
+    .game__canvas canvas {
+      width: 100%;
+      height: 32rem;
+      background-color: white; }
+  .game__chat {
+    grid-area: gameChat;
+    background-color: aqua;
+    width: 100%;
+    height: 2rem; }
+  .game .tools {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; }
+    .game .tools__color {
+      display: flex;
+      flex-direction: row; }
+      .game .tools__color__display {
+        width: 2rem;
+        height: 2rem;
+        margin-right: 1rem;
+        background-color: black; }
+      .game .tools__color__col {
+        display: flex;
+        flex-direction: column; }
+      .game .tools__color__row {
+        display: flex;
+        flex-direction: row; }
+        .game .tools__color__row div {
+          width: 1rem;
+          height: 1rem;
+          background-color: aqua; }
+    .game .tools__tools {
+      display: flex;
+      flex-direction: row; }
+      .game .tools__tools button {
+        width: 2rem;
+        height: 2rem;
+        margin-right: 0.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center; }
+    .game .tools__size {
+      display: flex;
+      flex-direction: row; }
+      .game .tools__size button {
+        width: 2rem;
+        height: 2rem;
+        margin-right: 0.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center; }
+      .game .tools__size button:last-child {
+        margin-right: 0; }
+      .game .tools__size div {
+        border-radius: 20rem;
+        background-color: var(--black); }
+      .game .tools__size [data-brushSize='3'] div {
+        width: 3px;
+        height: 3px; }
+      .game .tools__size [data-brushSize='5'] div {
+        width: 5px;
+        height: 5px; }
+      .game .tools__size [data-brushSize='10'] div {
+        width: 10px;
+        height: 10px; }
+      .game .tools__size [data-brushSize='15'] div {
+        width: 15px;
+        height: 15px; }
+      .game .tools__size [data-brushSize='20'] div {
+        width: 20px;
+        height: 20px; }
