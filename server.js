@@ -48,6 +48,7 @@ io.on('connection', (socket) => {
     // request canvas for new users
     if (socket.id != roomName) {
       // request canvas from host
+      // change this to be user 0 in the room users array
       io.to(roomName).emit('requestCanvas', { id: socket.id });
     }
   });

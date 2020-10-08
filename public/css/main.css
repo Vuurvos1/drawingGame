@@ -22,35 +22,88 @@ header {
   padding: 0 1rem;
   display: grid;
   grid-template-columns: 160px 1fr 224px;
-  grid-template-rows: auto;
+  grid-template-rows: auto auto;
   grid-template-areas: 'gameHeader gameHeader gameHeader ' 'gameUsers gameCanvas gameChat';
   grid-row-gap: 1rem;
   grid-column-gap: 1rem; }
   .game__header {
     grid-area: gameHeader;
     background-color: var(--highlight);
+    display: flex;
+    flex-direction: row;
     width: 100%;
     height: 2rem; }
+    .game__header__stats {
+      width: 160px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      margin-right: 1rem;
+      padding-left: 1rem; }
+    .game__header__word {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%; }
+    .game__header__fill {
+      width: 224px;
+      margin-left: 1rem; }
   .game__users {
     grid-area: gameUsers;
     background-color: var(--white);
     min-height: 2.5rem;
     width: 100%;
     height: 2rem; }
+    .game__users .user {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem;
+      background-color: var(--white); }
+      .game__users .user__rank {
+        font-weight: bold; }
+      .game__users .user div {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between; }
+      .game__users .user__name {
+        text-align: center; }
+      .game__users .user__score {
+        text-align: center; }
+      .game__users .user__img {
+        height: 2.5rem;
+        width: 2.5rem; }
+    .game__users .user:nth-child(even) {
+      background-color: gray; }
   .game__canvas {
     grid-area: gameCanvas;
-    background-color: orange;
     width: 100%;
-    height: 2rem; }
+    height: auto; }
     .game__canvas canvas {
       width: 100%;
       height: 32rem;
       background-color: white; }
   .game__chat {
     grid-area: gameChat;
-    background-color: aqua;
+    background-color: white;
     width: 100%;
-    height: 2rem; }
+    height: 32rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column; }
+    .game__chat__chatbox {
+      height: 30rem;
+      max-height: 100%;
+      width: 100%;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      overflow-y: scroll; }
+    .game__chat__message {
+      margin-bottom: 0.4em; }
   .game .tools {
     display: flex;
     flex-direction: row;

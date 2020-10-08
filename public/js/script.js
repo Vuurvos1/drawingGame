@@ -4,22 +4,23 @@ let searchRoom = window.location.search;
 // Remove questionmark
 searchRoom = searchRoom.slice(1).trim();
 
+// room sharing
 const roomTxt = document.querySelector('.roomCode__Text');
 const roomSend = document.querySelector('#room button');
 
-const msgTxt = document.querySelector('#send input[type=text]');
-const msgSend = document.querySelector('#send button');
+// chatting
+const msgTxt = document.querySelector('.game__chat input[type=text]');
+const msgSend = document.querySelector('.game__chat button[type=submit]');
+const chatbox = document.querySelector('.game__chat__chatbox');
 
-const playerGrid = document.querySelector('.players .players__grid');
-
-const chatroom = document.querySelector('.chatroom div')
+const playerGrid = document.querySelector('.game__users');
 
 // Incomming
 socket.on('message', (data) => {
-  chatroom.innerHTML += `
+  chatbox.innerHTML += `
   <p>
-  ${data.name} says: ${data.message}
-  </p>`
+    <b>${data.name}:</b> ${data.message}
+  </p>`;
 });
 
 socket.on('roomValue', (data) => {
@@ -31,18 +32,21 @@ socket.on('roomUser', (data) => {
 });
 
 // Outgoing
-msgSend.addEventListener('click', () => {
+msgSend.addEventListener('click', (e) => {
+  e.preventDefault();
   console.log('text msg send');
   let data = {
     message: msgTxt.value,
     id: socket.id,
   };
-  chatroom.innerHTML += `
+  chatbox.innerHTML += `
   <p>
-  ${data.id} says: ${data.message}
-  </p>`
+    <b>${data.id}:</b> ${data.message}
+  </p>`;
 
   socket.emit('message', data);
+
+  msgTxt.value = '';
 });
 
 // when DOM is laoded join room

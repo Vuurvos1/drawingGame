@@ -19,23 +19,23 @@
       <div class="game">
         <section class="game__header">
           <!-- header -->
-          <div>
+          <div class="game__header__stats">
             <p>40</p>
             <p>Round 2 / 3</p>
           </div>
-          <div>R__i_n</div>
-          <div></div>
+          <div class="game__header__word">R__i_n</div>
+          <div class="game__header__fill"></div>
         </section>
         <section class="game__users">
           <!-- users -->
-          <div>
-            <p>#1</p>
+          <!-- <div class="user">
+            <p class="user__rank">#1</p>
             <div>
-              <p>name</p>
-              <p>Score:</p>
+              <p class="user__name">name</p>
+              <p class="user__score">Score: 420</p>
             </div>
-            <img src="" alt="" />
-          </div>
+            <img class="user__img" src="img/userImg/user0.png" alt="" />
+          </div> -->
         </section>
         <section class="game__canvas">
           <!-- canvas -->
@@ -167,23 +167,27 @@
         </section>
         <section class="game__chat">
           <!-- chat -->
-          <p></p>
-          <p></p>
+          <div class="game__chat__chatbox">
+            <p class="game__chat__message"><b>Moffel:</b> sapjes</p>
+            <p class="game__chat__message"><b>Piertje:</b> regen</p>
+            <p class="game__chat__message"><b>Piertje:</b> regen</p>
+          </div>
           <form action="">
             <input type="text" name="" id="" />
             <button type="submit">send</button>
           </form>
         </section>
       </div>
+
+      <div id="roomCode">
+        <input class="roomCode__Text" type="text" readonly />
+        <button class="button button--copyLink">Copy</button>
+      </div>
     </main>
 
     <footer></footer>
-    <!-- <main>
-    <div id="send">
-      <input type="text" />
-      <button>Send Message</button>
-    </div>
 
+    <!-- <main>
     <section class="settings">
       <label for="rounds">Rounds</label>
       <input type="number" name="rounds" value="3" min="1" max="25" maxlength="3" />
@@ -203,25 +207,6 @@
 
       <input name="customWordsOnly" type="checkbox" />
       <label for="customWordsOnly">Only use custom words</label>
-    </section>
-
-    <section class="players">
-      <h2>Players</h2>
-      <div class="players__grid">
-      </div>
-    </section>
-
-    <div id="roomCode">
-      <input class="roomCode__Text" type="text" readonly />
-      <button class="button button--copyLink">Copy</button>
-    </div>
-
-    <section class="canvas">
-      <canvas id="canvas"></canvas>
-    </section>
-
-    <section class="chatroom">
-        <div></div>
     </section>
   </main> -->
 
