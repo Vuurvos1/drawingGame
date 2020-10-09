@@ -10,8 +10,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "npx nodemon server.js",
-    "buildcss": "npx node-sass -o public/css assets/scss/main.scss",
-    "watchcss": "npx node-sass -o public/css assets/scss/main.scss -w"
+    "build-sass": "npx node-sass -o public/css assets/scss/main.scss",
+    "watch-sass": "npx node-sass -o public/css assets/scss/main.scss -w"
   },
   "author": "Sam and Rowin",
   "license": "ISC",

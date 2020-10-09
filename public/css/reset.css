@@ -2,19 +2,14 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-
-  font-family: sans-serif;
-}
+  font-family: sans-serif; }
 
 button,
 input[type='submit'] {
   outline: none;
   border: none;
-
-  cursor: pointer;
-}
+  cursor: pointer; }
 
 input[type='text'] {
   outline: none;
-  border: none;
-}
+  border: none; }

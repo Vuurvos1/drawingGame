@@ -5,19 +5,19 @@
 @import 'text';
 
 body {
-  background-color: #1B1B1B;
+  background-color: #1b1b1b;
 }
 
 .backgroundImg {
   position: fixed;
   height: 100vh;
   width: 100vw;
-  background-color: #1B1B1B;
+  background-color: #1b1b1b;
   background: url('../img/background.jpg');
   background-size: cover;
   filter: blur(2px);
   -webkit-filter: blur(2px);
-  opacity: .1;
+  opacity: 0.1;
   z-index: -3;
   top: 0;
   left: 0;
@@ -71,7 +71,7 @@ header {
       align-items: center;
 
       width: 100%;
-      letter-spacing: .6em;
+      letter-spacing: 0.6em;
     }
 
     &__fill {
@@ -178,31 +178,46 @@ header {
       display: flex;
       flex-direction: row;
       height: 2rem;
-      color: white;
-      background-color: #3D796D;
-      border-radius: 4px;
-      margin-top: .4rem;
-    }
-    form input[type='text'] {
-      color: var(--white);
-      padding: .2rem;
-      background-color: #3D796D;
-      border: none;
-      border-radius: 4px;
-    }
-    form button {
-      background-color: var(--white);
-      mask: url(../img/icons/send.svg) no-repeat;
-      background-repeat: no-repeat;
-      background-position: center;
-      object-fit: cover;
       width: 100%;
-      border: none;
-      cursor: pointer;
-      outline: none;
-      margin-left: -.5rem;
+
+      input[type='text'] {
+        padding: 0 0.6em;
+        background-color: #3d796d;
+  
+        width: calc(100%);
+  
+        border-radius: 4px 0 0 4px;
+      }
+
+      button {
+        position: relative;
+    
+        width: 2.4rem;
+        height: 2rem;
+    
+        box-sizing: content-box;
+    
+        background-color: #3d796d;
+        border-radius: 0 4px 4px 0;
+      
+        &::before {
+          content: '';
+    
+          width: 2rem;
+          height: 2rem;
+          position: absolute;
+          top: 0;
+          left: 0;
+    
+          background-image: url(../img/icons/send.svg);
+          background-size: 1.5rem 1.5rem;
+    
+          background-repeat: no-repeat;
+          background-position: center;
+          filter: invert(1);
+        }
+      }
     }
-  }
 
   // tool bar under canvas
   .tools {
@@ -255,6 +270,11 @@ header {
         justify-content: center;
         align-items: center;
       }
+
+      svg {
+        // prevent clicking on icon for js
+        pointer-events: none;
+      }
     }
 
     &__size {
@@ -279,6 +299,8 @@ header {
       div {
         border-radius: 20rem;
         background-color: var(--black);
+        // prevent clicking on icon for js
+        pointer-events: none;
       }
 
       [data-brushSize='3'] div {

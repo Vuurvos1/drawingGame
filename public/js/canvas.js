@@ -1,10 +1,15 @@
 import Fill from './canvasFill.js';
 import Paint from './canvasPaint.js';
 
+const selectedCol = 'hotpink';
+const defeautlCol = 'white';
+
 const canvasId = '#canvas';
 const canvasEl = document.querySelector(canvasId);
 const ctx = canvasEl.getContext('2d');
 let lineWidth = 3;
+
+const colorDisp = document.querySelector('.game .tools__color__display');
 
 const paint = new Paint(canvasId, socket);
 // set defealt tools
@@ -16,6 +21,10 @@ paint.init();
 
 // add eventListener to drawing tools
 document.querySelectorAll('[data-tool]').forEach((item) => {
+  if (item.getAttribute('data-tool') == 'brush') {
+    item.style.backgroundColor = selectedCol;
+  }
+
   item.addEventListener('click', (e) => {
     const selectedTool = item.getAttribute('data-tool');
     console.log(selectedTool);
@@ -28,15 +37,37 @@ document.querySelectorAll('[data-tool]').forEach((item) => {
     } else {
       paint.activeTool = selectedTool;
     }
+
+    // highlight selected tool
+    document.querySelectorAll('[data-tool]').forEach((el) => {
+      if (el == e.target) {
+        e.target.style.backgroundColor = selectedCol;
+      } else {
+        el.style.backgroundColor = defeautlCol;
+      }
+    });
   });
 });
 
 // add EventListener to brush sizes
 document.querySelectorAll('[data-brushSize]').forEach((item) => {
+  if (item.getAttribute('data-brushSize') == 3) {
+    item.style.backgroundColor = selectedCol;
+  }
+
   item.addEventListener('click', (e) => {
     const lineWidth = item.getAttribute('data-brushSize');
     console.log(lineWidth);
     paint.lineWidth = lineWidth;
+
+    // highlight selected brush size
+    document.querySelectorAll('[data-brushSize]').forEach((el) => {
+      if (el == e.target) {
+        e.target.style.backgroundColor = selectedCol;
+      } else {
+        el.style.backgroundColor = defeautlCol;
+      }
+    });
   });
 });
 
@@ -45,8 +76,10 @@ document.querySelectorAll('[data-brushColor').forEach((item) => {
   item.style.backgroundColor = item.getAttribute('data-brushColor');
   item.addEventListener('click', (e) => {
     const color = item.getAttribute('data-brushColor');
-    console.log(color);
     paint.selectColor = color;
+
+    // update color preview
+    colorDisp.style.backgroundColor = color;
   });
 });
 
