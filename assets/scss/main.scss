@@ -5,7 +5,22 @@
 @import 'text';
 
 body {
-  background-color: hotpink;
+  background-color: #1B1B1B;
+}
+
+.backgroundImg {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  background-color: #1B1B1B;
+  background: url('../img/background.jpg');
+  background-size: cover;
+  filter: blur(2px);
+  -webkit-filter: blur(2px);
+  opacity: .1;
+  z-index: -3;
+  top: 0;
+  left: 0;
 }
 
 header {
@@ -27,6 +42,7 @@ header {
   grid-column-gap: 1rem;
 
   &__header {
+    color: var(--white);
     grid-area: gameHeader;
     background-color: var(--highlight);
 
@@ -55,6 +71,7 @@ header {
       align-items: center;
 
       width: 100%;
+      letter-spacing: .6em;
     }
 
     &__fill {
@@ -150,7 +167,7 @@ header {
       flex-direction: column;
       justify-content: flex-end;
 
-      overflow-y: scroll;
+      overflow-x: hidden;
     }
 
     &__message {
@@ -158,6 +175,32 @@ header {
     }
 
     form {
+      display: flex;
+      flex-direction: row;
+      height: 2rem;
+      color: white;
+      background-color: #3D796D;
+      border-radius: 4px;
+      margin-top: .4rem;
+    }
+    form input[type='text'] {
+      color: var(--white);
+      padding: .2rem;
+      background-color: #3D796D;
+      border: none;
+      border-radius: 4px;
+    }
+    form button {
+      background-color: var(--white);
+      mask: url(../img/icons/send.svg) no-repeat;
+      background-repeat: no-repeat;
+      background-position: center;
+      object-fit: cover;
+      width: 100%;
+      border: none;
+      cursor: pointer;
+      outline: none;
+      margin-left: -.5rem;
     }
   }
 
@@ -242,18 +285,22 @@ header {
         width: 3px;
         height: 3px;
       }
+
       [data-brushSize='5'] div {
         width: 5px;
         height: 5px;
       }
+
       [data-brushSize='10'] div {
         width: 10px;
         height: 10px;
       }
+
       [data-brushSize='15'] div {
         width: 15px;
         height: 15px;
       }
+
       [data-brushSize='20'] div {
         width: 20px;
         height: 20px;

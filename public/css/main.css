@@ -11,7 +11,21 @@
   --selected: #ff2c2c; }
 
 body {
-  background-color: hotpink; }
+  background-color: #1B1B1B; }
+
+.backgroundImg {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  background-color: #1B1B1B;
+  background: url("../img/background.jpg");
+  background-size: cover;
+  filter: blur(2px);
+  -webkit-filter: blur(2px);
+  opacity: .1;
+  z-index: -3;
+  top: 0;
+  left: 0; }
 
 header {
   min-height: 6rem; }
@@ -27,6 +41,7 @@ header {
   grid-row-gap: 1rem;
   grid-column-gap: 1rem; }
   .game__header {
+    color: var(--white);
     grid-area: gameHeader;
     background-color: var(--highlight);
     display: flex;
@@ -45,7 +60,8 @@ header {
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 100%; }
+      width: 100%;
+      letter-spacing: .6em; }
     .game__header__fill {
       width: 224px;
       margin-left: 1rem; }
@@ -101,9 +117,34 @@ header {
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
-      overflow-y: scroll; }
+      overflow-x: hidden; }
     .game__chat__message {
       margin-bottom: 0.4em; }
+    .game__chat form {
+      display: flex;
+      flex-direction: row;
+      height: 2rem;
+      color: white;
+      background-color: #3D796D;
+      border-radius: 4px;
+      margin-top: .4rem; }
+    .game__chat form input[type='text'] {
+      color: var(--white);
+      padding: .2rem;
+      background-color: #3D796D;
+      border: none;
+      border-radius: 4px; }
+    .game__chat form button {
+      background-color: var(--white);
+      mask: url(../img/icons/send.svg) no-repeat;
+      background-repeat: no-repeat;
+      background-position: center;
+      object-fit: cover;
+      width: 100%;
+      border: none;
+      cursor: pointer;
+      outline: none;
+      margin-left: -.5rem; }
   .game .tools {
     display: flex;
     flex-direction: row;
