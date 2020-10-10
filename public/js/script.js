@@ -34,9 +34,13 @@ socket.on('roomUser', (data) => {
 // Outgoing
 msgSend.addEventListener('click', (e) => {
   e.preventDefault();
-  console.log('text msg send');
+
+  if (msgTxt.value.trim() == '') {
+    return;
+  }
+
   let data = {
-    message: msgTxt.value,
+    message: msgTxt.value.trim(),
     id: socket.id,
   };
   chatbox.innerHTML += `

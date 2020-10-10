@@ -58,7 +58,7 @@ io.on('connection', (socket) => {
 
     const data2 = {
       name: '🦐',
-      message: data.message,
+      message: data.message.trim(),
     };
 
     socket.to(roomName).emit('message', data2);

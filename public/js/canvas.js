@@ -1,7 +1,7 @@
 import Fill from './canvasFill.js';
 import Paint from './canvasPaint.js';
 
-const selectedCol = 'hotpink';
+const selectedCol = 'var(--highlight)';
 const defeautlCol = 'white';
 
 const canvasId = '#canvas';
