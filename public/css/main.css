@@ -96,8 +96,68 @@ input[type='text'] {
       width: 20px;
       height: 20px; }
 
+.lobby {
+  max-width: 80rem;
+  width: fit-content;
+  margin: 0 auto;
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: row; }
+  .lobby .settings {
+    padding: 1rem;
+    background-color: #3d793d;
+    margin-right: 1rem; }
+    .lobby .settings .rounds,
+    .lobby .settings .drawTime,
+    .lobby .settings .customWords {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 0.8rem; }
+      .lobby .settings .rounds label,
+      .lobby .settings .drawTime label,
+      .lobby .settings .customWords label {
+        font-size: 1rem;
+        font-weight: bold;
+        margin-bottom: 0.2em; }
+    .lobby .settings #roomCode {
+      display: flex;
+      flex-direction: row; }
+      .lobby .settings #roomCode input {
+        border-radius: 4px;
+        padding: 0.4rem;
+        width: 100%; }
+    .lobby .settings button {
+      border-radius: 4px;
+      margin-left: 0.6rem;
+      padding: 0.4rem; }
+  .lobby .users {
+    background-color: white;
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: repeat(6, 6rem);
+    grid-gap: 1rem; }
+    .lobby .users .user__name {
+      text-align: center;
+      font-weight: bold; }
+    .lobby .users .user__img {
+      width: 6rem; }
+
 body {
   background-color: #1b1b1b; }
+
+input[type='number'],
+textarea {
+  width: 100%;
+  font-size: 0.9125rem;
+  padding: 0.4em;
+  color: var(--black);
+  background-color: var(--white);
+  border: none;
+  resize: none;
+  border-radius: 4px; }
+  input[type='number']:focus,
+  textarea:focus {
+    outline: none; }
 
 .backgroundImg {
   position: fixed;

@@ -17,6 +17,91 @@
     <header></header>
 
     <main>
+      <div class="lobby">
+        <section class="settings">
+          <div class="rounds">
+            <label for="rounds">Rounds</label>
+            <input
+              type="number"
+              name="rounds"
+              id="rounds"
+              value="3"
+              min="1"
+              max="25"
+              maxlength="3"
+            />
+          </div>
+
+          <div class="drawTime">
+            <label for="drawTime" id="drawTime">Draw Time</label>
+            <input
+              type="number"
+              name="drawTime"
+              value="30"
+              min="1"
+              max="120"
+              maxlength="3"
+            />
+          </div>
+
+          <!-- <label for="language"></label>
+          <select id="language" name="language">
+            <option value="english">English</option>
+            <option value="dutch">Dutch</option>
+          </select> -->
+
+          <div class="customWords">
+            <label for="customWords">Custom Words</label>
+            <textarea
+              name="customWords"
+              cols="30"
+              rows="10"
+              placeholder="Type your custom words here separated by commas
+            "
+            ></textarea>
+          </div>
+
+          <div>
+            <input
+              class="checkbox"
+              name="customWordsOnly"
+              type="checkbox"
+              id="customWordsOnly"
+            />
+            <label for="customWordsOnly">Only use custom words</label>
+          </div>
+
+          <h3>Room code:</h3>
+          <div id="roomCode">
+            <input class="roomCode__Text" type="text" readonly />
+            <button class="button button--copyLink">Copy</button>
+          </div>
+        </section>
+
+        <section class="users">
+          <div class="user">
+            <img class="user__img" src="img/userImg/user0.png" alt="" />
+            <p class="user__name">name</p>
+          </div>
+          <div class="user">
+            <img class="user__img" src="img/userImg/user0.png" alt="" />
+            <p class="user__name">name</p>
+          </div>
+          <div class="user">
+            <img class="user__img" src="img/userImg/user0.png" alt="" />
+            <p class="user__name">name</p>
+          </div>
+          <div class="user">
+            <img class="user__img" src="img/userImg/user0.png" alt="" />
+            <p class="user__name">name</p>
+          </div>
+          <div class="user">
+            <img class="user__img" src="img/userImg/user0.png" alt="" />
+            <p class="user__name">name</p>
+          </div>
+        </section>
+      </div>
+
       <div class="game">
         <section class="game__header">
           <!-- header -->
@@ -169,9 +254,9 @@
         <section class="game__chat">
           <!-- chat -->
           <div class="game__chat__chatbox">
-            <p class="game__chat__message"><b>Moffel:</b> sapjes</p>
+            <!-- <p class="game__chat__message"><b>Moffel:</b> sapjes</p>
             <p class="game__chat__message"><b>Piertje:</b> regen</p>
-            <p class="game__chat__message"><b>Piertje:</b> regen</p>
+            <p class="game__chat__message"><b>Piertje:</b> regen</p> -->
           </div>
           <form action="">
             <input type="text" name="" id="" placeholder="message" />
@@ -180,36 +265,13 @@
         </section>
       </div>
 
-      <div id="roomCode">
+      <!-- <div id="roomCode">
         <input class="roomCode__Text" type="text" readonly />
         <button class="button button--copyLink">Copy</button>
-      </div>
+      </div> -->
     </main>
 
     <footer></footer>
-
-    <!-- <main>
-    <section class="settings">
-      <label for="rounds">Rounds</label>
-      <input type="number" name="rounds" value="3" min="1" max="25" maxlength="3" />
-
-      <label for="drawTime">Draw Time</label>
-      <input type="number" name="drawTime" value="30" min="1" max="120" maxlength="3" />
-
-      <label for="language"></label>
-      <select id="language" name="language">
-        <option value="english">English</option>
-        <option value="dutch">Dutch</option>
-      </select>
-
-      <label for="customWords">Custom Words</label>
-      <textarea name="customWords" cols="30" rows="10" placeholder="Type your custom words here separated by commas
-        "></textarea>
-
-      <input name="customWordsOnly" type="checkbox" />
-      <label for="customWordsOnly">Only use custom words</label>
-    </section>
-  </main> -->
 
     <script src="js/script.js"></script>
     <script src="js/users.js"></script>

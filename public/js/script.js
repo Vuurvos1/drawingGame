@@ -15,6 +15,12 @@ const chatbox = document.querySelector('.game__chat__chatbox');
 
 const playerGrid = document.querySelector('.game__users');
 
+// shorter queryselectors
+// querySelector
+const q = document.querySelector.bind(document);
+// querySelectorAll
+const qa = document.querySelectorAll.bind(document);
+
 // Incomming
 socket.on('message', (data) => {
   chatbox.innerHTML += `
