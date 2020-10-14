@@ -19,6 +19,15 @@
     <main>
       <div class="lobby">
         <section class="settings">
+          <form action="">
+            <div>
+              <label for="name">Username:</label>
+              <input id="name" type="text" name="drawingName" maxlength="10" />
+            </div>
+
+            <button type="submit" class="updateUsername">Update</button>
+          </form>
+
           <div class="rounds">
             <label for="rounds">Rounds</label>
             <input
@@ -61,7 +70,7 @@
             ></textarea>
           </div>
 
-          <div>
+          <div class="customWordsCheck">
             <input
               class="checkbox"
               name="customWordsOnly"
@@ -71,6 +80,8 @@
             <label for="customWordsOnly">Only use custom words</label>
           </div>
 
+          <button class="startGame">Start Game</button>
+
           <h3>Room code:</h3>
           <div id="roomCode">
             <input class="roomCode__Text" type="text" readonly />
@@ -79,26 +90,10 @@
         </section>
 
         <section class="users">
-          <div class="user">
+          <!-- <div class="user">
             <img class="user__img" src="img/userImg/user0.png" alt="" />
             <p class="user__name">name</p>
-          </div>
-          <div class="user">
-            <img class="user__img" src="img/userImg/user0.png" alt="" />
-            <p class="user__name">name</p>
-          </div>
-          <div class="user">
-            <img class="user__img" src="img/userImg/user0.png" alt="" />
-            <p class="user__name">name</p>
-          </div>
-          <div class="user">
-            <img class="user__img" src="img/userImg/user0.png" alt="" />
-            <p class="user__name">name</p>
-          </div>
-          <div class="user">
-            <img class="user__img" src="img/userImg/user0.png" alt="" />
-            <p class="user__name">name</p>
-          </div>
+          </div> -->
         </section>
       </div>
 

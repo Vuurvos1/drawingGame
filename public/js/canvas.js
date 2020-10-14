@@ -19,6 +19,9 @@ paint.selectColor = '#000000';
 // initialize paint
 paint.init();
 
+// hide game area after canvas is initialized
+game.style.display = 'none';
+
 // add eventListener to drawing tools
 document.querySelectorAll('[data-tool]').forEach((item) => {
   if (item.getAttribute('data-tool') == 'brush') {
