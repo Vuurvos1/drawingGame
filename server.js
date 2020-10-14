@@ -5,7 +5,7 @@ const app = express();
 // Setup server
 let server = app.listen(process.env.PORT || 3000, () => {
   // let host = server.address().address;
-  let port = server.address().port;
+  const port = server.address().port;
   console.log(`Example app listening at http://localhost:${port}`);
 });
 
@@ -22,45 +22,54 @@ io.on('connection', (socket) => {
     const data = {
       id: socket.id,
       imageId: ~~(Math.random() * 7),
-      you: false,
+      username: ~~(Math.random() * 7),
     };
-    // you: true,
 
     roomName = room ? `${room}` : `${socket.id}`;
     socket.join(roomName);
 
     if (io.sockets.adapter.rooms[roomName].users) {
-      io.sockets.adapter.rooms[roomName].users.push(data);
+      io.sockets.adapter.rooms[roomName].users[socket.id] = data;
+      io.sockets.adapter.rooms[roomName].users[socket.id].host = false;
     } else {
-      io.sockets.adapter.rooms[roomName].users = [data];
+      io.sockets.adapter.rooms[roomName].users = {};
+      io.sockets.adapter.rooms[roomName].users[socket.id] = data;
+      io.sockets.adapter.rooms[roomName].users[socket.id].host = true;
     }
+
+    console.log(io.sockets.adapter.rooms[roomName]);
 
     // send room share link to client
     // problem when sharing the link when already in a room (adds socket id)
     socket.emit('roomValue', socket.id);
 
     // update all clients user list
-    io.in(roomName).emit('userJoin', io.sockets.adapter.rooms[roomName].users);
+    const temp = Object.values(io.sockets.adapter.rooms[roomName].users);
+    io.in(roomName).emit('userJoin', temp);
 
-    console.log(roomName, socket.id);
-    console.log(roomName == socket.id);
+    console.log(roomName, socket.id, roomName == socket.id);
 
     // request canvas for new users
     if (socket.id != roomName) {
       // request canvas from host
+      // change this to be user 0 in the room users array
       io.to(roomName).emit('requestCanvas', { id: socket.id });
     }
   });
 
   socket.on('message', (data) => {
-    console.log(data.message);
-
-    const data2 = {
-      name: '🦐',
-      message: data.message,
+    const res = {
+      name: io.sockets.adapter.rooms[roomName].users[data.id].username,
+      message: data.message.trim(),
     };
 
-    socket.to(roomName).emit('message', data2);
+    socket.to(roomName).emit('message', res);
+  });
+
+  socket.on('startGame', (data) => {
+    console.log('startgame');
+    // socket.broadcast.emit('startGame', data);
+    io.in(roomName).emit('startGame', data);
   });
 
   // canvas events
@@ -107,6 +116,15 @@ io.on('connection', (socket) => {
     io.to(data.id).emit('recieveCanvas', data);
   });
 
+  socket.on('updateUsername', (data) => {
+    io.sockets.adapter.rooms[roomName].users[data.id].username = data.username;
+
+    const temp = Object.values(io.sockets.adapter.rooms[roomName].users);
+    console.log(io.sockets.adapter.rooms[roomName].users);
+
+    io.in(roomName).emit('userJoin', temp);
+  });
+
   // socket leave logic
   socket.on('disconnect', () => {
     console.log('Client has disconnected');
@@ -115,18 +133,22 @@ io.on('connection', (socket) => {
       id: socket.id,
     };
 
-    const usersArr = io.sockets.adapter.rooms[roomName];
+    if (io.sockets.adapter.rooms[roomName]) {
+      const roomUsers = io.sockets.adapter.rooms[roomName].users;
 
-    // remove user from array
-    if (usersArr) {
-      for (let i = 0; i < usersArr.users.length; i++) {
-        if (usersArr.users[i].id == socket.id) {
-          io.sockets.adapter.rooms[roomName].users.splice(i, 1);
-        }
+      // remove user from object
+      if (io.sockets.adapter.rooms[roomName]) {
+        delete roomUsers[socket.id];
+
+        // update host
+        const newHostId = roomUsers[Object.keys(roomUsers)[0]];
+        console.log(newHostId);
+
+        roomUsers[newHostId.id].host = true;
       }
-    }
 
-    // remove client form user list
-    socket.to(roomName).emit('userLeave', data);
+      // remove client form user list
+      socket.to(roomName).emit('userLeave', data);
+    }
   });
 });

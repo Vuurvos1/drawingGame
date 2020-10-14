@@ -4,48 +4,77 @@ let searchRoom = window.location.search;
 // Remove questionmark
 searchRoom = searchRoom.slice(1).trim();
 
+// shorter queryselectors
+// querySelector
+const q = document.querySelector.bind(document);
+// querySelectorAll
+const qa = document.querySelectorAll.bind(document);
+
+// convert all element selectors into a single object?
+// room sharing
 const roomTxt = document.querySelector('.roomCode__Text');
 const roomSend = document.querySelector('#room button');
 
-const msgTxt = document.querySelector('#send input[type=text]');
-const msgSend = document.querySelector('#send button');
+// chatting
+const msgTxt = document.querySelector('.game__chat input[type=text]');
+const msgSend = document.querySelector('.game__chat button[type=submit]');
+const chatbox = document.querySelector('.game__chat__chatbox');
 
-const playerGrid = document.querySelector('.players .players__grid');
+const playerGrid = document.querySelector('.game__users');
 
-const chatroom = document.querySelector('.chatroom div')
+const lobby = q('.lobby');
+const game = q('.game');
 
 // Incomming
 socket.on('message', (data) => {
-  chatroom.innerHTML += `
+  chatbox.innerHTML += `
   <p>
-  ${data.name} says: ${data.message}
-  </p>`
+    <b>${data.name}:</b> ${data.message}
+  </p>`;
 });
 
 socket.on('roomValue', (data) => {
   roomTxt.value = `${window.location.href}?${data}`;
 });
 
-socket.on('roomUser', (data) => {
-  console.log(data);
+socket.on('startGame', (data) => {
+  console.log('start inc');
+
+  lobby.style.display = 'none';
+  game.style.display = 'grid';
 });
 
 // Outgoing
-msgSend.addEventListener('click', () => {
-  console.log('text msg send');
-  let data = {
-    message: msgTxt.value,
+msgSend.addEventListener('click', (e) => {
+  e.preventDefault();
+
+  if (msgTxt.value.trim() == '') {
+    return;
+  }
+
+  const data = {
+    message: msgTxt.value.trim(),
     id: socket.id,
   };
-  chatroom.innerHTML += `
+  chatbox.innerHTML += `
   <p>
-  ${data.id} says: ${data.message}
-  </p>`
+    <b>You:</b> ${data.message}
+  </p>`;
 
   socket.emit('message', data);
+
+  msgTxt.value = '';
 });
 
-// when DOM is laoded join room
+q('.startGame').addEventListener('click', (e) => {
+  e.preventDefault();
+
+  console.log('saaa');
+
+  socket.emit('startGame', true);
+});
+
+// when DOM is loaded join room
 document.addEventListener('DOMContentLoaded', () => {
   console.log('🚀');
   socket.emit('joinRoom', searchRoom);
