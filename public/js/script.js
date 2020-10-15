@@ -34,12 +34,10 @@ socket.on('message', (data) => {
 });
 
 socket.on('roomValue', (data) => {
-  roomTxt.value = `${window.location.href}?${data}`;
+  roomTxt.value = `${window.location.origin}/?${data}`;
 });
 
 socket.on('startGame', (data) => {
-  console.log('start inc');
-
   lobby.style.display = 'none';
   game.style.display = 'grid';
 });
@@ -68,9 +66,6 @@ msgSend.addEventListener('click', (e) => {
 
 q('.startGame').addEventListener('click', (e) => {
   e.preventDefault();
-
-  console.log('saaa');
-
   socket.emit('startGame', true);
 });
 
