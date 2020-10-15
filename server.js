@@ -29,9 +29,11 @@ io.on('connection', (socket) => {
     socket.join(roomName);
 
     if (io.sockets.adapter.rooms[roomName].users) {
+      // room already exists
       io.sockets.adapter.rooms[roomName].users[socket.id] = data;
       io.sockets.adapter.rooms[roomName].users[socket.id].host = false;
     } else {
+      // new room
       io.sockets.adapter.rooms[roomName].users = {};
       io.sockets.adapter.rooms[roomName].users[socket.id] = data;
       io.sockets.adapter.rooms[roomName].users[socket.id].host = true;
@@ -40,8 +42,7 @@ io.on('connection', (socket) => {
     console.log(io.sockets.adapter.rooms[roomName]);
 
     // send room share link to client
-    // problem when sharing the link when already in a room (adds socket id)
-    socket.emit('roomValue', socket.id);
+    socket.emit('roomValue', roomName);
 
     // update all clients user list
     const temp = Object.values(io.sockets.adapter.rooms[roomName].users);
@@ -51,8 +52,7 @@ io.on('connection', (socket) => {
 
     // request canvas for new users
     if (socket.id != roomName) {
-      // request canvas from host
-      // change this to be user 0 in the room users array
+      // change this to be user 0 / host in the room
       io.to(roomName).emit('requestCanvas', { id: socket.id });
     }
   });
