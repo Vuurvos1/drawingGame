@@ -60,7 +60,10 @@ io.on('connection', (socket) => {
   socket.on('message', (data) => {
     const res = {
       name: io.sockets.adapter.rooms[roomName].users[data.id].username,
-      message: data.message.trim(),
+      message: data.message.trim()
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;'),
     };
 
     socket.to(roomName).emit('message', res);

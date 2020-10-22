@@ -51,7 +51,10 @@ msgSend.addEventListener('click', (e) => {
   }
 
   const data = {
-    message: msgTxt.value.trim(),
+    message: msgTxt.value.trim()
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;'),
     id: socket.id,
   };
   chatbox.innerHTML += `
