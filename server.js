@@ -1,4 +1,5 @@
 require('dotenv').config();
+
 const express = require('express');
 const app = express();
 
@@ -13,6 +14,10 @@ app.use(express.static('public'));
 
 // WebSockets work with the HTTP server
 let io = require('socket.io')(server);
+exports.io = io;
+
+// io modules
+require('./modules/canvas');
 
 io.on('connection', (socket) => {
   console.log(`We have a new client: ${socket.id}`);
@@ -39,7 +44,7 @@ io.on('connection', (socket) => {
       io.sockets.adapter.rooms[roomName].users[socket.id].host = true;
     }
 
-    console.log(io.sockets.adapter.rooms[roomName]);
+    // console.log(io.sockets.adapter.rooms[roomName]);
 
     // send room share link to client
     socket.emit('roomValue', roomName);
@@ -48,7 +53,7 @@ io.on('connection', (socket) => {
     const temp = Object.values(io.sockets.adapter.rooms[roomName].users);
     io.in(roomName).emit('userJoin', temp);
 
-    console.log(roomName, socket.id, roomName == socket.id);
+    // console.log(roomName, socket.id, roomName == socket.id);
 
     // request canvas for new users
     if (socket.id != roomName) {
@@ -58,12 +63,22 @@ io.on('connection', (socket) => {
   });
 
   socket.on('message', (data) => {
+    // check word logic
+    if (data.message === io.sockets.adapter.rooms[roomName].word) {
+      // send to other clients
+      // close state
+      // correct state
+      // --> update scores
+    }
+
+    // send chat message
     const res = {
       name: io.sockets.adapter.rooms[roomName].users[data.id].username,
-      message: data.message.trim()
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;'),
+      message: data.message
+        .trim()
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;'),
     };
 
     socket.to(roomName).emit('message', res);
@@ -73,45 +88,6 @@ io.on('connection', (socket) => {
     console.log('startgame');
     // socket.broadcast.emit('startGame', data);
     io.in(roomName).emit('startGame', data);
-  });
-
-  // canvas events
-  socket.on('startStoke', (data) => {
-    console.log('startStroke');
-    console.log(data);
-
-    socket.broadcast.emit('startStroke', data);
-  });
-
-  socket.on('floodFill', (data) => {
-    console.log('floodFill');
-    console.log(data);
-
-    socket.broadcast.emit('floodFill', data);
-  });
-
-  socket.on('drawStroke', (data) => {
-    socket.broadcast.emit('drawStroke', data);
-  });
-
-  socket.on('changeColor', (data) => {
-    socket.broadcast.emit('changeColor', data);
-  });
-
-  socket.on('changeLineWidth', (data) => {
-    socket.broadcast.emit('changeLineWidth', data);
-  });
-
-  socket.on('saveMove', (data) => {
-    socket.broadcast.emit('saveMove', data);
-  });
-
-  socket.on('undoMove', (data) => {
-    socket.broadcast.emit('undoMove', data);
-  });
-
-  socket.on('erase', (data) => {
-    socket.broadcast.emit('erase', data);
   });
 
   // send canvas to requested socket
@@ -126,6 +102,16 @@ io.on('connection', (socket) => {
     console.log(io.sockets.adapter.rooms[roomName].users);
 
     io.in(roomName).emit('userJoin', temp);
+  });
+
+  socket.on('getWords', () => {
+    const array = require('./words/words.json');
+    socket.emit('getWords', array.sort(() => 0.5 - Math.random()).slice(0, 3));
+  });
+
+  socket.on('pickWord', (word) => {
+    // set room word
+    io.sockets.adapter.rooms[roomName].word = word;
   });
 
   // socket leave logic
