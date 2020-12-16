@@ -64,7 +64,10 @@ io.on('connection', (socket) => {
 
   socket.on('message', (data) => {
     // check word logic
-    if (data.message === io.sockets.adapter.rooms[roomName].word) {
+    if (
+      data.message.toLowerCase() ===
+      io.sockets.adapter.rooms[roomName].word.toLowerCase()
+    ) {
       // send to other clients
       // close state
       // correct state
@@ -88,11 +91,15 @@ io.on('connection', (socket) => {
     console.log('startgame');
     // socket.broadcast.emit('startGame', data);
     io.in(roomName).emit('startGame', data);
-  });
 
-  // send canvas to requested socket
-  socket.on('sendCanvas', (data) => {
-    io.to(data.id).emit('recieveCanvas', data);
+    // temp code
+    const array = require('./words/words.json');
+    // console.log(array);
+    // socket.emit('getWords', array.sort(() => 0.5 - Math.random()).slice(0, 3));
+    io.in(roomName).emit(
+      'test',
+      array.words.sort(() => 0.5 - Math.random()).slice(0, 3)
+    );
   });
 
   socket.on('updateUsername', (data) => {
@@ -104,12 +111,13 @@ io.on('connection', (socket) => {
     io.in(roomName).emit('userJoin', temp);
   });
 
-  socket.on('getWords', () => {
-    const array = require('./words/words.json');
-    socket.emit('getWords', array.sort(() => 0.5 - Math.random()).slice(0, 3));
-  });
+  // socket.on('getWords', () => {
+  //   const array = require('./words/words.json');
+  //   socket.emit('getWords', array.sort(() => 0.5 - Math.random()).slice(0, 3));
+  // });
 
   socket.on('pickWord', (word) => {
+    console.log(word);
     // set room word
     io.sockets.adapter.rooms[roomName].word = word;
   });

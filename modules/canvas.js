@@ -39,4 +39,9 @@ io.on('connection', (socket) => {
   socket.on('erase', (data) => {
     socket.broadcast.emit('erase', data);
   });
+
+  // send canvas to requested socket
+  socket.on('sendCanvas', (data) => {
+    io.to(data.id).emit('recieveCanvas', data);
+  });
 });
