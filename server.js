@@ -91,9 +91,8 @@ io.on('connection', (socket) => {
     console.log('startgame');
     // select random move order
 
-    const userOrder = io.sockets.adapter.rooms[roomName].users.sort(
-      () => 0.5 - Math.random()
-    );
+    const userIdArr = Object.keys(io.sockets.adapter.rooms[roomName].users);
+    const userOrder = userIdArr.sort(() => 0.5 - Math.random());
     io.sockets.adapter.rooms[roomName].userOrder = userOrder;
 
     // socket.broadcast.emit('startGame', data);
@@ -101,8 +100,10 @@ io.on('connection', (socket) => {
 
     // temp code
     const array = require('./words/words.json');
-    // socket.emit('getWords', array.sort(() => 0.5 - Math.random()).slice(0, 3));
-    io.in(roomName).emit(
+
+    io.sockets.adapter.rooms[roomName].currentMove = userOrder[0];
+
+    io.to(userOrder[0]).emit(
       'test',
       array.words.sort(() => 0.5 - Math.random()).slice(0, 3)
     );
@@ -126,6 +127,33 @@ io.on('connection', (socket) => {
     console.log(word);
     // set room word
     io.sockets.adapter.rooms[roomName].word = word;
+  });
+
+  socket.on('nextTurn', (data) => {
+    console.log('next turn');
+
+    const userOrder = io.sockets.adapter.rooms[roomName].userOrder;
+    const currentPlayer = io.sockets.adapter.rooms[roomName].currentMove;
+
+    let index = userOrder.indexOf(currentPlayer);
+    // add one to index for next player
+    // index +2 since you start counting at 0 and add 1
+    if (index + 2 > userOrder.length) {
+      index = 0;
+      // round++
+    } else {
+      index++;
+    }
+
+    const nextPlayer = userOrder[index];
+    io.sockets.adapter.rooms[roomName].currentMove = nextPlayer;
+
+    const array = require('./words/words.json');
+
+    io.to(nextPlayer).emit(
+      'test',
+      array.words.sort(() => 0.5 - Math.random()).slice(0, 3)
+    );
   });
 
   // socket leave logic

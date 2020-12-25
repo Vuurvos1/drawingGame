@@ -71,6 +71,17 @@ socket.on('test', (data) => {
       // remove choises
       const el = q('.wordChoises');
       el.parentNode.removeChild(el);
+
+      // // temp end turn button
+      let el2 = `<button>End turn</button>`;
+      q('footer').innerHTML += el2;
+      q('footer button').addEventListener('click', () => {
+        socket.emit('nextTurn', true);
+
+        // delete self
+        const el = q('footer button');
+        el.parentNode.removeChild(el);
+      });
     });
   }
 });
