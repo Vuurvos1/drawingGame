@@ -44,7 +44,7 @@ io.on('connection', (socket) => {
       io.sockets.adapter.rooms[roomName].users[socket.id].host = true;
     }
 
-    // console.log(io.sockets.adapter.rooms[roomName]);
+    console.log(io.sockets.adapter.rooms[roomName]);
 
     // send room share link to client
     socket.emit('roomValue', roomName);
@@ -89,12 +89,18 @@ io.on('connection', (socket) => {
 
   socket.on('startGame', (data) => {
     console.log('startgame');
+    // select random move order
+
+    const userOrder = io.sockets.adapter.rooms[roomName].users.sort(
+      () => 0.5 - Math.random()
+    );
+    io.sockets.adapter.rooms[roomName].userOrder = userOrder;
+
     // socket.broadcast.emit('startGame', data);
     io.in(roomName).emit('startGame', data);
 
     // temp code
     const array = require('./words/words.json');
-    // console.log(array);
     // socket.emit('getWords', array.sort(() => 0.5 - Math.random()).slice(0, 3));
     io.in(roomName).emit(
       'test',

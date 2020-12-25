@@ -66,6 +66,7 @@ socket.on('test', (data) => {
   for (let i = 0; i < buttons.length; i++) {
     buttons[i].addEventListener('click', () => {
       socket.emit('pickWord', data[i]);
+      q('.game__header__word').innerHTML = data[i];
 
       // remove choises
       const el = q('.wordChoises');
