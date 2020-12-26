@@ -42,7 +42,7 @@ socket.on('startGame', (data) => {
   game.style.display = 'grid';
 });
 
-socket.on('test', (data) => {
+socket.on('choiseWord', (data) => {
   // create element
   let element = '<ul class="wordChoises">';
 
@@ -84,6 +84,10 @@ socket.on('test', (data) => {
       });
     });
   }
+});
+
+socket.on('displayWord', (str) => {
+  q('.game__header__word').innerHTML = str;
 });
 
 // Outgoing

@@ -42,7 +42,13 @@ io.on('connection', (socket) => {
       io.sockets.adapter.rooms[roomName].users = {};
       io.sockets.adapter.rooms[roomName].users[socket.id] = data;
       io.sockets.adapter.rooms[roomName].users[socket.id].host = true;
+
+      // initialize userOrder
+      io.sockets.adapter.rooms[roomName].userOrder = [];
     }
+
+    // add new user to user order
+    io.sockets.adapter.rooms[roomName].userOrder.push(socket.id);
 
     console.log(io.sockets.adapter.rooms[roomName]);
 
@@ -53,13 +59,15 @@ io.on('connection', (socket) => {
     const temp = Object.values(io.sockets.adapter.rooms[roomName].users);
     io.in(roomName).emit('userJoin', temp);
 
-    // console.log(roomName, socket.id, roomName == socket.id);
-
     // request canvas for new users
     if (socket.id != roomName) {
       // change this to be user 0 / host in the room
       io.to(roomName).emit('requestCanvas', { id: socket.id });
     }
+
+    // if (io.sockets.adapter.rooms[roomName].started) {
+    //   io.in(roomName).emit('startGame', data);
+    // }
   });
 
   socket.on('message', (data) => {
@@ -89,24 +97,28 @@ io.on('connection', (socket) => {
 
   socket.on('startGame', (data) => {
     console.log('startgame');
-    // select random move order
 
-    const userIdArr = Object.keys(io.sockets.adapter.rooms[roomName].users);
-    const userOrder = userIdArr.sort(() => 0.5 - Math.random());
-    io.sockets.adapter.rooms[roomName].userOrder = userOrder;
+    if (!io.sockets.adapter.rooms[roomName].started) {
+      // select random move order
+      io.sockets.adapter.rooms[roomName].started = true;
 
-    // socket.broadcast.emit('startGame', data);
+      const randomUserOrder = io.sockets.adapter.rooms[roomName].userOrder.sort(
+        () => 0.5 - Math.random()
+      );
+      io.sockets.adapter.rooms[roomName].userOrder = randomUserOrder;
+
+      // random words
+      const array = require('./words/words.json');
+
+      const user = io.sockets.adapter.rooms[roomName].userOrder[0];
+      io.sockets.adapter.rooms[roomName].currentPlayer = user;
+      io.to(user).emit(
+        'choiseWord',
+        array.words.sort(() => 0.5 - Math.random()).slice(0, 3)
+      );
+    }
+
     io.in(roomName).emit('startGame', data);
-
-    // temp code
-    const array = require('./words/words.json');
-
-    io.sockets.adapter.rooms[roomName].currentMove = userOrder[0];
-
-    io.to(userOrder[0]).emit(
-      'test',
-      array.words.sort(() => 0.5 - Math.random()).slice(0, 3)
-    );
   });
 
   socket.on('updateUsername', (data) => {
@@ -118,40 +130,42 @@ io.on('connection', (socket) => {
     io.in(roomName).emit('userJoin', temp);
   });
 
-  // socket.on('getWords', () => {
-  //   const array = require('./words/words.json');
-  //   socket.emit('getWords', array.sort(() => 0.5 - Math.random()).slice(0, 3));
-  // });
-
   socket.on('pickWord', (word) => {
     console.log(word);
     // set room word
     io.sockets.adapter.rooms[roomName].word = word;
+
+    let str = '';
+    for (let i = 0; i < word.length; i++) {
+      str += '_';
+    }
+
+    socket.to(roomName).emit('displayWord', str);
   });
 
   socket.on('nextTurn', (data) => {
     console.log('next turn');
 
     const userOrder = io.sockets.adapter.rooms[roomName].userOrder;
-    const currentPlayer = io.sockets.adapter.rooms[roomName].currentMove;
+    const currentPlayer = io.sockets.adapter.rooms[roomName].currentPlayer;
 
     let index = userOrder.indexOf(currentPlayer);
     // add one to index for next player
-    // index +2 since you start counting at 0 and add 1
-    if (index + 2 > userOrder.length) {
+    // + and - to correct for length not starting at 0
+    if (index + 1 > userOrder.length - 1) {
       index = 0;
       // round++
     } else {
-      index++;
+      index += 1;
     }
 
     const nextPlayer = userOrder[index];
-    io.sockets.adapter.rooms[roomName].currentMove = nextPlayer;
+    io.sockets.adapter.rooms[roomName].currentPlayer = nextPlayer;
 
     const array = require('./words/words.json');
 
     io.to(nextPlayer).emit(
-      'test',
+      'choiseWord',
       array.words.sort(() => 0.5 - Math.random()).slice(0, 3)
     );
   });
@@ -177,6 +191,11 @@ io.on('connection', (socket) => {
 
         roomUsers[newHostId.id].host = true;
       }
+
+      // update user order
+      let newUserOrder = io.sockets.adapter.rooms[roomName].userOrder;
+      newUserOrder = newUserOrder.filter((item) => item != socket.id);
+      io.sockets.adapter.rooms[roomName].userOrder = newUserOrder;
 
       // remove client form user list
       socket.to(roomName).emit('userLeave', data);
