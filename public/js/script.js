@@ -42,6 +42,54 @@ socket.on('startGame', (data) => {
   game.style.display = 'grid';
 });
 
+socket.on('choiseWord', (data) => {
+  // create element
+  let element = '<ul class="wordChoises">';
+
+  for (const i of data) {
+    element += `
+    <li>
+      <button>
+        ${i}
+      </button>
+    </li>`;
+  }
+
+  element += '</ul>';
+
+  q('footer').innerHTML += element;
+
+  // query all
+  let buttons = qa('.wordChoises li');
+
+  // add socket event
+  for (let i = 0; i < buttons.length; i++) {
+    buttons[i].addEventListener('click', () => {
+      socket.emit('pickWord', data[i]);
+      q('.game__header__word').innerHTML = data[i];
+
+      // remove choises
+      const el = q('.wordChoises');
+      el.parentNode.removeChild(el);
+
+      // // temp end turn button
+      let el2 = `<button>End turn</button>`;
+      q('footer').innerHTML += el2;
+      q('footer button').addEventListener('click', () => {
+        socket.emit('nextTurn', true);
+
+        // delete self
+        const el = q('footer button');
+        el.parentNode.removeChild(el);
+      });
+    });
+  }
+});
+
+socket.on('displayWord', (str) => {
+  q('.game__header__word').innerHTML = str;
+});
+
 // Outgoing
 msgSend.addEventListener('click', (e) => {
   e.preventDefault();
@@ -51,10 +99,11 @@ msgSend.addEventListener('click', (e) => {
   }
 
   const data = {
-    message: msgTxt.value.trim()
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;'),
+    message: msgTxt.value
+      .trim()
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;'),
     id: socket.id,
   };
   chatbox.innerHTML += `
