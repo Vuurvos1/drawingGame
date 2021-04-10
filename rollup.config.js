@@ -5,8 +5,8 @@ import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
 import css from 'rollup-plugin-css-only';
 
-import sveltePreprocess from 'svelte-preprocess';
-import { scss } from 'svelte-preprocess';
+import autoPreprocess from 'svelte-preprocess';
+// import { scss } from 'svelte-preprocess';
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -54,18 +54,18 @@ export default {
        * Auto preprocess supported languages with
        * '<template>'/'external src files' support
        **/
-      preprocess: sveltePreprocess({
+      preprocess: autoPreprocess({
         /* options */
       }),
       /**
        * It is also possible to manually enqueue
        * stand-alone processors
        * */
-      preprocess: [
-        scss({
-          /* scss options */
-        }),
-      ],
+      // preprocess: [
+      //   scss({
+      //     /* scss options */
+      //   }),
+      // ],
     }),
     // we'll extract any component CSS out into
     // a separate file - better for performance

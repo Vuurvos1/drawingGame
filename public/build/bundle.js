@@ -516,7 +516,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (97:4) {#each comments as comment}
+    // (44:4) {#each comments as comment}
     function create_each_block(ctx) {
     	let p;
     	let span;
@@ -535,9 +535,9 @@ var app = (function () {
     			t1 = space();
     			t2 = text(t2_value);
     			t3 = space();
-    			add_location(span, file, 98, 8, 2230);
-    			attr_dev(p, "class", "svelte-c9qkjc");
-    			add_location(p, file, 97, 6, 2217);
+    			add_location(span, file, 45, 8, 1002);
+    			attr_dev(p, "class", "svelte-olpjlc");
+    			add_location(p, file, 44, 6, 989);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -560,7 +560,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(97:4) {#each comments as comment}",
+    		source: "(44:4) {#each comments as comment}",
     		ctx
     	});
 
@@ -594,12 +594,12 @@ var app = (function () {
 
     			t = space();
     			input = element("input");
-    			attr_dev(div0, "class", "messages svelte-c9qkjc");
-    			add_location(div0, file, 95, 2, 2138);
+    			attr_dev(div0, "class", "messages svelte-olpjlc");
+    			add_location(div0, file, 42, 2, 910);
     			attr_dev(input, "placeholder", "Send a Message");
-    			add_location(input, file, 105, 2, 2401);
-    			attr_dev(div1, "class", div1_class_value = "" + (null_to_empty(`${/*$$props*/ ctx[3].class} chat scrollable`) + " svelte-c9qkjc"));
-    			add_location(div1, file, 94, 0, 2086);
+    			add_location(input, file, 52, 2, 1173);
+    			attr_dev(div1, "class", div1_class_value = "" + (null_to_empty(`${/*$$props*/ ctx[3].class} chat scrollable`) + " svelte-olpjlc"));
+    			add_location(div1, file, 41, 0, 858);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -646,7 +646,7 @@ var app = (function () {
     				each_blocks.length = each_value.length;
     			}
 
-    			if (dirty & /*$$props*/ 8 && div1_class_value !== (div1_class_value = "" + (null_to_empty(`${/*$$props*/ ctx[3].class} chat scrollable`) + " svelte-c9qkjc"))) {
+    			if (dirty & /*$$props*/ 8 && div1_class_value !== (div1_class_value = "" + (null_to_empty(`${/*$$props*/ ctx[3].class} chat scrollable`) + " svelte-olpjlc"))) {
     				attr_dev(div1, "class", div1_class_value);
     			}
     		},
@@ -1720,7 +1720,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (81:4) {#each brushColors as color}
+    // (90:4) {#each brushColors as color}
     function create_each_block_2(ctx) {
     	let button;
     	let mounted;
@@ -1735,8 +1735,8 @@ var app = (function () {
     			button = element("button");
     			attr_dev(button, "data-brushcolor", /*color*/ ctx[17]);
     			attr_dev(button, "style", `background-color: ${/*color*/ ctx[17]}`);
-    			attr_dev(button, "class", "svelte-zpk7hp");
-    			add_location(button, file$7, 81, 6, 1950);
+    			attr_dev(button, "class", "svelte-213hft");
+    			add_location(button, file$7, 90, 6, 1863);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button, anchor);
@@ -1760,14 +1760,14 @@ var app = (function () {
     		block,
     		id: create_each_block_2.name,
     		type: "each",
-    		source: "(81:4) {#each brushColors as color}",
+    		source: "(90:4) {#each brushColors as color}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (113:35) 
+    // (122:35) 
     function create_if_block_4(ctx) {
     	let delete_1;
     	let current;
@@ -1799,14 +1799,14 @@ var app = (function () {
     		block,
     		id: create_if_block_4.name,
     		type: "if",
-    		source: "(113:35) ",
+    		source: "(122:35) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (111:33) 
+    // (120:33) 
     function create_if_block_3(ctx) {
     	let bucket;
     	let current;
@@ -1838,14 +1838,14 @@ var app = (function () {
     		block,
     		id: create_if_block_3.name,
     		type: "if",
-    		source: "(111:33) ",
+    		source: "(120:33) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (109:33) 
+    // (118:33) 
     function create_if_block_2(ctx) {
     	let undo;
     	let current;
@@ -1877,14 +1877,14 @@ var app = (function () {
     		block,
     		id: create_if_block_2.name,
     		type: "if",
-    		source: "(109:33) ",
+    		source: "(118:33) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (107:34) 
+    // (116:34) 
     function create_if_block_1(ctx) {
     	let erase;
     	let current;
@@ -1916,14 +1916,14 @@ var app = (function () {
     		block,
     		id: create_if_block_1.name,
     		type: "if",
-    		source: "(107:34) ",
+    		source: "(116:34) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (105:8) {#if tool == 'brush'}
+    // (114:8) {#if tool == 'brush'}
     function create_if_block(ctx) {
     	let pencil;
     	let current;
@@ -1955,14 +1955,14 @@ var app = (function () {
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(105:8) {#if tool == 'brush'}",
+    		source: "(114:8) {#if tool == 'brush'}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (94:4) {#each tools as tool}
+    // (103:4) {#each tools as tool}
     function create_each_block_1(ctx) {
     	let button;
     	let current_block_type_index;
@@ -2005,8 +2005,8 @@ var app = (function () {
     			if (if_block) if_block.c();
     			t = space();
     			attr_dev(button, "data-tool", /*tool*/ ctx[14]);
-    			attr_dev(button, "class", "svelte-zpk7hp");
-    			add_location(button, file$7, 94, 6, 2245);
+    			attr_dev(button, "class", "svelte-213hft");
+    			add_location(button, file$7, 103, 6, 2158);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button, anchor);
@@ -2051,14 +2051,14 @@ var app = (function () {
     		block,
     		id: create_each_block_1.name,
     		type: "each",
-    		source: "(94:4) {#each tools as tool}",
+    		source: "(103:4) {#each tools as tool}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (122:4) {#each brushSizes as size}
+    // (131:4) {#each brushSizes as size}
     function create_each_block$1(ctx) {
     	let button;
     	let div;
@@ -2076,11 +2076,11 @@ var app = (function () {
     			div = element("div");
     			t = space();
     			attr_dev(div, "style", `width: ${/*size*/ ctx[11]}px; height: ${/*size*/ ctx[11]}px`);
-    			attr_dev(div, "class", "svelte-zpk7hp");
-    			add_location(div, file$7, 129, 8, 3109);
+    			attr_dev(div, "class", "svelte-213hft");
+    			add_location(div, file$7, 138, 8, 3022);
     			attr_dev(button, "brushsize", /*size*/ ctx[11]);
-    			attr_dev(button, "class", "svelte-zpk7hp");
-    			add_location(button, file$7, 122, 6, 2951);
+    			attr_dev(button, "class", "svelte-213hft");
+    			add_location(button, file$7, 131, 6, 2864);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button, anchor);
@@ -2106,7 +2106,7 @@ var app = (function () {
     		block,
     		id: create_each_block$1.name,
     		type: "each",
-    		source: "(122:4) {#each brushSizes as size}",
+    		source: "(131:4) {#each brushSizes as size}",
     		ctx
     	});
 
@@ -2178,17 +2178,17 @@ var app = (function () {
     				each_blocks[i].c();
     			}
 
-    			attr_dev(div0, "class", "tools__colorDisplay svelte-zpk7hp");
+    			attr_dev(div0, "class", "tools__colorDisplay svelte-213hft");
     			attr_dev(div0, "style", div0_style_value = `background-color: ${/*currentCol*/ ctx[1]}`);
-    			add_location(div0, file$7, 77, 2, 1798);
-    			attr_dev(div1, "class", "tools__colors svelte-zpk7hp");
-    			add_location(div1, file$7, 79, 2, 1881);
-    			attr_dev(div2, "class", "tools__tools svelte-zpk7hp");
-    			add_location(div2, file$7, 92, 2, 2184);
-    			attr_dev(div3, "class", "tools__size svelte-zpk7hp");
-    			add_location(div3, file$7, 120, 2, 2886);
-    			attr_dev(section, "class", section_class_value = "" + (null_to_empty(`${/*$$props*/ ctx[6].class} tools`) + " svelte-zpk7hp"));
-    			add_location(section, file$7, 76, 0, 1752);
+    			add_location(div0, file$7, 86, 2, 1711);
+    			attr_dev(div1, "class", "tools__colors svelte-213hft");
+    			add_location(div1, file$7, 88, 2, 1794);
+    			attr_dev(div2, "class", "tools__tools svelte-213hft");
+    			add_location(div2, file$7, 101, 2, 2097);
+    			attr_dev(div3, "class", "tools__size svelte-213hft");
+    			add_location(div3, file$7, 129, 2, 2799);
+    			attr_dev(section, "class", section_class_value = "" + (null_to_empty(`${/*$$props*/ ctx[6].class} tools`) + " svelte-213hft"));
+    			add_location(section, file$7, 85, 0, 1665);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -2300,7 +2300,7 @@ var app = (function () {
     				each_blocks.length = each_value.length;
     			}
 
-    			if (!current || dirty & /*$$props*/ 64 && section_class_value !== (section_class_value = "" + (null_to_empty(`${/*$$props*/ ctx[6].class} tools`) + " svelte-zpk7hp"))) {
+    			if (!current || dirty & /*$$props*/ 64 && section_class_value !== (section_class_value = "" + (null_to_empty(`${/*$$props*/ ctx[6].class} tools`) + " svelte-213hft"))) {
     				attr_dev(section, "class", section_class_value);
     			}
     		},
@@ -2571,7 +2571,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (31:4) {#each $users as user, i}
+    // (37:4) {#each $users as user, i}
     function create_each_block$2(ctx) {
     	let li;
     	let p0;
@@ -2608,20 +2608,20 @@ var app = (function () {
     			t6 = space();
     			img = element("img");
     			t7 = space();
-    			attr_dev(p0, "class", "svelte-1qwezqu");
-    			add_location(p0, file$9, 32, 8, 767);
-    			attr_dev(p1, "class", "svelte-1qwezqu");
-    			add_location(p1, file$9, 34, 10, 814);
-    			attr_dev(p2, "class", "svelte-1qwezqu");
-    			add_location(p2, file$9, 35, 10, 848);
-    			attr_dev(div, "class", "svelte-1qwezqu");
-    			add_location(div, file$9, 33, 8, 797);
+    			attr_dev(p0, "class", "svelte-1wle780");
+    			add_location(p0, file$9, 38, 8, 734);
+    			attr_dev(p1, "class", "svelte-1wle780");
+    			add_location(p1, file$9, 40, 10, 781);
+    			attr_dev(p2, "class", "svelte-1wle780");
+    			add_location(p2, file$9, 41, 10, 815);
+    			attr_dev(div, "class", "svelte-1wle780");
+    			add_location(div, file$9, 39, 8, 764);
     			if (img.src !== (img_src_value = `./img/userImg/user${/*user*/ ctx[2].image}.png`)) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", "");
-    			attr_dev(img, "class", "svelte-1qwezqu");
-    			add_location(img, file$9, 37, 8, 900);
-    			attr_dev(li, "class", "userList__item svelte-1qwezqu");
-    			add_location(li, file$9, 31, 6, 730);
+    			attr_dev(img, "class", "svelte-1wle780");
+    			add_location(img, file$9, 43, 8, 867);
+    			attr_dev(li, "class", "userList__item svelte-1wle780");
+    			add_location(li, file$9, 37, 6, 697);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -2656,7 +2656,7 @@ var app = (function () {
     		block,
     		id: create_each_block$2.name,
     		type: "each",
-    		source: "(31:4) {#each $users as user, i}",
+    		source: "(37:4) {#each $users as user, i}",
     		ctx
     	});
 
@@ -2684,10 +2684,10 @@ var app = (function () {
     				each_blocks[i].c();
     			}
 
-    			attr_dev(ol, "class", "userList svelte-1qwezqu");
-    			add_location(ol, file$9, 29, 2, 670);
-    			attr_dev(div, "class", div_class_value = "" + (null_to_empty(/*$$props*/ ctx[1].class) + " svelte-1qwezqu"));
-    			add_location(div, file$9, 28, 0, 639);
+    			attr_dev(ol, "class", "userList svelte-1wle780");
+    			add_location(ol, file$9, 35, 2, 637);
+    			attr_dev(div, "class", div_class_value = "" + (null_to_empty(/*$$props*/ ctx[1].class) + " svelte-1wle780"));
+    			add_location(div, file$9, 34, 0, 606);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -2725,7 +2725,7 @@ var app = (function () {
     				each_blocks.length = each_value.length;
     			}
 
-    			if (dirty & /*$$props*/ 2 && div_class_value !== (div_class_value = "" + (null_to_empty(/*$$props*/ ctx[1].class) + " svelte-1qwezqu"))) {
+    			if (dirty & /*$$props*/ 2 && div_class_value !== (div_class_value = "" + (null_to_empty(/*$$props*/ ctx[1].class) + " svelte-1wle780"))) {
     				attr_dev(div, "class", div_class_value);
     			}
     		},
@@ -2791,7 +2791,7 @@ var app = (function () {
     const file$a = "src\\components\\Game.svelte";
 
     function create_fragment$a(ctx) {
-    	let section;
+    	let main;
     	let gameheader;
     	let t0;
     	let gameplayers;
@@ -2830,7 +2830,7 @@ var app = (function () {
 
     	const block = {
     		c: function create() {
-    			section = element("section");
+    			main = element("main");
     			create_component(gameheader.$$.fragment);
     			t0 = space();
     			create_component(gameplayers.$$.fragment);
@@ -2840,23 +2840,23 @@ var app = (function () {
     			create_component(chat.$$.fragment);
     			t3 = space();
     			create_component(canvastools.$$.fragment);
-    			attr_dev(section, "class", "game svelte-gjzd7k");
-    			add_location(section, file$a, 27, 0, 857);
+    			attr_dev(main, "class", "grid");
+    			add_location(main, file$a, 8, 0, 272);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, section, anchor);
-    			mount_component(gameheader, section, null);
-    			append_dev(section, t0);
-    			mount_component(gameplayers, section, null);
-    			append_dev(section, t1);
-    			mount_component(canvas, section, null);
-    			append_dev(section, t2);
-    			mount_component(chat, section, null);
-    			append_dev(section, t3);
-    			mount_component(canvastools, section, null);
+    			insert_dev(target, main, anchor);
+    			mount_component(gameheader, main, null);
+    			append_dev(main, t0);
+    			mount_component(gameplayers, main, null);
+    			append_dev(main, t1);
+    			mount_component(canvas, main, null);
+    			append_dev(main, t2);
+    			mount_component(chat, main, null);
+    			append_dev(main, t3);
+    			mount_component(canvastools, main, null);
     			current = true;
     		},
     		p: noop,
@@ -2878,7 +2878,7 @@ var app = (function () {
     			current = false;
     		},
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(section);
+    			if (detaching) detach_dev(main);
     			destroy_component(gameheader);
     			destroy_component(gameplayers);
     			destroy_component(canvas);
@@ -3328,11 +3328,13 @@ var app = (function () {
     const file$d = "src\\components\\Lobby.svelte";
 
     function create_fragment$d(ctx) {
-    	let section;
-    	let settings;
-    	let t0;
-    	let players;
+    	let main;
+    	let h1;
     	let t1;
+    	let settings;
+    	let t2;
+    	let players;
+    	let t3;
     	let chat;
     	let current;
 
@@ -3356,25 +3358,32 @@ var app = (function () {
 
     	const block = {
     		c: function create() {
-    			section = element("section");
-    			create_component(settings.$$.fragment);
-    			t0 = space();
-    			create_component(players.$$.fragment);
+    			main = element("main");
+    			h1 = element("h1");
+    			h1.textContent = "Lobby";
     			t1 = space();
+    			create_component(settings.$$.fragment);
+    			t2 = space();
+    			create_component(players.$$.fragment);
+    			t3 = space();
     			create_component(chat.$$.fragment);
-    			attr_dev(section, "class", "lobby svelte-9265ob");
-    			add_location(section, file$d, 20, 0, 513);
+    			attr_dev(h1, "class", "svelte-132hqu5");
+    			add_location(h1, file$d, 9, 2, 212);
+    			attr_dev(main, "class", "grid svelte-132hqu5");
+    			add_location(main, file$d, 8, 0, 189);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, section, anchor);
-    			mount_component(settings, section, null);
-    			append_dev(section, t0);
-    			mount_component(players, section, null);
-    			append_dev(section, t1);
-    			mount_component(chat, section, null);
+    			insert_dev(target, main, anchor);
+    			append_dev(main, h1);
+    			append_dev(main, t1);
+    			mount_component(settings, main, null);
+    			append_dev(main, t2);
+    			mount_component(players, main, null);
+    			append_dev(main, t3);
+    			mount_component(chat, main, null);
     			current = true;
     		},
     		p: function update(ctx, [dirty]) {
@@ -3396,7 +3405,7 @@ var app = (function () {
     			current = false;
     		},
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(section);
+    			if (detaching) detach_dev(main);
     			destroy_component(settings);
     			destroy_component(players);
     			destroy_component(chat);
@@ -3474,58 +3483,95 @@ var app = (function () {
     const file$e = "src\\components\\Profile.svelte";
 
     function create_fragment$e(ctx) {
-    	let p;
+    	let main;
+    	let h1;
     	let t1;
     	let form;
-    	let label;
-    	let input0;
-    	let t2;
-    	let input1;
+    	let div0;
+    	let label0;
     	let t3;
+    	let input0;
+    	let t4;
+    	let div1;
+    	let label1;
+    	let t6;
+    	let input1;
+    	let t7;
     	let button;
     	let mounted;
     	let dispose;
 
     	const block = {
     		c: function create() {
-    			p = element("p");
-    			p.textContent = "Profile";
+    			main = element("main");
+    			h1 = element("h1");
+    			h1.textContent = "Drawing game";
     			t1 = space();
     			form = element("form");
-    			label = element("label");
-    			input0 = element("input");
-    			t2 = space();
-    			input1 = element("input");
+    			div0 = element("div");
+    			label0 = element("label");
+    			label0.textContent = "Username";
     			t3 = space();
+    			input0 = element("input");
+    			t4 = space();
+    			div1 = element("div");
+    			label1 = element("label");
+    			label1.textContent = "Profile index";
+    			t6 = space();
+    			input1 = element("input");
+    			t7 = space();
     			button = element("button");
     			button.textContent = "submit";
-    			attr_dev(p, "class", "svelte-1docjq6");
-    			add_location(p, file$e, 17, 0, 292);
+    			attr_dev(h1, "class", "svelte-1kqkp55");
+    			add_location(h1, file$e, 16, 2, 285);
+    			attr_dev(label0, "for", "username");
+    			attr_dev(label0, "class", "svelte-1kqkp55");
+    			add_location(label0, file$e, 21, 6, 381);
+    			attr_dev(input0, "id", "username");
     			attr_dev(input0, "type", "text");
-    			add_location(input0, file$e, 21, 4, 350);
+    			attr_dev(input0, "class", "svelte-1kqkp55");
+    			add_location(input0, file$e, 22, 6, 427);
+    			attr_dev(div0, "class", "svelte-1kqkp55");
+    			add_location(div0, file$e, 20, 4, 368);
+    			attr_dev(label1, "for", "profIndex");
+    			attr_dev(label1, "class", "svelte-1kqkp55");
+    			add_location(label1, file$e, 26, 6, 512);
+    			attr_dev(input1, "id", "profIndex");
     			attr_dev(input1, "type", "number");
     			attr_dev(input1, "min", "0");
     			attr_dev(input1, "max", "6");
     			input1.value = "0";
-    			add_location(input1, file$e, 22, 4, 394);
-    			add_location(label, file$e, 20, 2, 337);
+    			attr_dev(input1, "class", "svelte-1kqkp55");
+    			add_location(input1, file$e, 27, 6, 565);
+    			attr_dev(div1, "class", "svelte-1kqkp55");
+    			add_location(div1, file$e, 25, 4, 499);
     			attr_dev(button, "type", "submit");
-    			add_location(button, file$e, 25, 2, 461);
-    			add_location(form, file$e, 19, 0, 310);
+    			attr_dev(button, "class", "svelte-1kqkp55");
+    			add_location(button, file$e, 30, 4, 649);
+    			attr_dev(form, "class", "svelte-1kqkp55");
+    			add_location(form, file$e, 19, 2, 339);
+    			attr_dev(main, "class", "svelte-1kqkp55");
+    			add_location(main, file$e, 15, 0, 275);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, p, anchor);
-    			insert_dev(target, t1, anchor);
-    			insert_dev(target, form, anchor);
-    			append_dev(form, label);
-    			append_dev(label, input0);
+    			insert_dev(target, main, anchor);
+    			append_dev(main, h1);
+    			append_dev(main, t1);
+    			append_dev(main, form);
+    			append_dev(form, div0);
+    			append_dev(div0, label0);
+    			append_dev(div0, t3);
+    			append_dev(div0, input0);
     			/*input0_binding*/ ctx[2](input0);
-    			append_dev(label, t2);
-    			append_dev(label, input1);
-    			append_dev(form, t3);
+    			append_dev(form, t4);
+    			append_dev(form, div1);
+    			append_dev(div1, label1);
+    			append_dev(div1, t6);
+    			append_dev(div1, input1);
+    			append_dev(form, t7);
     			append_dev(form, button);
 
     			if (!mounted) {
@@ -3537,9 +3583,7 @@ var app = (function () {
     		i: noop,
     		o: noop,
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(p);
-    			if (detaching) detach_dev(t1);
-    			if (detaching) detach_dev(form);
+    			if (detaching) detach_dev(main);
     			/*input0_binding*/ ctx[2](null);
     			mounted = false;
     			dispose();
@@ -3570,6 +3614,8 @@ var app = (function () {
 
     	function test(e) {
     		e.preventDefault();
+
+    		// add form validity checks
     		set_store_value(gameState, $gameState = "lobby", $gameState);
 
     		// trim this value if needed
@@ -3628,7 +3674,7 @@ var app = (function () {
     const { console: console_1 } = globals;
     const file$f = "src\\App.svelte";
 
-    // (81:31) 
+    // (58:31) 
     function create_if_block_2$1(ctx) {
     	let game;
     	let current;
@@ -3661,14 +3707,14 @@ var app = (function () {
     		block,
     		id: create_if_block_2$1.name,
     		type: "if",
-    		source: "(81:31) ",
+    		source: "(58:31) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (78:32) 
+    // (55:32) 
     function create_if_block_1$1(ctx) {
     	let lobby;
     	let current;
@@ -3709,14 +3755,14 @@ var app = (function () {
     		block,
     		id: create_if_block_1$1.name,
     		type: "if",
-    		source: "(78:32) ",
+    		source: "(55:32) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (75:0) {#if $gameState == 'profile' || $gameState == ''}
+    // (52:0) {#if $gameState == 'profile' || $gameState == ''}
     function create_if_block$1(ctx) {
     	let profile;
     	let current;
@@ -3749,7 +3795,7 @@ var app = (function () {
     		block,
     		id: create_if_block$1.name,
     		type: "if",
-    		source: "(75:0) {#if $gameState == 'profile' || $gameState == ''}",
+    		source: "(52:0) {#if $gameState == 'profile' || $gameState == ''}",
     		ctx
     	});
 
@@ -3758,9 +3804,7 @@ var app = (function () {
 
     function create_fragment$f(ctx) {
     	let html;
-    	let t0;
-    	let h1;
-    	let t2;
+    	let t;
     	let current_block_type_index;
     	let if_block;
     	let if_block_anchor;
@@ -3782,26 +3826,19 @@ var app = (function () {
     	const block = {
     		c: function create() {
     			html = element("html");
-    			t0 = space();
-    			h1 = element("h1");
-    			h1.textContent = "Game";
-    			t2 = space();
+    			t = space();
     			if (if_block) if_block.c();
     			if_block_anchor = empty();
     			document.title = "Drawing Game";
     			attr_dev(html, "lang", "en");
-    			add_location(html, file$f, 69, 2, 1291);
-    			attr_dev(h1, "class", "svelte-o6vluw");
-    			add_location(h1, file$f, 72, 0, 1326);
+    			add_location(html, file$f, 46, 2, 1006);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
     			append_dev(document.head, html);
-    			insert_dev(target, t0, anchor);
-    			insert_dev(target, h1, anchor);
-    			insert_dev(target, t2, anchor);
+    			insert_dev(target, t, anchor);
 
     			if (~current_block_type_index) {
     				if_blocks[current_block_type_index].m(target, anchor);
@@ -3857,9 +3894,7 @@ var app = (function () {
     		},
     		d: function destroy(detaching) {
     			detach_dev(html);
-    			if (detaching) detach_dev(t0);
-    			if (detaching) detach_dev(h1);
-    			if (detaching) detach_dev(t2);
+    			if (detaching) detach_dev(t);
 
     			if (~current_block_type_index) {
     				if_blocks[current_block_type_index].d(detaching);
@@ -3915,7 +3950,9 @@ var app = (function () {
     		set_store_value(users, $users = $users.filter(el => el != data), $users);
     	});
 
-    	// $gameState = 'lobby';
+    	// debug line
+    	set_store_value(gameState, $gameState = "game", $gameState);
+
     	// login logic
     	onMount(() => {
     		console.log("🚀");

@@ -6,28 +6,36 @@
   export let roomId;
 </script>
 
-<style lang="scss">
-  .lobby {
-    display: grid;
-    grid-template-columns: 22rem 1fr 16rem;
-    grid-template-areas: 'settings players chat';
+<main class="grid">
+  <h1>Lobby</h1>
 
-    :global(.lobby__settings) {
-      grid-area: settings;
-    }
-
-    :global(.players) {
-      grid-area: players;
-    }
-
-    :global(.lobby__chat) {
-      grid-area: chat;
-    }
-  }
-</style>
-
-<section class="lobby">
   <Settings {roomId} class="lobby__settings" />
   <Players class="lobby__players" />
   <Chat class="lobby__chat" />
-</section>
+</main>
+
+<style lang="scss">
+  h1 {
+    grid-column: 2/11;
+    margin-bottom: 2rem;
+    color: white;
+  }
+
+  main {
+    margin-top: 6rem;
+  }
+  :global(.lobby__settings) {
+    grid-column: 2/5;
+    background-color: pink;
+  }
+
+  :global(.lobby__players) {
+    grid-column: 5/9;
+    background-color: hotpink;
+  }
+
+  :global(.lobby__chat) {
+    grid-column: 9/11;
+    background-color: aquamarine;
+  }
+</style>

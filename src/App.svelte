@@ -30,7 +30,8 @@
     $users = $users.filter((el) => el != data);
   });
 
-  // $gameState = 'lobby';
+  // debug line
+  // $gameState = 'game';
 
   // login logic
   onMount(() => {
@@ -41,7 +42,33 @@
   });
 </script>
 
-<style>
+<svelte:head>
+  <title>Drawing Game</title>
+  <html lang="en" />
+</svelte:head>
+
+<!-- <h1>Game</h1> -->
+
+{#if $gameState == 'profile' || $gameState == ''}
+  <!-- character creator -->
+  <Profile />
+{:else if $gameState == 'lobby'}
+  <!-- game lobby -->
+  <Lobby {roomId} />
+{:else if $gameState == 'game'}
+  <!-- game canvas -->
+  <Game />
+{/if}
+
+<style lang="scss">
+  :global(.grid) {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-column-gap: 1.5rem;
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+  }
+
   :global(*) {
     margin: 0;
     padding: 0;
@@ -64,21 +91,3 @@
     cursor: pointer;
   }
 </style>
-
-<svelte:head>
-  <title>Drawing Game</title>
-  <html lang="en" />
-</svelte:head>
-
-<h1>Game</h1>
-
-{#if $gameState == 'profile' || $gameState == ''}
-  <!-- character creator -->
-  <Profile />
-{:else if $gameState == 'lobby'}
-  <!-- game lobby -->
-  <Lobby {roomId} />
-{:else if $gameState == 'game'}
-  <!-- game canvas -->
-  <Game />
-{/if}

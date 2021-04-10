@@ -39,6 +39,29 @@
   }
 </script>
 
+<div class={`${$$props.class} chat scrollable`}>
+  <div class="messages" bind:this={div}>
+    {#each comments as comment}
+      <p>
+        <span>{`${comment.username}: `}</span>
+        {comment.message}
+      </p>
+    {/each}
+  </div>
+
+  <!-- change to be more progressively enchanced using post -->
+  <input on:keydown={handleKeydown} placeholder="Send a Message" />
+  <!-- add a send button with an arrow -->
+
+  <!-- <form>
+    <input type="text" placeholder="message" bind:value={msg} />
+    <button type="submit" on:click={msgSend}>
+      Send
+      <Send />
+    </button>
+  </form> -->
+</div>
+
 <style lang="scss">
   .chat {
     height: 20rem;
@@ -119,26 +142,3 @@
     }
   }
 </style>
-
-<div class={`${$$props.class} chat scrollable`}>
-  <div class="messages" bind:this={div}>
-    {#each comments as comment}
-      <p>
-        <span>{`${comment.username}: `}</span>
-        {comment.message}
-      </p>
-    {/each}
-  </div>
-
-  <!-- change to be more progressively enchanced using post -->
-  <input on:keydown={handleKeydown} placeholder="Send a Message" />
-  <!-- add a send button with an arrow -->
-
-  <!-- <form>
-    <input type="text" placeholder="message" bind:value={msg} />
-    <button type="submit" on:click={msgSend}>
-      Send
-      <Send />
-    </button>
-  </form> -->
-</div>
