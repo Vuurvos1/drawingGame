@@ -12,6 +12,9 @@
   --gray800: #363636;
   --highlight: #25a4aa;
   --selected: #ff2c2c;
+
+  --text: var(--black);
+  --rgbText: 0, 0, 0;
 }
 
 * {
@@ -19,11 +22,9 @@
   margin: 0;
 
   box-sizing: border-box;
-}
-
-html,
-body {
+  font-family: sans-serif;
 }
 
 body {
+  min-height: 100vh;
 }

@@ -5,3 +5,4 @@ export const paint = writable({});
 export const gameState = writable('');
 export const users = writable([]);
 export const username = writable('');
+export const userImg = writable('./img/userImg/user1.png');

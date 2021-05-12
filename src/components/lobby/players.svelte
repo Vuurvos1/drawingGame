@@ -1,1 +1,1 @@
-<div class={$$props.class}>__Players</div>
+<div class={$$props.class}>Players</div>

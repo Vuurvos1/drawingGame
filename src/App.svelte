@@ -8,6 +8,7 @@
 
   import { socket, gameState } from './store';
 
+  /* off for faster styling
   $socket = io.connect(window.location.host);
 
   // Presistent socket events (active on all screens)
@@ -29,16 +30,17 @@
     // test
     $users = $users.filter((el) => el != data);
   });
+  */
 
   // debug line
-  // $gameState = 'game';
+  // $gameState = 'lobby';
 
   // login logic
   onMount(() => {
     console.log('🚀');
 
     const searchRoom = window.location.search.slice(1);
-    $socket.emit('joinRoom', searchRoom);
+    // $socket.emit('joinRoom', searchRoom);
   });
 </script>
 
@@ -69,21 +71,9 @@
     margin-right: 1.5rem;
   }
 
-  :global(*) {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-
-    font-family: sans-serif;
-  }
-
-  :global(body) {
-    background-color: #181818;
-  }
-
   h1 {
     font-size: 3rem;
-    color: #ffffff;
+    // color: #ffffff;
   }
 
   :global(button) {

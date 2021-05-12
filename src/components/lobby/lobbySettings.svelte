@@ -47,12 +47,11 @@
   }
 </script>
 
-<style lang="scss"></style>
-
 <div class={$$props.class}>
   <form action="">
-    <label>
-      Rounds
+    <div>
+      <label for="rounds"> Rounds </label>
+
       <input
         type="number"
         name="rounds"
@@ -62,19 +61,20 @@
         max="25"
         maxlength="3"
       />
-    </label>
+    </div>
 
-    <label id="drawTime">
-      Draw Time
+    <div>
+      <label for="drawTime"> Draw Time</label>
       <input
         type="number"
         name="drawTime"
+        id="drawTime"
         value="30"
         min="1"
         max="120"
         maxlength="3"
       />
-    </label>
+    </div>
 
     <!-- <label for="language"></label>
     <select id="language" name="language">
@@ -114,3 +114,5 @@
     <button class="button button--copyLink" on:click={copyLink}>Copy</button>
   </div>
 </div>
+
+<style lang="scss"></style>
