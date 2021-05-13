@@ -17,6 +17,8 @@
     padding: 1rem 0.8rem;
     width: 100%;
 
+    margin-bottom: 2rem;
+
     border: 1px solid rgba(var(--rgbText), 0.5);
     border-radius: 0.25rem;
   }

@@ -15,6 +15,10 @@
 
   --text: var(--black);
   --rgbText: 0, 0, 0;
+
+  --bgCol: var(--white);
+
+  --bgGray: #e5e5e5;
 }
 
 * {
@@ -27,4 +31,13 @@
 
 body {
   min-height: 100vh;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+}
+
+textarea {
+  resize: none;
 }

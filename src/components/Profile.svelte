@@ -1,5 +1,5 @@
 <script>
-  import { gameState, username, userImg } from './../store';
+  import { gameState, username, userImg, socket } from './../store';
   import SelectInput from './atoms/SelectInput.svelte';
   import TextInput from './atoms/TextInput.svelte';
 
@@ -16,11 +16,22 @@
 
   function test(e) {
     e.preventDefault();
-    // add form validity checks
+    // add form validity checks and trim/clean values
 
+    if (!$username) {
+      $username = 'img/userImg/user0.png';
+    }
+
+    const data = {
+      username: $username,
+      img: $userImg,
+    };
+
+    // update users in all sockets in room
+    $socket.emit('updateUsers', data);
+
+    // update game state
     $gameState = 'lobby';
-    // trim this value if needed
-    $username = name.value;
   }
 </script>
 
@@ -30,7 +41,12 @@
   <img class="profilePic" src={$userImg} alt="profile" />
 
   <form on:submit={test}>
-    <TextInput label="username" name="username" req="true" />
+    <TextInput
+      bind:value={$username}
+      label="username"
+      name="username"
+      req="true"
+    />
     <!-- <div>
       <label for="username">Username</label>
       <input id="username" type="text" bind:this={name} />
@@ -43,7 +59,7 @@
       <input id="profIndex" type="number" min="0" max="6" value="0" />
     </div> -->
 
-    <button type="submit">Start</button>
+    <button class="submit" type="submit">Start</button>
   </form>
 </main>
 
@@ -51,43 +67,43 @@
   main {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
-    grid-column-gap: 1.5rem;
-    margin: 1 1.5rem;
+    column-gap: 1.5rem;
+    margin: 0 1.5rem;
   }
 
   h1 {
-    grid-column: 5/8;
-    margin: 6rem 0 1em 0;
-    // color: white;
+    grid-column: 5 / 9;
+    margin: 6rem 0 2.625rem 0;
+
     color: var(--text);
     font-size: 4rem;
+    text-align: center;
   }
 
   .profilePic {
     border-radius: 60rem;
+    grid-column: 6 / 8;
+
+    margin-bottom: 2.625rem;
   }
 
   form {
-    grid-column: 5/8;
+    grid-column: 5 / 9;
     align-items: center;
     justify-content: center;
 
-    button {
-      padding: 0.5rem 1rem;
-    }
-  }
+    .submit {
+      display: block;
+      min-width: 10ch;
 
-  div {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 2rem;
+      margin-left: auto;
+      padding: 1rem 0.8rem;
 
-    label {
-      color: var(--white);
-    }
+      font-size: 1rem;
+      background: none;
 
-    input {
-      padding: 0.5rem 1rem;
+      border: 1px solid rgba(var(--rgbText), 0.5);
+      border-radius: 0.25rem;
     }
   }
 </style>

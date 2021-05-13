@@ -7,7 +7,7 @@
 </script>
 
 <main class="grid">
-  <h1>Lobby</h1>
+  <!-- <h1>Lobby</h1> -->
 
   <Settings {roomId} class="lobby__settings" />
   <Players class="lobby__players" />
@@ -16,7 +16,7 @@
 
 <style lang="scss">
   h1 {
-    grid-column: 2/11;
+    grid-column: 2 / 11;
     margin-bottom: 2rem;
     color: white;
   }
@@ -26,7 +26,12 @@
   }
   :global(.lobby__settings) {
     grid-column: 2/5;
-    background-color: pink;
+
+    padding: 1rem;
+    border-radius: 0.25rem;
+
+    --bgCol: var(--bgGray);
+    background-color: var(--bgCol);
   }
 
   :global(.lobby__players) {

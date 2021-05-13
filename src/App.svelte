@@ -8,8 +8,13 @@
 
   import { socket, gameState } from './store';
 
-  /* off for faster styling
-  $socket = io.connect(window.location.host);
+  import io from 'socket.io-client';
+
+  // let roomId = 'temp';
+
+  //  off for faster styling
+  // $socket = io.connect(window.location.host);
+  $socket = io.connect('http://localhost:3000/');
 
   // Presistent socket events (active on all screens)
   let roomId;
@@ -23,14 +28,18 @@
   });
 
   $socket.on('userJoin', (data) => {
-    $users = [...$users, data];
+    // $users = [...$users, data];
   });
 
   $socket.on('userLeave', (data) => {
     // test
-    $users = $users.filter((el) => el != data);
+    // $users = $users.filter((el) => el != data);
   });
-  */
+
+  $socket.on('updateUsers', (data) => {
+    console.log(data);
+    $users = data;
+  });
 
   // debug line
   // $gameState = 'lobby';
@@ -40,7 +49,7 @@
     console.log('🚀');
 
     const searchRoom = window.location.search.slice(1);
-    // $socket.emit('joinRoom', searchRoom);
+    $socket.emit('joinRoom', searchRoom);
   });
 </script>
 
@@ -48,8 +57,6 @@
   <title>Drawing Game</title>
   <html lang="en" />
 </svelte:head>
-
-<!-- <h1>Game</h1> -->
 
 {#if $gameState == 'profile' || $gameState == ''}
   <!-- character creator -->
@@ -69,15 +76,5 @@
     grid-column-gap: 1.5rem;
     margin-left: 1.5rem;
     margin-right: 1.5rem;
-  }
-
-  h1 {
-    font-size: 3rem;
-    // color: #ffffff;
-  }
-
-  :global(button) {
-    border: none;
-    cursor: pointer;
   }
 </style>

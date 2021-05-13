@@ -25,8 +25,8 @@ io.on('connection', (socket) => {
   socket.on('joinRoom', (room) => {
     const data = {
       id: socket.id,
-      image: ~~(Math.random() * 7),
-      username: ~~(Math.random() * 7),
+      image: '',
+      username: '',
       score: 0,
     };
 
@@ -56,15 +56,20 @@ io.on('connection', (socket) => {
     socket.emit('roomValue', roomName);
 
     // update all clients user list
-    const temp = Object.values(io.sockets.adapter.rooms[roomName].users);
+    // const temp = Object.values(io.sockets.adapter.rooms[roomName].users);
     // io.in(roomName).emit('userJoin', temp);
-    io.in(roomName).emit('userJoin', data);
+    // io.in(roomName).emit('userJoin', data);
 
     // request canvas for new users
     if (socket.id != roomName) {
       // change this to be user 0 / host in the room
       io.to(roomName).emit('requestCanvas', { id: socket.id });
     }
+
+    // console.log('temp', temp);
+
+    // update all user lists
+    // socket.emit('updateUsers', temp);
 
     // if (io.sockets.adapter.rooms[roomName].started) {
     //   io.in(roomName).emit('startGame', data);
@@ -132,6 +137,16 @@ io.on('connection', (socket) => {
     console.log(io.sockets.adapter.rooms[roomName].users);
 
     io.in(roomName).emit('userJoin', temp);
+  });
+
+  socket.on('updateUsers', (data) => {
+    io.sockets.adapter.rooms[roomName].users[socket.id].username =
+      data.username;
+    io.sockets.adapter.rooms[roomName].users[socket.id].image = data.img;
+
+    const sendData = Object.values(io.sockets.adapter.rooms[roomName].users);
+    console.log('sendData', sendData);
+    io.in(roomName).emit('updateUsers', sendData);
   });
 
   socket.on('pickWord', (word) => {
