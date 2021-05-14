@@ -566,7 +566,7 @@ var app = (function () {
     			t2 = text(t2_value);
     			t3 = space();
     			add_location(span, file, 45, 8, 1002);
-    			attr_dev(p, "class", "svelte-olpjlc");
+    			attr_dev(p, "class", "svelte-189ra32");
     			add_location(p, file, 44, 6, 989);
     		},
     		m: function mount(target, anchor) {
@@ -624,11 +624,11 @@ var app = (function () {
 
     			t = space();
     			input = element("input");
-    			attr_dev(div0, "class", "messages svelte-olpjlc");
+    			attr_dev(div0, "class", "messages svelte-189ra32");
     			add_location(div0, file, 42, 2, 910);
     			attr_dev(input, "placeholder", "Send a Message");
     			add_location(input, file, 52, 2, 1173);
-    			attr_dev(div1, "class", div1_class_value = "" + (null_to_empty(`${/*$$props*/ ctx[3].class} chat scrollable`) + " svelte-olpjlc"));
+    			attr_dev(div1, "class", div1_class_value = "" + (null_to_empty(`${/*$$props*/ ctx[3].class} chat scrollable`) + " svelte-189ra32"));
     			add_location(div1, file, 41, 0, 858);
     		},
     		l: function claim(nodes) {
@@ -676,7 +676,7 @@ var app = (function () {
     				each_blocks.length = each_value.length;
     			}
 
-    			if (dirty & /*$$props*/ 8 && div1_class_value !== (div1_class_value = "" + (null_to_empty(`${/*$$props*/ ctx[3].class} chat scrollable`) + " svelte-olpjlc"))) {
+    			if (dirty & /*$$props*/ 8 && div1_class_value !== (div1_class_value = "" + (null_to_empty(`${/*$$props*/ ctx[3].class} chat scrollable`) + " svelte-189ra32"))) {
     				attr_dev(div1, "class", div1_class_value);
     			}
     		},
@@ -2870,7 +2870,7 @@ var app = (function () {
     			create_component(chat.$$.fragment);
     			t3 = space();
     			create_component(canvastools.$$.fragment);
-    			attr_dev(main, "class", "grid");
+    			attr_dev(main, "class", "grid svelte-g5suwk");
     			add_location(main, file$a, 8, 0, 272);
     		},
     		l: function claim(nodes) {
@@ -3864,8 +3864,11 @@ var app = (function () {
     			t1 = text(/*username*/ ctx[1]);
     			if (img_1.src !== (img_1_src_value = /*img*/ ctx[0])) attr_dev(img_1, "src", img_1_src_value);
     			attr_dev(img_1, "alt", img_1_alt_value = "profile photo of user " + /*username*/ ctx[1]);
-    			add_location(img_1, file$e, 6, 2, 116);
-    			add_location(p, file$e, 7, 2, 176);
+    			attr_dev(img_1, "class", "svelte-sw5asb");
+    			add_location(img_1, file$e, 6, 2, 133);
+    			attr_dev(p, "class", "svelte-sw5asb");
+    			add_location(p, file$e, 7, 2, 193);
+    			attr_dev(div, "class", "userIcon svelte-sw5asb");
     			add_location(div, file$e, 5, 0, 107);
     		},
     		l: function claim(nodes) {
@@ -3976,9 +3979,11 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (14:6) {#each $users as user}
+    // (12:4) {#each $users as user}
     function create_each_block$3(ctx) {
+    	let li;
     	let usericon;
+    	let t;
     	let current;
 
     	usericon = new UserIcon({
@@ -3991,10 +3996,15 @@ var app = (function () {
 
     	const block = {
     		c: function create() {
+    			li = element("li");
     			create_component(usericon.$$.fragment);
+    			t = space();
+    			add_location(li, file$f, 12, 6, 237);
     		},
     		m: function mount(target, anchor) {
-    			mount_component(usericon, target, anchor);
+    			insert_dev(target, li, anchor);
+    			mount_component(usericon, li, null);
+    			append_dev(li, t);
     			current = true;
     		},
     		p: function update(ctx, dirty) {
@@ -4013,7 +4023,8 @@ var app = (function () {
     			current = false;
     		},
     		d: function destroy(detaching) {
-    			destroy_component(usericon, detaching);
+    			if (detaching) detach_dev(li);
+    			destroy_component(usericon);
     		}
     	};
 
@@ -4021,7 +4032,7 @@ var app = (function () {
     		block,
     		id: create_each_block$3.name,
     		type: "each",
-    		source: "(14:6) {#each $users as user}",
+    		source: "(12:4) {#each $users as user}",
     		ctx
     	});
 
@@ -4033,7 +4044,6 @@ var app = (function () {
     	let h2;
     	let t1;
     	let ul;
-    	let li;
     	let div_class_value;
     	let current;
     	let each_value = /*$users*/ ctx[0];
@@ -4055,17 +4065,17 @@ var app = (function () {
     			h2.textContent = "Players";
     			t1 = space();
     			ul = element("ul");
-    			li = element("li");
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].c();
     			}
 
-    			add_location(h2, file$f, 9, 2, 174);
-    			add_location(li, file$f, 12, 4, 206);
-    			add_location(ul, file$f, 11, 2, 196);
+    			attr_dev(h2, "class", "svelte-1rk1151");
+    			add_location(h2, file$f, 8, 2, 175);
+    			attr_dev(ul, "class", "svelte-1rk1151");
+    			add_location(ul, file$f, 10, 2, 197);
     			attr_dev(div, "class", div_class_value = /*$$props*/ ctx[1].class);
-    			add_location(div, file$f, 8, 0, 143);
+    			add_location(div, file$f, 7, 0, 144);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -4075,10 +4085,9 @@ var app = (function () {
     			append_dev(div, h2);
     			append_dev(div, t1);
     			append_dev(div, ul);
-    			append_dev(ul, li);
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
-    				each_blocks[i].m(li, null);
+    				each_blocks[i].m(ul, null);
     			}
 
     			current = true;
@@ -4099,7 +4108,7 @@ var app = (function () {
     						each_blocks[i] = create_each_block$3(child_ctx);
     						each_blocks[i].c();
     						transition_in(each_blocks[i], 1);
-    						each_blocks[i].m(li, null);
+    						each_blocks[i].m(ul, null);
     					}
     				}
 
@@ -4157,7 +4166,6 @@ var app = (function () {
     	component_subscribe($$self, users, $$value => $$invalidate(0, $users = $$value));
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots("Players", slots, []);
-    	console.log($users);
 
     	$$self.$$set = $$new_props => {
     		$$invalidate(1, $$props = assign(assign({}, $$props), exclude_internal_props($$new_props)));
@@ -4229,7 +4237,7 @@ var app = (function () {
     			create_component(players.$$.fragment);
     			t1 = space();
     			create_component(chat.$$.fragment);
-    			attr_dev(main, "class", "grid svelte-1wynxim");
+    			attr_dev(main, "class", "grid svelte-1reayvi");
     			add_location(main, file$g, 8, 0, 189);
     		},
     		l: function claim(nodes) {
@@ -11498,7 +11506,7 @@ var app = (function () {
     const { console: console_1 } = globals;
     const file$j = "src\\App.svelte";
 
-    // (67:31) 
+    // (65:31) 
     function create_if_block_2$1(ctx) {
     	let game;
     	let current;
@@ -11531,14 +11539,14 @@ var app = (function () {
     		block,
     		id: create_if_block_2$1.name,
     		type: "if",
-    		source: "(67:31) ",
+    		source: "(65:31) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (64:32) 
+    // (62:32) 
     function create_if_block_1$1(ctx) {
     	let lobby;
     	let current;
@@ -11579,14 +11587,14 @@ var app = (function () {
     		block,
     		id: create_if_block_1$1.name,
     		type: "if",
-    		source: "(64:32) ",
+    		source: "(62:32) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (61:0) {#if $gameState == 'profile' || $gameState == ''}
+    // (59:0) {#if $gameState == 'profile' || $gameState == ''}
     function create_if_block$2(ctx) {
     	let profile;
     	let current;
@@ -11619,7 +11627,7 @@ var app = (function () {
     		block,
     		id: create_if_block$2.name,
     		type: "if",
-    		source: "(61:0) {#if $gameState == 'profile' || $gameState == ''}",
+    		source: "(59:0) {#if $gameState == 'profile' || $gameState == ''}",
     		ctx
     	});
 
@@ -11655,7 +11663,7 @@ var app = (function () {
     			if_block_anchor = empty();
     			document.title = "Drawing Game";
     			attr_dev(html, "lang", "en");
-    			add_location(html, file$j, 57, 2, 1252);
+    			add_location(html, file$j, 55, 2, 1261);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -11760,22 +11768,19 @@ var app = (function () {
     		$$invalidate(0, roomId = `${window.location.origin}/?${data}`);
     	});
 
-    	$socket.on("getUsers", data => {
-    		// test
-    		set_store_value(users, $users = data, $users);
-    	});
-
-    	$socket.on("userJoin", data => {
-    		
-    	}); // $users = [...$users, data];
-
-    	$socket.on("userLeave", data => {
-    		
-    	}); // test
-    	// $users = $users.filter((el) => el != data);
-
+    	// $socket.on('getUsers', (data) => {
+    	//   // test
+    	//   $users = data;
+    	// });
+    	// $socket.on('userJoin', (data) => {
+    	//   // $users = [...$users, data];
+    	// });
+    	// $socket.on('userLeave', (data) => {
+    	//   // test
+    	//   // $users = $users.filter((el) => el != data);
+    	// });
     	$socket.on("updateUsers", data => {
-    		console.log(data);
+    		// console.log(data);
     		set_store_value(users, $users = data, $users);
     	});
 

@@ -15,28 +15,35 @@
 </main>
 
 <style lang="scss">
+  main {
+    height: 72vh;
+    margin-top: 14vh;
+
+    grid-template-rows: 3rem 1fr 3rem;
+  }
+
   :global(.game__header) {
-    grid-column: 2/12;
+    grid-column: 2 / 12;
     background-color: pink;
   }
 
   :global(.game__players) {
-    grid-column: 2/4;
+    grid-column: 2 / 4;
     background-color: aquamarine;
   }
 
   :global(.game__chat) {
-    grid-column: 10/12;
+    grid-column: 10 / 12;
     background-color: hotpink;
   }
 
   :global(.game__canvas) {
-    grid-column: 4/10;
+    grid-column: 4 / 10;
     background-color: white;
   }
 
   :global(.game__tools) {
-    grid-column: 4/10;
+    grid-column: 4 / 10;
     background-color: green;
   }
 </style>

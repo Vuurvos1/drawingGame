@@ -10,8 +10,6 @@
 
   import io from 'socket.io-client';
 
-  // let roomId = 'temp';
-
   //  off for faster styling
   // $socket = io.connect(window.location.host);
   $socket = io.connect('http://localhost:3000/');
@@ -22,22 +20,22 @@
     roomId = `${window.location.origin}/?${data}`;
   });
 
-  $socket.on('getUsers', (data) => {
-    // test
-    $users = data;
-  });
+  // $socket.on('getUsers', (data) => {
+  //   // test
+  //   $users = data;
+  // });
 
-  $socket.on('userJoin', (data) => {
-    // $users = [...$users, data];
-  });
+  // $socket.on('userJoin', (data) => {
+  //   // $users = [...$users, data];
+  // });
 
-  $socket.on('userLeave', (data) => {
-    // test
-    // $users = $users.filter((el) => el != data);
-  });
+  // $socket.on('userLeave', (data) => {
+  //   // test
+  //   // $users = $users.filter((el) => el != data);
+  // });
 
   $socket.on('updateUsers', (data) => {
-    console.log(data);
+    // console.log(data);
     $users = data;
   });
 

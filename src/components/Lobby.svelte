@@ -22,10 +22,12 @@
   }
 
   main {
-    margin-top: 6rem;
+    margin-top: 14vh;
+    height: 72vh;
   }
+
   :global(.lobby__settings) {
-    grid-column: 2/5;
+    grid-column: 2 / 5;
 
     padding: 1rem;
     border-radius: 0.25rem;
@@ -35,12 +37,22 @@
   }
 
   :global(.lobby__players) {
-    grid-column: 5/9;
-    background-color: hotpink;
+    grid-column: 5 / 10;
+
+    padding: 1rem;
+    border-radius: 0.25rem;
+
+    --bgCol: var(--bgGray);
+    background-color: var(--bgCol);
   }
 
   :global(.lobby__chat) {
-    grid-column: 9/11;
-    background-color: aquamarine;
+    grid-column: 10 / 12;
+
+    padding: 1rem;
+    border-radius: 0.25rem;
+
+    --bgCol: var(--bgGray);
+    background-color: var(--bgCol);
   }
 </style>

@@ -64,8 +64,7 @@
 
 <style lang="scss">
   .chat {
-    height: 20rem;
-    max-height: 20rem;
+    height: 100%;
     display: flex;
     flex-direction: column;
   }
@@ -96,7 +95,7 @@
       padding: 0.4em;
 
       &:nth-child(even) {
-        background-color: var(--white);
+        background-color: transparent;
       }
 
       &:nth-child(odd) {
