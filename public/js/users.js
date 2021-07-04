@@ -44,7 +44,10 @@ q('.updateUsername').addEventListener('click', (e) => {
   e.preventDefault();
 
   const data = {
-    username: q('#name').value.trim(),
+    username: q('#name').value.trim()
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;'),
     id: socket.id,
   };
 
