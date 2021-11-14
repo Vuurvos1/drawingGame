@@ -1,22 +1,31 @@
 require('dotenv').config();
+
+const port = process.env.PORT || 4000;
+
 const express = require('express');
 const app = express();
+const http = require('http');
+const server = http.createServer(app);
+const { Server } = require('socket.io');
+const io = new Server(server, {
+  cors: {
+    origin: '*',
+  },
+});
 
-// Setup server
-let server = app.listen(process.env.PORT || 4000, () => {
-  // let host = server.address().address;
-  const port = server.address().port;
+server.listen(port, () => {
+  // const host = server.address().address;
+  // const port = server.address().port;
   console.log(`Example app listening at http://localhost:${port}`);
 });
 
-app.use(express.static('../frontend/dist'));
+// app.use(express.static('../frontend/dist'));
 
 // WebSockets work with the HTTP server
-let io = require('socket.io')(server);
 exports.io = io;
 
 // io modules
-require('./modules/canvas');
+// require('./modules/canvas');
 
 io.on('connection', (socket) => {
   console.log(`We have a new client: ${socket.id}`);

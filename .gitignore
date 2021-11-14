@@ -4,5 +4,6 @@ public/settings.js
 old/
 dist/
 node_modules/
+.vscode/
 
 .DS_Store
