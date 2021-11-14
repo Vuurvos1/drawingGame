@@ -1,4 +1,4 @@
-const io = require('../server.js').io;
+const io = require('../index.js').io;
 
 io.on('connection', (socket) => {
   // canvas events

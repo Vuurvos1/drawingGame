@@ -1,16 +1,15 @@
 require('dotenv').config();
-
 const express = require('express');
 const app = express();
 
 // Setup server
-let server = app.listen(process.env.PORT || 3000, () => {
+let server = app.listen(process.env.PORT || 4000, () => {
   // let host = server.address().address;
   const port = server.address().port;
   console.log(`Example app listening at http://localhost:${port}`);
 });
 
-app.use(express.static('public'));
+app.use(express.static('../frontend/dist'));
 
 // WebSockets work with the HTTP server
 let io = require('socket.io')(server);
@@ -26,8 +25,9 @@ io.on('connection', (socket) => {
   socket.on('joinRoom', (room) => {
     const data = {
       id: socket.id,
-      imageId: ~~(Math.random() * 7),
-      username: ~~(Math.random() * 7),
+      image: '',
+      username: '',
+      score: 0,
     };
 
     roomName = room ? `${room}` : `${socket.id}`;
@@ -56,8 +56,9 @@ io.on('connection', (socket) => {
     socket.emit('roomValue', roomName);
 
     // update all clients user list
-    const temp = Object.values(io.sockets.adapter.rooms[roomName].users);
-    io.in(roomName).emit('userJoin', temp);
+    // const temp = Object.values(io.sockets.adapter.rooms[roomName].users);
+    // io.in(roomName).emit('userJoin', temp);
+    // io.in(roomName).emit('userJoin', data);
 
     // request canvas for new users
     if (socket.id != roomName) {
@@ -65,16 +66,24 @@ io.on('connection', (socket) => {
       io.to(roomName).emit('requestCanvas', { id: socket.id });
     }
 
+    // console.log('temp', temp);
+
+    // update all user lists
+    // socket.emit('updateUsers', temp);
+
     // if (io.sockets.adapter.rooms[roomName].started) {
     //   io.in(roomName).emit('startGame', data);
     // }
   });
 
   socket.on('message', (data) => {
+    socket.broadcast.emit('message', data);
+
     // check word logic
     if (
-      data.message.toLowerCase() ===
-      io.sockets.adapter.rooms[roomName].word.toLowerCase()
+      true
+      // data.message.toLowerCase() ===
+      // io.sockets.adapter.rooms[roomName].word.toLowerCase()
     ) {
       // send to other clients
       // close state
@@ -108,7 +117,7 @@ io.on('connection', (socket) => {
       io.sockets.adapter.rooms[roomName].userOrder = randomUserOrder;
 
       // random words
-      const array = require('./words/words.json');
+      const array = require('../words/words.json');
 
       const user = io.sockets.adapter.rooms[roomName].userOrder[0];
       io.sockets.adapter.rooms[roomName].currentPlayer = user;
@@ -128,6 +137,16 @@ io.on('connection', (socket) => {
     console.log(io.sockets.adapter.rooms[roomName].users);
 
     io.in(roomName).emit('userJoin', temp);
+  });
+
+  socket.on('updateUsers', (data) => {
+    io.sockets.adapter.rooms[roomName].users[socket.id].username =
+      data.username;
+    io.sockets.adapter.rooms[roomName].users[socket.id].image = data.img;
+
+    const sendData = Object.values(io.sockets.adapter.rooms[roomName].users);
+    console.log('sendData', sendData);
+    io.in(roomName).emit('updateUsers', sendData);
   });
 
   socket.on('pickWord', (word) => {
@@ -162,7 +181,7 @@ io.on('connection', (socket) => {
     const nextPlayer = userOrder[index];
     io.sockets.adapter.rooms[roomName].currentPlayer = nextPlayer;
 
-    const array = require('./words/words.json');
+    const array = require('../words/words.json');
 
     io.to(nextPlayer).emit(
       'choiseWord',
