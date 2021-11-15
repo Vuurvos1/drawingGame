@@ -21,15 +21,19 @@ server.listen(port, () => {
 
 // app.use(express.static('../frontend/dist'));
 
-// WebSockets work with the HTTP server
-exports.io = io;
-
 // io modules
+exports.io = io;
 // require('./modules/canvas');
 
 io.on('connection', (socket) => {
   console.log(`We have a new client: ${socket.id}`);
   let roomName = '';
+
+  socket.on('drawing', (data) => {
+    socket.broadcast.emit('drawing', data);
+  });
+
+  /* Refactor everything below */
 
   socket.on('joinRoom', (room) => {
     const data = {
