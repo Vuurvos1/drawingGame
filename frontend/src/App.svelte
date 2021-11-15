@@ -1,4 +1,8 @@
 <script>
+  // components
+  import Game from './components/templates/Game.svelte';
+
+  // scripts and variables
   import { onMount } from 'svelte';
   import io from 'socket.io-client';
 
@@ -7,8 +11,4 @@
 
 <h1 class="font-bold">hello world!</h1>
 
-<button
-  on:click={() => {
-    socket.emit('testEmit', 'foo');
-  }}>send stuff</button
->
+<Game />
