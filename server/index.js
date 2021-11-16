@@ -33,6 +33,10 @@ io.on('connection', (socket) => {
     socket.broadcast.emit('drawing', data);
   });
 
+  socket.on('chat', (data) => {
+    socket.broadcast.emit('chat', data);
+  });
+
   /* Refactor everything below */
 
   socket.on('joinRoom', (room) => {
