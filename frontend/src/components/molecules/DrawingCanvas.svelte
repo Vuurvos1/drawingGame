@@ -1,7 +1,7 @@
 <script>
   import { onMount } from 'svelte';
   import { throttle } from '../../modules/utils';
-  import { socket } from '../../store';
+  import { socket, canvasTools } from '../../store';
 
   let canvas;
   let canvasWidth;
@@ -39,8 +39,8 @@
       current.y,
       mousePos.x,
       mousePos.y,
-      strokeColor,
-      strokeWidth,
+      $canvasTools.color,
+      $canvasTools.size,
       true
     );
   }
@@ -57,8 +57,8 @@
       current.y,
       mousePos.x,
       mousePos.y,
-      strokeColor,
-      strokeWidth,
+      $canvasTools.color,
+      $canvasTools.size,
       true
     );
 
@@ -123,8 +123,6 @@
 
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
-
-    console.log();
   });
 </script>
 

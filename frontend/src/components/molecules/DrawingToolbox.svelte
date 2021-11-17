@@ -1,4 +1,6 @@
 <script>
+  import { canvasTools } from '../../store';
+
   const colors = [
     '#FFFFFF',
     '#C1C1C1',
@@ -23,10 +25,10 @@
     '#A75574',
     '#63300D',
   ];
-  let currentColor = colors[11];
+  $canvasTools.color = colors[11];
 
   const brushes = [3, 5, 10, 15, 20];
-  let currentBrush = brushes[0];
+  $canvasTools.size = brushes[0];
 </script>
 
 <div class="toolbox">
@@ -34,7 +36,7 @@
   <div class="toolbox__colors flex flex-row">
     <div
       class="toolbox__colorPreview w-8 h-8 mr-4 rounded"
-      style={`background-color: ${currentColor}`}
+      style={`background-color: ${$canvasTools.color}`}
     />
 
     <div class="toolbox__colorPicker grid grid-cols-11 w-max">
@@ -44,7 +46,7 @@
           class="w-4 h-4"
           style={`background-color: ${color}`}
           on:click={() => {
-            currentColor = color;
+            $canvasTools.color = color;
           }}
         />
       {/each}
@@ -60,9 +62,9 @@
     {#each brushes as brush}
       <button
         class="w-8 h-8 grid place-items-center border border-black border-solid rounded"
-        class:active={brush == currentBrush}
+        class:active={brush == $canvasTools.size}
         on:click={() => {
-          currentBrush = brush;
+          $canvasTools.size = brush;
         }}
         ><div
           class="toolbox__brush rounded-full bg-black"
