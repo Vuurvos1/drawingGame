@@ -3,7 +3,8 @@
 </script>
 
 {#each users as user, i}
-  <!-- content here -->
+  <!-- profile image -->
+  <!-- username -->
 {/each}
 
 <style></style>

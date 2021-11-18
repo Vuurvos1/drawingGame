@@ -8,3 +8,5 @@ export const canvasTools = writable({
   color: '#000000',
   size: 2,
 });
+
+export const users = writable({});

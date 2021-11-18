@@ -23,19 +23,11 @@ server.listen(port, () => {
 
 // io modules
 exports.io = io;
-// require('./modules/canvas');
+require('./modules/sockets');
 
 io.on('connection', (socket) => {
   console.log(`We have a new client: ${socket.id}`);
   let roomName = '';
-
-  socket.on('drawing', (data) => {
-    socket.broadcast.emit('drawing', data);
-  });
-
-  socket.on('chat', (data) => {
-    socket.broadcast.emit('chat', data);
-  });
 
   /* Refactor everything below */
 
