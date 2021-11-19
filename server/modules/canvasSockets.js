@@ -1,21 +1,21 @@
-const io = require('../index').io;
+const { io } = require('../index');
+const { getGameRoom } = require('./utils');
 
 io.on('connection', (socket) => {
   socket.on('drawing', (data) => {
-    socket.broadcast.emit('drawing', data);
+    socket.in(getGameRoom(socket)).emit('drawing', data);
   });
 
   socket.on('erase', (data) => {
-    socket.broadcast.emit('erase', data);
+    socket.in(getGameRoom(socket)).emit('erase', data);
   });
 
   socket.on('floodfill', (data) => {
-    socket.broadcast.emit('floodfill', data);
+    socket.in(getGameRoom(socket)).emit('floodfill', data);
   });
 });
 
 // old stuff
-
 //   socket.on('saveMove', (data) => {
 //     socket.broadcast.emit('saveMove', data);
 //   });

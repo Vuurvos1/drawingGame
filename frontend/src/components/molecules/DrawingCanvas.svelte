@@ -14,10 +14,6 @@
     y: 0,
   };
 
-  // get current color and brush size
-  let strokeColor = '#000000';
-  let strokeWidth = 2;
-
   function onMouseDown(e) {
     drawing = true;
 

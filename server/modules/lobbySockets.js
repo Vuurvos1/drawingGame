@@ -1,9 +1,21 @@
 const io = require('../index').io;
+const { generateId, getGameRoom } = require('./utils');
 
 io.on('connection', (socket) => {
-  socket.on('chat', (data) => {
-    socket.broadcast.emit('chat', data);
+  socket.on('joinRoom', (data) => {
+    data = data.trim();
+    if (data) {
+      socket.join(data);
+    } else {
+      const id = generateId(8);
+      console.log('joined ', id);
+      socket.join(id);
+    }
   });
 
-  socket.on('joinRoom', () => {});
+  // send link
+
+  socket.on('chat', (data) => {
+    socket.in(getGameRoom(socket)).emit('chat', data);
+  });
 });
