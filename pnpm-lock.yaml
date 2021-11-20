@@ -11,6 +11,7 @@ specifiers:
   socket.io: ^4.3.2
   socket.io-client: ^4.3.2
   svelte: ^3.44.1
+  svelte-feather-icons: ^3.5.0
   tailwindcss: ^2.2.19
   vite: ^2.6.14
 
@@ -27,6 +28,7 @@ devDependencies:
   npm-run-all: 4.1.5
   postcss: 8.3.11
   svelte: 3.44.1
+  svelte-feather-icons: 3.5.0
   tailwindcss: 2.2.19_0c54bdadaf9d9c9c6c134cb2c6c061a3
   vite: 2.6.14
 
@@ -2786,6 +2788,12 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       has-flag: 4.0.0
+    dev: true
+
+  /svelte-feather-icons/3.5.0:
+    resolution: {integrity: sha512-AO6vwbI+WH8xouZRIxyenUV2olSAjp0QFgBa4esyS9ZxvBmKkRu9VTfgbMW0F1N7QTOWbMpgaForsnOcFGfXeg==}
+    dependencies:
+      svelte: 3.44.1
     dev: true
 
   /svelte-hmr/0.14.7_svelte@3.44.1:
