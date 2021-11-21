@@ -17,5 +17,7 @@ io.on('connection', (socket) => {
 
   socket.on('chat', (data) => {
     socket.in(getGameRoom(socket)).emit('chat', data);
+
+    // TODO check against picked word in game
   });
 });

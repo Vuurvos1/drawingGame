@@ -16,15 +16,15 @@ io.on('connection', (socket) => {
 });
 
 // old stuff
-//   socket.on('saveMove', (data) => {
-//     socket.broadcast.emit('saveMove', data);
-//   });
+// socket.on('saveMove', (data) => {
+//   socket.broadcast.emit('saveMove', data);
+// });
 
-//   socket.on('undoMove', (data) => {
-//     socket.broadcast.emit('undoMove', data);
-//   });
+// socket.on('undoMove', (data) => {
+//   socket.broadcast.emit('undoMove', data);
+// });
 
-//   // send canvas to requested socket
-//   socket.on('sendCanvas', (data) => {
-//     io.to(data.id).emit('recieveCanvas', data);
-//   });
+// send canvas to requested socket
+// socket.on('sendCanvas', (data) => {
+//   io.to(data.id).emit('recieveCanvas', data);
+// });

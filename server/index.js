@@ -34,15 +34,6 @@ io.on('connection', (socket) => {
   });
 });
 
-// const roomNameSpaces = io.of('/');
-// roomNameSpaces.on('connection', (socket) => {
-// this only triggers when going to any route that isn't /
-// console.log(`We a new client in a workspace: ${socket.id}`);
-// const workspace = socket.nsp;
-// const roomName = workspace.name;
-// console.log('workspace ', workspace.name);
-// join a room with the same name as everything after the / from the client
-// socket.join(roomName.substring(1));
 /* Refactor everything below */
 // socket.on('joinRoom', (room) => {
 //   const data = {
