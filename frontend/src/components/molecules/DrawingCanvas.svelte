@@ -37,6 +37,7 @@
       mousePos.y,
       $canvasTools.color,
       $canvasTools.size,
+      $canvasTools.tool,
       true
     );
   }
@@ -55,6 +56,7 @@
       mousePos.y,
       $canvasTools.color,
       $canvasTools.size,
+      $canvasTools.tool,
       true
     );
 
@@ -72,7 +74,8 @@
       data.x1 * w,
       data.y1 * h,
       data.color,
-      data.width
+      data.width,
+      data.tool
     );
   }
 
@@ -85,14 +88,20 @@
     };
   }
 
-  function drawLine(x0, y0, x1, y1, color, width, emit) {
+  function drawLine(x0, y0, x1, y1, color, width, tool, emit) {
+    if (tool == 'erase') {
+      ctx.globalCompositeOperation = 'destination-out';
+    } else {
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.strokeStyle = color;
+    }
+
+    ctx.lineWidth = width;
     ctx.beginPath();
     ctx.moveTo(x0, y0);
     ctx.lineTo(x1, y1);
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
-    ctx.strokeStyle = color;
-    ctx.lineWidth = width;
     ctx.stroke();
     ctx.closePath();
 
@@ -111,6 +120,7 @@
       y1: y1 / h,
       color: color,
       width: width,
+      tool: tool,
     });
   }
 

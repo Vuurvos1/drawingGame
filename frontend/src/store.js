@@ -6,6 +6,7 @@ export const socket = readable(io(`http://localhost:4000`));
 
 export const canvasTools = writable({
   color: '#000000',
+  tool: 'brush',
   size: 2,
 });
 

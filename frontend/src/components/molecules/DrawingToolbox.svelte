@@ -1,5 +1,6 @@
 <script>
   import { canvasTools } from '../../store';
+  import { Edit2Icon, TrashIcon } from 'svelte-feather-icons';
 
   const colors = [
     '#FFFFFF',
@@ -26,6 +27,9 @@
     '#63300D',
   ];
   $canvasTools.color = colors[11];
+
+  const tools = ['brush', 'erase'];
+  $canvasTools.tool = tools[0];
 
   const brushes = [3, 5, 10, 15, 20];
   $canvasTools.size = brushes[0];
@@ -54,8 +58,31 @@
   </div>
 
   <div class="toolbox__tools">
-    <!-- {#each items as item}
-    {/each} -->
+    {#each tools as tool}
+      <button
+        class:active={tool == $canvasTools.tool}
+        on:click={() => {
+          $canvasTools.tool = tool;
+        }}
+      >
+        {#if tool == 'brush'}
+          <Edit2Icon size="24" />
+        {:else if tool == 'erase'}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+          >
+            <path
+              fill="currentColor"
+              d="M22.74 7.716 16.284 1.26a.89.89 0 0 0-1.257 0L5 11.287 12.713 19 22.74 8.973a.89.89 0 0 0 0-1.257ZM3.785 13l-2.541 2.541a.832.832 0 0 0 0 1.176l6.038 6.04a.832.832 0 0 0 1.177 0L11 20.215 3.785 13Z"
+            />
+          </svg>
+        {/if}
+      </button>
+    {/each}
   </div>
 
   <div class="toolbox__brushes flex flex-row">
