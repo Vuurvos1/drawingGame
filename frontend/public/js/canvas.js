@@ -52,40 +52,6 @@ document.querySelectorAll('[data-tool]').forEach((item) => {
   });
 });
 
-// add EventListener to brush sizes
-document.querySelectorAll('[data-brushSize]').forEach((item) => {
-  if (item.getAttribute('data-brushSize') == 3) {
-    item.style.backgroundColor = selectedCol;
-  }
-
-  item.addEventListener('click', (e) => {
-    const lineWidth = item.getAttribute('data-brushSize');
-    console.log(lineWidth);
-    paint.lineWidth = lineWidth;
-
-    // highlight selected brush size
-    document.querySelectorAll('[data-brushSize]').forEach((el) => {
-      if (el == e.target) {
-        e.target.style.backgroundColor = selectedCol;
-      } else {
-        el.style.backgroundColor = defeautlCol;
-      }
-    });
-  });
-});
-
-// add eventListener to brush color
-document.querySelectorAll('[data-brushColor').forEach((item) => {
-  item.style.backgroundColor = item.getAttribute('data-brushColor');
-  item.addEventListener('click', (e) => {
-    const color = item.getAttribute('data-brushColor');
-    paint.selectColor = color;
-
-    // update color preview
-    colorDisp.style.backgroundColor = color;
-  });
-});
-
 // get existing canvas
 socket.on('requestCanvas', (data) => {
   const savedData = canvasEl.toDataURL();
@@ -111,25 +77,6 @@ socket.on('floodFill', (data) => {
   new Fill(canvasEl, data.pos, data.col);
 });
 
-socket.on('startStroke', (data) => {
-  ctx.beginPath();
-  ctx.moveTo(data.x, data.y);
-});
-
-socket.on('drawStroke', (data) => {
-  ctx.lineWidth = lineWidth;
-  ctx.lineTo(data.x, data.y);
-  ctx.stroke();
-});
-
-socket.on('changeColor', (col) => {
-  ctx.strokeStyle = col;
-});
-
-socket.on('changeLineWidth', (width) => {
-  lineWidth = width;
-});
-
 let undoStack = [];
 const undoLimit = 3;
 socket.on('saveMove', (data) => {
@@ -146,8 +93,4 @@ socket.on('undoMove', (data) => {
     ctx.putImageData(undoStack[undoStack.length - 1], 0, 0);
     undoStack.pop();
   }
-});
-
-socket.on('erase', (data) => {
-  ctx.clearRect(data.x, data.y, lineWidth, lineWidth);
 });
