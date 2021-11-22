@@ -1,5 +1,5 @@
 <script>
-  import { socket } from '../../store';
+  import { socket } from '../../stores';
 
   import { CopyIcon } from 'svelte-feather-icons';
 

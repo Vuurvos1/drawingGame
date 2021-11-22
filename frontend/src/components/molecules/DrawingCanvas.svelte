@@ -1,7 +1,7 @@
 <script>
   import { onMount } from 'svelte';
   import { throttle } from '../../modules/utils';
-  import { socket, canvasTools } from '../../store';
+  import { socket, canvasTools } from '../../stores';
 
   let canvas;
   let canvasWidth;

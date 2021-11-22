@@ -10,4 +10,8 @@ export const canvasTools = writable({
   size: 2,
 });
 
-export const users = writable({});
+export const users = writable([]);
+
+export const gameState = writable('');
+
+// maybe move most game releted stuff into one (readable) store?

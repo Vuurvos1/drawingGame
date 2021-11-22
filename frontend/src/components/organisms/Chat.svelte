@@ -1,6 +1,6 @@
 <script>
   import { afterUpdate, beforeUpdate } from 'svelte';
-  import { socket } from '../../store';
+  import { socket } from '../../stores';
 
   // TODO prevent message span through some sort of throttle
 

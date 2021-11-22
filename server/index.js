@@ -31,6 +31,8 @@ io.on('connection', (socket) => {
   // socket leave logic
   socket.on('disconnect', () => {
     console.log('Client has disconnected');
+
+    // update user lists
   });
 });
 
@@ -77,30 +79,6 @@ io.on('connection', (socket) => {
 //   //   io.in(roomName).emit('startGame', data);
 //   // }
 // });
-// socket.on('message', (data) => {
-//   socket.broadcast.emit('message', data);
-//   // check word logic
-//   if (
-//     true
-//     // data.message.toLowerCase() ===
-//     // io.sockets.adapter.rooms[roomName].word.toLowerCase()
-//   ) {
-//     // send to other clients
-//     // close state
-//     // correct state
-//     // --> update scores
-//   }
-//   // send chat message
-//   const res = {
-//     name: io.sockets.adapter.rooms[roomName].users[data.id].username,
-//     message: data.message
-//       .trim()
-//       .replace(/&/g, '&amp;')
-//       .replace(/</g, '&lt;')
-//       .replace(/>/g, '&gt;'),
-//   };
-//   socket.to(roomName).emit('message', res);
-// });
 // socket.on('startGame', (data) => {
 //   console.log('startgame');
 //   if (!io.sockets.adapter.rooms[roomName].started) {
@@ -120,20 +98,6 @@ io.on('connection', (socket) => {
 //     );
 //   }
 //   io.in(roomName).emit('startGame', data);
-// });
-// socket.on('updateUsername', (data) => {
-//   io.sockets.adapter.rooms[roomName].users[data.id].username = data.username;
-//   const temp = Object.values(io.sockets.adapter.rooms[roomName].users);
-//   console.log(io.sockets.adapter.rooms[roomName].users);
-//   io.in(roomName).emit('userJoin', temp);
-// });
-// socket.on('updateUsers', (data) => {
-//   io.sockets.adapter.rooms[roomName].users[socket.id].username =
-//     data.username;
-//   io.sockets.adapter.rooms[roomName].users[socket.id].image = data.img;
-//   const sendData = Object.values(io.sockets.adapter.rooms[roomName].users);
-//   console.log('sendData', sendData);
-//   io.in(roomName).emit('updateUsers', sendData);
 // });
 // socket.on('pickWord', (word) => {
 //   console.log(word);

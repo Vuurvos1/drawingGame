@@ -1,5 +1,5 @@
 <script>
-  import { canvasTools } from '../../store';
+  import { canvasTools } from '../../stores';
   import { Edit2Icon, TrashIcon } from 'svelte-feather-icons';
 
   const colors = [

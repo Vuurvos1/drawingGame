@@ -1,10 +1,14 @@
 <script>
-  let users = []; // get users from current room
+  import { users } from '../../stores';
 </script>
 
-{#each users as user, i}
-  <!-- profile image -->
-  <!-- username -->
-{/each}
+<ul>
+  {#each $users as user, i}
+    <!-- profile image -->
+    <!-- username -->
+
+    <li>{user.username}</li>
+  {/each}
+</ul>
 
 <style></style>
