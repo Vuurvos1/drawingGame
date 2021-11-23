@@ -2,6 +2,7 @@
   // setup user profile here, username, icon
   // TODO some of this data could be stored in local storage for future sessions
   import { socket } from '../../stores';
+  import TextInput from '../atoms/TextInput.svelte';
 
   let username = '';
 
@@ -15,7 +16,7 @@
 
 <div>
   <label for="username">Username</label>
-  <input type="text" id="username" bind:value={username} />
+  <TextInput type="text" id="username" bind:value={username} />
 
   <button on:click={joinLobby}>Join game</button>
 </div>

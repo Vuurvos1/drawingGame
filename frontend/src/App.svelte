@@ -13,7 +13,6 @@
     $socket.emit('joinRoom', window.location.search.substring(1));
 
     $socket.on('setUsers', (data) => {
-      console.log('set users', data);
       $users = data;
     });
   });
