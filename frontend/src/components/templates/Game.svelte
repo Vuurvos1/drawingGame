@@ -2,7 +2,7 @@
   // during game
   import DrawingCanvas from '../molecules/DrawingCanvas.svelte';
   import DrawingToolbox from '../molecules/DrawingToolbox.svelte';
-  import RoomCodeCopy from '../molecules/RoomCodeCopy.svelte';
+  import RoomCode from '../molecules/RoomCode.svelte';
 
   import Chat from '../organisms/Chat.svelte';
 </script>
@@ -11,7 +11,7 @@
   <DrawingCanvas />
   <DrawingToolbox />
 
-  <RoomCodeCopy />
+  <RoomCode />
 </div>
 
 <div>

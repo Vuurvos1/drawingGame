@@ -1,5 +1,5 @@
 const io = require('../index').io;
-const { generateId, getGameRoom } = require('./utils');
+const { generateId, getGameRoom, getUsers } = require('./utils');
 
 // TODO figure out some of the event naming
 io.on('connection', (socket) => {
@@ -7,10 +7,11 @@ io.on('connection', (socket) => {
     data = data.trim();
     if (data) {
       socket.join(data);
+      socket.emit('roomCode', data);
     } else {
       const id = generateId(8); // TODO check if id doesn't already exsist
-      console.log('joined ', id);
       socket.join(id);
+      socket.emit('roomCode', id);
     }
   });
 
@@ -28,20 +29,7 @@ io.on('connection', (socket) => {
       username: data.username,
     };
 
-    // io.sockets.clients(getGameRoom(socket));
-
-    const clients = io.sockets.adapter.rooms.get(getGameRoom(socket));
-    console.log(clients);
-
-    let users = [];
-    for (const clientId of clients) {
-      const clientSocket = io.sockets.sockets.get(clientId);
-
-      if (clientSocket.user) {
-        users.push(clientSocket.user);
-      }
-    }
-
+    const users = getUsers(io, socket);
     io.in(getGameRoom(socket)).emit('setUsers', users);
   });
 

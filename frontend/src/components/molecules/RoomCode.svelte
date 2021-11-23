@@ -5,7 +5,7 @@
 
   let roomCode = window.location.origin;
 
-  $socket.on('roomLink', (data) => {
+  $socket.on('roomCode', (data) => {
     roomCode = `${window.location.origin}/?${data}`;
   });
 
