@@ -8,15 +8,18 @@ io.on('connection', (socket) => {
     if (data) {
       socket.join(data);
       socket.emit('roomCode', data);
+      socket.roomId = data;
     } else {
       const id = generateId(8); // TODO check if id doesn't already exsist
       socket.join(id);
       socket.emit('roomCode', id);
+      socket.roomId = id;
     }
-  });
 
-  socket.on('setUser', (data) => {
-    // set custom user data
+    let room = io.sockets.adapter.rooms.get(data);
+    room.gameManager = { id: '', timer: 0 };
+
+    // console.log(room.gameManager);
   });
 
   // get all users in a room
@@ -27,6 +30,7 @@ io.on('connection', (socket) => {
     // expand this object with more user specific data
     socket.user = {
       username: data.username,
+      points: 0, // TODO correct points if user was disconected
     };
 
     const users = getUsers(io, socket);
@@ -36,6 +40,8 @@ io.on('connection', (socket) => {
   // send link
 
   socket.on('chat', (data) => {
+    // TODO add username to data
+
     socket.in(getGameRoom(socket)).emit('chat', data);
 
     // TODO check against picked word in game
