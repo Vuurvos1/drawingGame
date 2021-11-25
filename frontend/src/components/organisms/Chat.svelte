@@ -2,7 +2,7 @@
   import { afterUpdate, beforeUpdate } from 'svelte';
   import { socket } from '../../stores';
 
-  // TODO prevent message span through some sort of throttle
+  // TODO prevent message spam through some sort of throttle
 
   let chatbox;
   let autoscroll;

@@ -5,7 +5,7 @@
   import Game from './components/templates/Game.svelte';
 
   // scripts and variables
-  import { socket, users } from './stores';
+  import { socket, users, gameState } from './stores';
   import { onMount } from 'svelte';
 
   onMount(() => {
@@ -25,3 +25,5 @@
 <Lobby />
 
 <Game />
+
+<style></style>
