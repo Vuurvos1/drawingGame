@@ -7,10 +7,13 @@
   let username = '';
 
   function joinLobby() {
-    // expand object with more user specific data
-    $socket.emit('joinLobby', {
-      username: username,
-    });
+    username = username.trim();
+    if (username != '') {
+      // expand object with more user specific data
+      $socket.emit('joinLobby', {
+        username: username,
+      });
+    }
   }
 </script>
 
