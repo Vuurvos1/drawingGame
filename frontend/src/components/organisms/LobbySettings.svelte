@@ -1,4 +1,6 @@
-<script></script>
+<script>
+  import { socket } from '../../stores';
+</script>
 
 <div>
   <div class="rounds">
@@ -47,7 +49,13 @@
     <label for="customWordsOnly">Only use custom words</label>
   </div>
 
-  <button class="startGame">Start Game</button>
+  <button
+    class="startGame"
+    on:click={() => {
+      // pass settings into start game
+      $socket.emit('gameStart', {});
+    }}>Start Game</button
+  >
 </div>
 
 <style></style>
