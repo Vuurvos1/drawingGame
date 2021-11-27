@@ -1,5 +1,8 @@
 <script>
   import { socket } from '../../stores';
+
+  let customWords = [];
+   console.log(customWords)
 </script>
 
 <div>
@@ -36,7 +39,21 @@
       rows="10"
       placeholder="Type your custom words here separated by commas
     "
+    on:input={(e) => {
+      // get words sepeared by commas
+      const word = e.target.value.split(',');
+
+      // remove empty words this prevent displaying an empty div after a comma
+      customWords = word.filter(word => word.length > 0);
+    }}
     />
+    <div class="customWords flex flex-row gap-3">
+      {#each customWords as word}
+        <div class="tag p-1 bg-gray-900 border-r-2 text-white">
+            {word}
+        </div>
+      {/each}
+  </div>
   </div>
 
   <div class="customWordsCheck">
