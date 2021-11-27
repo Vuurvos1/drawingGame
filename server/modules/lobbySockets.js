@@ -5,25 +5,19 @@ const { generateId, getGameRoom, getUsers } = require('./utils');
 io.on('connection', (socket) => {
   socket.on('joinRoom', (data) => {
     data = data.trim();
-    if (data) {
-      socket.join(data);
-      socket.emit('roomCode', data);
-      socket.roomId = data;
-    } else {
-      const id = generateId(8); // TODO check if id doesn't already exsist
-      socket.join(id);
-      socket.emit('roomCode', id);
-      socket.roomId = id;
-    }
+    const id = data ? data : generateId(8); // TODO check if id doesn't already exsist
 
-    let room = io.sockets.adapter.rooms.get(data);
+    socket.join(id);
+    socket.emit('roomCode', id);
+    socket.roomId = id;
+
+    let room = io.sockets.adapter.rooms.get(id);
     room.gameManager = { id: '', timer: 0 };
-
     // console.log(room.gameManager);
   });
 
   // get all users in a room
-  socket.on('getUsers', (data) => {});
+  // socket.on('getUsers', (data) => {});
 
   // join lobby and set user data
   socket.on('joinLobby', (data) => {
