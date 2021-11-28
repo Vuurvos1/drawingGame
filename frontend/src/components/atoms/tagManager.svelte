@@ -1,9 +1,14 @@
 <script>
     import { MinusIcon } from 'svelte-feather-icons'
+
     // specify the custom words that the array will have
     export let customWords = [];
+
     // specify the maxium of tags that are allowed
     export let maxTags = 10;
+
+    // show or dont show remaing tags
+    export let remainingVisible = true
 
     const addTag = (e) => {
     if (e.key == 'Enter') {
@@ -64,7 +69,9 @@
       </div>
     </div>
     <div class="details">
-      <p>{maxTags - customWords.length} tags remaining</p>
+        {#if remainingVisible}
+            <p>{maxTags - customWords.length} tags remaining</p>
+        {/if}
       <button on:click={() => deleteAllTags()}>Remove all tags</button>
     </div>
   </div>

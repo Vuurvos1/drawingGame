@@ -30,7 +30,7 @@
   </div>
 
   <TagManager 
-    maxTags="30"
+    maxTags="10"
   />
 
   <div class="customWordsCheck">
