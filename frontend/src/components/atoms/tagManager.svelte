@@ -1,4 +1,5 @@
 <script>
+    import { MinusIcon } from 'svelte-feather-icons'
     // specify the custom words that the array will have
     export let customWords = [];
     // specify the maxium of tags that are allowed
@@ -33,7 +34,7 @@
   }
 </script>
   
-<div class="wrapper">
+<div class="customTags">
     <div class="title">
       <h2>Tags</h2>
     </div>
@@ -43,7 +44,13 @@
         <ul>
          {#if customWords.length > 0}
             {#each customWords as word, index}
-              <li>{word} <span on:click={() => deleteTag(index)}>X</span></li>
+              <li>
+                  <span class="word">{word}</span> 
+                    <!-- <span on:click={() => deleteTag(index)}><MinusIcon size="0.5x"/></span> -->
+                    <span on:click={() => deleteTag(index)} class="close">
+                        <MinusIcon size="1x"/>
+                    </span>
+                </li>
             {/each}
           {/if}
           <input 
@@ -63,7 +70,7 @@
   </div>
   
 <style>
-    .wrapper {
+    .customTags {
     width: 490px;
     /* background-color: hotpink; */
     background-color: #f8f9fd;
@@ -72,18 +79,18 @@
     padding: 18px 25px 20px;
   }
 
-  .wrapper .title {
+  .customTags .title {
     display: flex;
     align-items: center;
   }
 
-  .wrapper .title h2 {
+  .customTags .title h2 {
     font-size: 21px;
     font-weight: 600;
     margin-left: 8px;
   }
 
-  .wrapper .content {
+  .customTags .content {
     margin: 10px 0;
   }
   .content {
@@ -105,15 +112,17 @@
     margin: 4px 3px;
     border-radius: 5px;
     border: 1px solid #e3d1e1;
+    display: flex;
+    align-items: center;
   }
-  /* // close icons */
-  .content ul li span {
-    height: 30px;
-    width: 30px;
-    font-size: 12px;
-    margin-left: 8px;
+
+  .content ul li .word {
+    margin-right: 8px;
     color: white;
-    cursor: pointer;
+  }
+
+  .content ul li .close {
+      cursor: pointer;
   }
   .content ul .input {
     flex: 1;
@@ -122,11 +131,11 @@
     font-size: 16px;
     border: none;
   }
-  .wrapper .details {
+  .customTags .details {
     display: flex;
     justify-content: space-between;
   }
-  .wrapper .details button {
+  .customTags .details button {
     background-color:  red;
     border-radius: 5px;
     color: white;
