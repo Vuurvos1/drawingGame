@@ -1,6 +1,14 @@
 <script>
   import { socket } from '../../stores';
-  import TagManager from '../atoms/tagManager.svelte'
+  import TagManager from '../atoms/tagManager.svelte';
+  import { customWords } from '../../stores'
+
+  let customTags = []
+
+  customWords.subscribe(value => {
+        customTags = value
+    });
+
 </script>
 
 <div>
@@ -31,6 +39,7 @@
 
   <TagManager 
     maxTags="10"
+    words={['test', 'aap', 'idioot']}
   />
 
   <div class="customWordsCheck">
@@ -47,7 +56,10 @@
     class="startGame"
     on:click={() => {
       // pass settings into start game
-      $socket.emit('gameStart', {});
+      // pass custom words to socket
+      $socket.emit('gameStart', {
+        customTags
+      });
     }}>Start Game</button
   >
 </div>

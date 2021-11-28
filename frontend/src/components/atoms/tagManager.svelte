@@ -1,8 +1,21 @@
 <script>
     import { MinusIcon } from 'svelte-feather-icons'
+    import { customWords } from '../../stores';
 
     // specify the custom words that the array will have
-    export let customWords = [];
+    export let words = [];
+
+    // if the words prop is defined update the state with the props array
+    words.length > 0 ? customWords.set(words) : customWords.set([]);
+
+    // used to get the length of array
+    let customWordLength;
+
+    customWords.subscribe(value => {
+        customWordLength = value.length;
+        [...words] = value;
+	});
+
 
     // specify the maxium of tags that are allowed
     export let maxTags = 10;
@@ -12,15 +25,21 @@
 
     const addTag = (e) => {
     if (e.key == 'Enter') {
+
+      if (e.target.value.length < 1) {
+        return;
+      }
+
       // removing unwanted spaces
-      let tag = e.target.value.replace(/\s/g, ' ')
+      let tag = e.target.value.replace(/\s/g, ' ').split(',');
 
       // check if tag has already been added and check length of it
-      if (tag.length > 1 && !customWords.includes(tag) && customWords.length < maxTags) {
-            tag.split(',').forEach(tag => {
-            customWords.push(tag)
+      if (!words.includes(tag)) {
+            tag.forEach(tag => {
+            // this will prevent users to add more tags with a long string with commas
+            words.length < maxTags ? words.push(tag) : null;
             // reassign so svelte updates the array
-            customWords = [...customWords];
+            customWords.set(words)
         });
       }
         // reset input
@@ -28,15 +47,16 @@
       }
   }
 
+  // set new tag state
   const deleteTag = (index) => {
-    customWords.splice(index, 1);
-    customWords = [...customWords];
+    customWords.set(words.filter((_, i) => i !== index))
   }
 
+  // reset state with empty array
   const deleteAllTags = () => {
-    customWords = [];
-    customWords = [...customWords];
+    customWords.set([])
   }
+
 </script>
   
 <div class="customTags">
@@ -47,11 +67,10 @@
       <p>Press enter or add a comma after each tag</p>
       <div class="tag-box">
         <ul>
-         {#if customWords.length > 0}
-            {#each customWords as word, index}
+         {#if words.length > 0}
+            {#each words as word, index}
               <li>
                   <span class="word">{word}</span> 
-                    <!-- <span on:click={() => deleteTag(index)}><MinusIcon size="0.5x"/></span> -->
                     <span on:click={() => deleteTag(index)} class="close">
                         <MinusIcon size="1x"/>
                     </span>
@@ -70,7 +89,7 @@
     </div>
     <div class="details">
         {#if remainingVisible}
-            <p>{maxTags - customWords.length} tags remaining</p>
+            <p>{maxTags - customWordLength} tags remaining</p>
         {/if}
       <button on:click={() => deleteAllTags()}>Remove all tags</button>
     </div>
