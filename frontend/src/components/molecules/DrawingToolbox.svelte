@@ -1,6 +1,6 @@
 <script>
   import { canvasTools } from '../../stores';
-  import { Edit2Icon, TrashIcon } from 'svelte-feather-icons';
+  import { Edit2Icon, Trash2Icon } from 'svelte-feather-icons';
 
   const colors = [
     '#FFFFFF',
@@ -28,7 +28,7 @@
   ];
   $canvasTools.color = colors[11];
 
-  const tools = ['brush', 'erase'];
+  const tools = ['brush', 'erase', 'fill', 'delete'];
   $canvasTools.tool = tools[0];
 
   const brushes = [3, 5, 10, 15, 20];
@@ -80,6 +80,21 @@
               d="M22.74 7.716 16.284 1.26a.89.89 0 0 0-1.257 0L5 11.287 12.713 19 22.74 8.973a.89.89 0 0 0 0-1.257ZM3.785 13l-2.541 2.541a.832.832 0 0 0 0 1.176l6.038 6.04a.832.832 0 0 0 1.177 0L11 20.215 3.785 13Z"
             />
           </svg>
+        {:else if tool == 'fill'}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+          >
+            <path
+              fill="#000"
+              d="M21.46 11.187V9.825h-2.082l-6.297-6.298.566-.566L12.685 2l-8.187 8.187a2.607 2.607 0 0 0-1.775.597c-1.43 1.17-1.974 3.867-1.616 8.018l1.355-.117c-.294-3.411.093-5.177.552-6.09l.5.5.566-.566 9.92 9.92 9-9-2.262-2.262h.723Zm-.384 2.261L14 20.524l-8.958-8.957L12.12 4.49l5.335 5.335H13.33a2.027 2.027 0 0 0-1.917-1.348 2.043 2.043 0 0 0 0 4.081 2.028 2.028 0 0 0 1.926-1.373h5.476l2.261 2.262ZM11.894 11a.676.676 0 0 1-.962 0 .68.68 0 1 1 .962 0Z"
+            />
+          </svg>
+        {:else if tool == 'delete'}
+          <Trash2Icon size="24" />
         {/if}
       </button>
     {/each}

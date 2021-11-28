@@ -1,6 +1,6 @@
 <script>
   import { onMount } from 'svelte';
-  import { throttle } from '../../modules/utils';
+  import { throttle, hexToRgba } from '../../modules/utils';
   import { socket, canvasTools } from '../../stores';
 
   let canvas;
@@ -14,10 +14,90 @@
     y: 0,
   };
 
+  canvasTools.subscribe((value) => {
+    if (value.tool == 'delete') {
+      // send this over socket
+      ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+      value.tool = 'brush';
+    }
+  });
+
+  // move floodfill to seperate file?
+  function getPixel(imageData, x, y) {
+    if (x < 0 || y < 0 || x >= imageData.width || y >= imageData.height) {
+      return [-1, -1, -1, -1]; // no shot this is a color lol
+    } else {
+      const offset = (y * imageData.width + x) * 4;
+      return imageData.data.slice(offset, offset + 4);
+    }
+  }
+
+  function setPixel(imageData, x, y, color) {
+    const offset = (y * imageData.width + x) * 4;
+    imageData.data[offset + 0] = color[0]; // red
+    imageData.data[offset + 1] = color[1]; // green
+    imageData.data[offset + 2] = color[2]; // blue
+    imageData.data[offset + 3] = color[3]; // alpha
+  }
+
+  function colorsMatch(a, b) {
+    // this is probably the fastest way of checking this but not the most elegant
+    return a[0] === b[0] && a[1] === b[1] && a[2] === b[2] && a[3] === b[3];
+  }
+
+  function floodFill(ctx, x, y, fillColor) {
+    // get pixels in canvas
+    const imageData = ctx.getImageData(
+      0,
+      0,
+      ctx.canvas.width,
+      ctx.canvas.height
+    );
+
+    // get the color we're filling
+    const targetColor = getPixel(imageData, x, y);
+
+    // check we are actually filling a different color
+    if (!colorsMatch(targetColor, fillColor)) {
+      const pixelsToCheck = [x, y];
+      while (pixelsToCheck.length > 0) {
+        const y = pixelsToCheck.pop();
+        const x = pixelsToCheck.pop();
+
+        const currentColor = getPixel(imageData, x, y);
+        if (colorsMatch(currentColor, targetColor)) {
+          setPixel(imageData, x, y, fillColor);
+          pixelsToCheck.push(x + 1, y);
+          pixelsToCheck.push(x - 1, y);
+          pixelsToCheck.push(x, y + 1);
+          pixelsToCheck.push(x, y - 1);
+        }
+      }
+
+      ctx.putImageData(imageData, 0, 0); // draw the data
+    }
+  }
+
   function onMouseDown(e) {
+    const mousePos = getMouseCanvasCords(e);
+
+    if ($canvasTools.tool == 'fill') {
+      const w = canvas.width;
+      const h = canvas.height;
+
+      const color = hexToRgba($canvasTools.color);
+
+      $socket.emit('floodfill', {
+        x: mousePos.x / w,
+        y: mousePos.y / h,
+        color: color,
+      });
+      floodFill(ctx, mousePos.x, mousePos.y, color);
+      return;
+    }
+
     drawing = true;
 
-    const mousePos = getMouseCanvasCords(e);
     current.x = mousePos.x;
     current.y = mousePos.y;
   }
@@ -68,6 +148,7 @@
     // bind these
     const w = canvas.width;
     const h = canvas.height;
+
     drawLine(
       data.x0 * w,
       data.y0 * h,
@@ -125,6 +206,14 @@
   }
 
   $socket.on('drawing', onDrawingEvent);
+
+  $socket.on('floodfill', (data) => {
+    const w = canvas.width;
+    const h = canvas.height;
+
+    // move color conversion into floodfill funciton?
+    floodFill(ctx, data.x * w, data.y * h, data.color);
+  });
 
   onMount(() => {
     ctx = canvas.getContext('2d');

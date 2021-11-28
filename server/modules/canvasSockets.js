@@ -6,10 +6,6 @@ io.on('connection', (socket) => {
     socket.in(getGameRoom(socket)).emit('drawing', data);
   });
 
-  socket.on('erase', (data) => {
-    socket.in(getGameRoom(socket)).emit('erase', data);
-  });
-
   socket.on('floodfill', (data) => {
     socket.in(getGameRoom(socket)).emit('floodfill', data);
   });

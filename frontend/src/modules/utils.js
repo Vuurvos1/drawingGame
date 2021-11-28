@@ -9,3 +9,8 @@ export function throttle(callback, delay) {
     }
   };
 }
+
+export const hexToRgba = (hex, alpha = 255) => {
+  const [r, g, b] = hex.match(/\w\w/g).map((x) => parseInt(x, 16));
+  return [r, g, b, alpha];
+};
