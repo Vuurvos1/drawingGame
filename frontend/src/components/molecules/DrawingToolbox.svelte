@@ -3,7 +3,7 @@
   import { Edit2Icon, Trash2Icon } from 'svelte-feather-icons';
 
   // need a Icon index to import icons like svelte-feather-icons
-  import Bucket from '../icons/bucket.svelte'
+  import { Bucket, Eraser } from '../atoms/custom-icons';
 
   const colors = [
     '#FFFFFF',
@@ -71,20 +71,9 @@
         {#if tool == 'brush'}
           <Edit2Icon size="24" />
         {:else if tool == 'erase'}
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            width="24"
-            height="24"
-          >
-            <path
-              fill="currentColor"
-              d="M22.74 7.716 16.284 1.26a.89.89 0 0 0-1.257 0L5 11.287 12.713 19 22.74 8.973a.89.89 0 0 0 0-1.257ZM3.785 13l-2.541 2.541a.832.832 0 0 0 0 1.176l6.038 6.04a.832.832 0 0 0 1.177 0L11 20.215 3.785 13Z"
-            />
-          </svg>
+          <Eraser size="24" />
         {:else if tool == 'fill'}
-          <Bucket size="sm" />
+          <Bucket size="24" />
         {:else if tool == 'delete'}
           <Trash2Icon size="24" />
         {/if}
