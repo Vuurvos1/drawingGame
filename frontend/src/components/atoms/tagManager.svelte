@@ -16,7 +16,6 @@
         [...words] = value;
 	});
 
-
     // specify the maxium of tags that are allowed
     export let maxTags = 10;
 

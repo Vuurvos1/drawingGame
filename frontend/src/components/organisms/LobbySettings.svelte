@@ -1,7 +1,7 @@
 <script>
   import { socket } from '../../stores';
   import TagManager from '../atoms/tagManager.svelte';
-  import { customWords } from '../../stores'
+  import { customWords } from '../../stores';
 
   let customTags = []
 
@@ -10,7 +10,6 @@
     });
 
 </script>
-
 <div>
   <div class="rounds">
     <label for="rounds">Rounds</label>
@@ -39,7 +38,7 @@
 
   <TagManager 
     maxTags="10"
-    words={['test', 'aap', 'idioot']}
+    words={['Sam', 'is', 'dik']}
   />
 
   <div class="customWordsCheck">
