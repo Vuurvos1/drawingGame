@@ -19,8 +19,6 @@
     y: 0,
   };
 
-  let filling = false;
-
   canvasTools.subscribe((value) => {
     if (value.tool == 'delete') {
       // send this over socket
@@ -78,7 +76,7 @@
         for (let i = 0; i < stackLength; i++) {}
       } else {
         ctx.putImageData(imageData, 0, 0);
-        fillStack = [];
+        fillsStack = [];
       }
 
       // put the data back
@@ -88,6 +86,7 @@
 
   function onMouseDown(e) {
     const mousePos = getMouseCanvasCords(e);
+    if (mousePos === -1) return;
 
     if ($canvasTools.tool == 'fill') {
       const w = canvasWidth;
@@ -170,11 +169,15 @@
 
   $: canvasRect = canvas?.getBoundingClientRect();
   function getMouseCanvasCords(e) {
-    // get mouse position relative to the canvas
-    // TODO this seems to break around 0
+    const touch = e.touches ? e.touches[0] : e;
+
+    if (typeof touch === 'undefined') {
+      return -1;
+    }
+
     return {
-      x: e.clientX - canvasRect.left || e.touches[0].clientX - canvasRect.left,
-      y: e.clientY - canvasRect.top || e.touches[0].clientY - canvasRect.top,
+      x: touch.clientX - canvasRect.left,
+      y: touch.clientY - canvasRect.top,
     };
   }
 
