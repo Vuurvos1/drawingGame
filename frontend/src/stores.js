@@ -4,14 +4,44 @@ import { writable, readable } from 'svelte/store';
 // get url from env
 export const socket = readable(io(`http://localhost:4000`));
 
-export const canvasTools = writable({
-  color: '#000000',
-  tool: 'brush',
-  size: 2,
-});
-
-export const users = writable([]);
 export const customWords = writable([]);
-export const gameState = writable('');
 
-// maybe move most game releted stuff into one (readable) store?
+function createGameManager() {
+  const { subscribe, set, update } = writable({
+    users: [],
+    gameState: '',
+    score: 0,
+    tool: {
+      color: '#000000',
+      tool: 'brush',
+      size: 3,
+    },
+  });
+
+  const setBrushColor = (color) =>
+    update((value) => {
+      value.tool.color = color;
+      return value;
+    });
+
+  const setBrushSize = (size) =>
+    update((value) => {
+      value.tool.size = size;
+      return value;
+    });
+
+  const setTool = (tool) =>
+    update((value) => {
+      value.tool.tool = tool;
+      return value;
+    });
+
+  return {
+    subscribe,
+    setBrushColor,
+    setBrushSize,
+    setTool,
+  };
+}
+
+export const gameManager = createGameManager();

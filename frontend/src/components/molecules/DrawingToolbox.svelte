@@ -1,5 +1,5 @@
 <script>
-  import { canvasTools } from '../../stores';
+  import { gameManager } from '../../stores';
   import { Edit2Icon, Trash2Icon } from 'svelte-feather-icons';
 
   // need a Icon index to import icons like svelte-feather-icons
@@ -29,13 +29,13 @@
     '#A75574',
     '#63300D',
   ];
-  $canvasTools.color = colors[11];
+  // $gameManager.tool.color = colors[11];
 
   const tools = ['brush', 'erase', 'fill', 'delete'];
-  $canvasTools.tool = tools[0];
+  // $gameManager.tool.tool = tools[0];
 
   const brushes = [3, 5, 10, 15, 20];
-  $canvasTools.size = brushes[0];
+  // $gameManager.tool.size = brushes[0];
 </script>
 
 <div class="toolbox">
@@ -43,7 +43,7 @@
   <div class="toolbox__colors flex flex-row">
     <div
       class="toolbox__colorPreview w-8 h-8 mr-4 rounded"
-      style={`background-color: ${$canvasTools.color}`}
+      style={`background-color: ${$gameManager.tool.color}`}
     />
 
     <div class="toolbox__colorPicker grid grid-cols-11 w-max">
@@ -53,7 +53,7 @@
           class="w-4 h-4"
           style={`background-color: ${color}`}
           on:click={() => {
-            $canvasTools.color = color;
+            gameManager.setBrushColor(color);
           }}
         />
       {/each}
@@ -63,9 +63,9 @@
   <div class="toolbox__tools">
     {#each tools as tool}
       <button
-        class:active={tool == $canvasTools.tool}
+        class:active={tool == $gameManager.tool.tool}
         on:click={() => {
-          $canvasTools.tool = tool;
+          gameManager.setTool(tool);
         }}
       >
         {#if tool == 'brush'}
@@ -85,9 +85,9 @@
     {#each brushes as brush}
       <button
         class="w-8 h-8 grid place-items-center border border-black border-solid rounded"
-        class:active={brush == $canvasTools.size}
+        class:active={brush == $gameManager.tool.size}
         on:click={() => {
-          $canvasTools.size = brush;
+          gameManager.setBrushSize(brush);
         }}
         ><div
           class="toolbox__brush rounded-full bg-black"

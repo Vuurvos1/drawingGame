@@ -6,7 +6,7 @@
     getPixel,
     colorsMatch,
   } from '../../modules/floodfillUtils';
-  import { socket, canvasTools } from '../../stores';
+  import { socket, gameManager } from '../../stores';
 
   let canvas;
   let canvasWidth;
@@ -19,11 +19,11 @@
     y: 0,
   };
 
-  canvasTools.subscribe((value) => {
-    if (value.tool == 'delete') {
+  gameManager.subscribe((value) => {
+    if (value.tool.tool == 'delete') {
       // send this over socket
       ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-      value.tool = 'brush';
+      value.tool.tool = 'brush';
     }
   });
 
@@ -88,11 +88,11 @@
     const mousePos = getMouseCanvasCords(e);
     if (mousePos === -1) return;
 
-    if ($canvasTools.tool == 'fill') {
+    if ($gameManager.tool.tool == 'fill') {
       const w = canvasWidth;
       const h = canvasHeight;
 
-      const color = hexToRgba($canvasTools.color);
+      const color = hexToRgba($gameManager.tool.color);
 
       $socket.emit('floodfill', {
         x: mousePos.x / w,
@@ -122,9 +122,9 @@
       current.y,
       mousePos.x,
       mousePos.y,
-      $canvasTools.color,
-      $canvasTools.size,
-      $canvasTools.tool,
+      $gameManager.tool.color,
+      $gameManager.tool.size,
+      $gameManager.tool.tool,
       true
     );
   }
@@ -141,9 +141,9 @@
       current.y,
       mousePos.x,
       mousePos.y,
-      $canvasTools.color,
-      $canvasTools.size,
-      $canvasTools.tool,
+      $gameManager.tool.color,
+      $gameManager.tool.size,
+      $gameManager.tool.tool,
       true
     );
 
