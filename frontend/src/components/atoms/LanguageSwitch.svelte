@@ -16,6 +16,9 @@
     },
   ];
 
+  // standard we have a default language
+  let currentLanguage = languages.find(lang => lang.code === 'en');
+
   // check if we have a language in localstorage and if we support it to prevent page errors
   if (localStorage.getItem('language')) {
     const supportedLanguage = languages.find(language => language.code === localStorage.getItem('language'));
@@ -24,9 +27,6 @@
       currentLanguage = supportedLanguage
     }
   }
-
-  // standard we have a default language
-  let currentLanguage = languages.find(lang => lang.code === 'en');
 
   // update the language html tag
   const handleLanguageChange = (code) => {
