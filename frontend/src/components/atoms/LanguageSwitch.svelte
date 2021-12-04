@@ -1,4 +1,5 @@
 <script>
+    import { onMount } from 'svelte';
     import { locale } from "svelte-i18n";
     import { EnFlag, NlFlag } from "../atoms/custom-icons";
 
@@ -20,12 +21,26 @@
     updateActiveLanguage()
   };
 
-  let currentLanguage = languages.find(language => language.code === 'en')
+  let currentLanguage = languages.find(lang => lang.code === 'en');
+
+  if (localStorage.getItem('language')) {
+    const supportedLanguage = languages.find(language => language.code === localStorage.getItem('language'));
+
+    if (supportedLanguage !== undefined) {
+      currentLanguage = supportedLanguage
+    }
+  }
 
   const updateActiveLanguage = () => {
     let updateLanguage = document.documentElement.lang;
     currentLanguage = languages.find(language => language.code === updateLanguage)
+
+    localStorage.setItem('language', updateLanguage)
   };
+
+  console.log(localStorage.getItem('language'))
+
+
 </script>
 
 <div class="dropdown">
