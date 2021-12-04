@@ -3,18 +3,27 @@
 
   let time = 0;
   let totalTime = 30;
-  let word = '';
+  let choosenWord = '';
+  let wordChoices = [];
 
   $socket.on('gameStart', (data) => {
     console.log('gameStart', data);
-    word = data.word;
+
+    const {
+      word,
+      wordsToPick
+    } = data
+
+    choosenWord = word;
+    wordChoices = wordsToPick;
+    
+    console.log(wordChoices)
     // set timer`
     // totalTime = data;
   });
 
   $socket.on('timer', (data) => {
-    // update time
-    console.log('timer');
+    // update timer
     time = data;
   });
 </script>
@@ -23,7 +32,14 @@
 <span>
   {time} / {totalTime}
 
-  {#if word !== ''}
-    <span>Your word is : {word}</span>
+  {#if choosenWord !== ''}
+    <span>Your word is : {choosenWord}</span>
+  {/if}
+
+  {#if wordChoices.length > 0}
+  <h2>Words to pick from</h2>
+    {#each wordChoices as word}
+      <button class="p-4 cursor-pointer">{word}</button>
+    {/each}
   {/if}
 </span>

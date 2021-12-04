@@ -1,5 +1,6 @@
 const io = require('../index').io;
 const wordList = require('../words.json');
+const { pickRandomWords } = require('./utils')
 
 io.on('connection', (socket) => {
   socket.on('gameStart', (data) => {
@@ -40,6 +41,7 @@ io.on('connection', (socket) => {
     io.in(socket.roomId).emit('gameStart', {
       time: 30,
       rounds: 3,
+      wordsToPick: pickRandomWords(copyWordList, 3),
       word: copyWordList[Math.floor(Math.random() * copyWordList.length)],
     });
   });

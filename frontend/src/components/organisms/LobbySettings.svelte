@@ -1,9 +1,9 @@
 <script>
-  import { socket } from "../../stores";
-  import TagManager from "../atoms/tagManager.svelte";
-  import { customWords } from "../../stores";
-  import LanguageSwitch from "../atoms/LanguageSwitch.svelte";
-  import { _ as t, locale } from "svelte-i18n";
+  import { socket } from '../../stores';
+  import TagManager from '../atoms/tagManager.svelte';
+  import { customWords } from '../../stores';
+  import LanguageSwitch from '../atoms/LanguageSwitch.svelte';
+  import { _ as t, locale } from 'svelte-i18n';
 
   let customTags = [];
   let customWordsOnly = false;
