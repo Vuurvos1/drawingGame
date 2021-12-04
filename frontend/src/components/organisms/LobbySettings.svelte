@@ -1,31 +1,23 @@
 <script>
-  import { socket } from '../../stores';
-  import TagManager from '../atoms/tagManager.svelte';
-  import { customWords } from '../../stores';
-  import {_ as t, locale} from 'svelte-i18n';
+  import { socket } from "../../stores";
+  import TagManager from "../atoms/tagManager.svelte";
+  import { customWords } from "../../stores";
+  import LanguageSwitch from "../atoms/languageSwitch.svelte";
+  import { _ as t, locale } from "svelte-i18n";
 
-  const languages = ['en', 'nl']
-
-  let customTags = []
+  let customTags = [];
   let customWordsOnly = false;
 
-  customWords.subscribe(value => {
-        customTags = value;
+  customWords.subscribe((value) => {
+    customTags = value;
   });
 </script>
+
 <div>
 
-  <p>Change language here, need to make this is a new component or display this always on every page</p>
-  <select on:change={(e) => 
-  // prevent users for manipulating the select
-  languages.includes(e.target.value) ? locale.set(e.target.value) : null}
-  >
-  {#each languages as language}
-    <option value={language}>{language}</option>
-  {/each}
-</select>
+  <LanguageSwitch />
 
-<h1 class="mb-6 text-red-600">{$t('page.contact.title')}</h1>
+  <h1 class="mb-6 text-red-600">{$t("page.contact.title")}</h1>
 
   <div class="rounds">
     <label for="rounds">Rounds</label>
@@ -52,10 +44,7 @@
     />
   </div>
 
-  <TagManager 
-    maxTags="10"
-    words={['Sam', 'is', 'dik']}
-  />
+  <TagManager maxTags="10" words={["Sam", "is", "dik"]} />
 
   <div class="customWordsCheck">
     <input
@@ -73,13 +62,10 @@
     on:click={() => {
       // pass settings into start game
       // pass custom words to socket
-      $socket.emit('gameStart', {
+      $socket.emit("gameStart", {
         customTags,
         customWordsOnly,
       });
     }}>Start Game</button
   >
 </div>
-
-<style>
-</style>
