@@ -2,7 +2,7 @@
   import { socket } from '../../stores';
   import TagManager from '../atoms/tagManager.svelte';
   import { customWords } from '../../stores';
-  import {_, locale} from 'svelte-i18n';
+  import {_ as t, locale} from 'svelte-i18n';
 
   const languages = ['en', 'nl']
 
@@ -12,18 +12,20 @@
   customWords.subscribe(value => {
         customTags = value;
   });
-
 </script>
 <div>
 
   <p>Change language here, need to make this is a new component or display this always on every page</p>
-  <select on:change={(e) => locale.set(e.target.value)}>
+  <select on:change={(e) => 
+  // prevent users for manipulating the select
+  languages.includes(e.target.value) ? locale.set(e.target.value) : null}
+  >
   {#each languages as language}
     <option value={language}>{language}</option>
   {/each}
 </select>
 
-<h1 class="mb-6 text-red-600">{$_('page.contact.title')}</h1>
+<h1 class="mb-6 text-red-600">{$t('page.contact.title')}</h1>
 
   <div class="rounds">
     <label for="rounds">Rounds</label>
