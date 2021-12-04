@@ -1,4 +1,16 @@
 <script>
+  import { addMessages, init, getLocaleFromNavigator } from 'svelte-i18n';
+
+  import en from '../src/locales/en.json';
+  import nl from '../src/locales/nl.json';
+  addMessages('en', en);
+  addMessages('nl', nl)
+
+  init({
+    fallbackLocale: 'en',
+    initialLocale: getLocaleFromNavigator(),
+  });
+
   // components
   import Profile from './components/templates/Profile.svelte';
   import Lobby from './components/templates/Lobby.svelte';

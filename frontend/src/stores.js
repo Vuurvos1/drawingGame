@@ -6,6 +6,10 @@ export const socket = readable(io(`http://localhost:4000`));
 
 export const customWords = writable([]);
 
+export const users = writable([]);
+
+export const gameState = writable('');
+
 function createGameManager() {
   const { subscribe, set, update } = writable({
     users: [],

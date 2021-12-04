@@ -1,5 +1,5 @@
-{
-    "words": ["ABBA", "AC/DC", "Abraham Lincoln", "Adidas", "Africa", "Aladdin", "America", "Amsterdam", "Android", "Angelina Jolie", "Angry Birds", "Antarctica", "Anubis", "Apple", "Argentina", "Asia", "Asterix", "Atlantis", "Audi", "Australia", 
+
+    ["ABBA", "AC/DC", "Abraham Lincoln", "Adidas", "Africa", "Aladdin", "America", "Amsterdam", "Android", "Angelina Jolie", "Angry Birds", "Antarctica", "Anubis", "Apple", "Argentina", "Asia", "Asterix", "Atlantis", "Audi", "Australia", 
             "BMW", "BMX", "Bambi", "Band-Aid", "Barack Obama", "Bart Simpson", "Batman", "Beethoven", "Bible", "Big Ben", "Bill Gates", "Bitcoin", "Black Friday", "Bomberman", "Brazil", "Bruce Lee", "Bugs Bunny", 
             "Canada", "Capricorn", "Captain America", "Cat Woman", "Cerberus", "Charlie Chaplin", "Chewbacca", "China", "Chinatown", "Christmas", "Chrome", "Chuck Norris", "Colosseum", "Cookie Monster", "Crash Bandicoot", "Creeper", "Croatia", "Cuba", "Cupid", 
             "DNA", "Daffy Duck", "Darwin", "Darwin Watterson", "Deadpool", "Dexter", "Discord", "Donald Duck", "Donald Trump", "Dora", "Doritos", "Dracula", "Dumbo", 
@@ -51,4 +51,3 @@
             "x-ray", "xylophone", 
             "yacht", "yardstick", "yawn", "yearbook", "yellow", "yeti", "yo-yo", "yogurt", "yolk", "young", "youtuber", 
             "zebra", "zeppelin", "zigzag", "zipline", "zipper", "zombie", "zoo", "zoom"]
-}

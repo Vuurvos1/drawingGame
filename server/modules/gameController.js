@@ -1,10 +1,23 @@
 const io = require('../index').io;
+const wordList = require('../words.json');
 
 io.on('connection', (socket) => {
   socket.on('gameStart', (data) => {
     console.log('game start', data);
 
-    const room = io.sockets.adapter.rooms.get(socket.roomId);
+    // destructure values from data
+    const {
+      customTags,
+      customWordsOnly
+    } = data
+
+    // make a copy of wordList to not manipulate the original
+    let copyWordList = wordList;
+
+    // check if customWordsonly boolean is checked
+    customWordsOnly ? copyWordList = customTags : copyWordList = copyWordList.concat(customTags);
+
+    const room = io.sockets.adapter.rooms.get(socket.roomId)
 
     room.gameManager.time = 30; // get this from data
 
@@ -22,12 +35,12 @@ io.on('connection', (socket) => {
     }, 1000);
 
     // update timer
-
+    
     // start timer
     io.in(socket.roomId).emit('gameStart', {
       time: 30,
       rounds: 3,
-      word: '',
+      word: copyWordList[Math.floor(Math.random() * copyWordList.length)],
     });
   });
 });
