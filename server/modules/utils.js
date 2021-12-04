@@ -24,8 +24,19 @@ const getUsers = (io, socket) => {
   return users;
 };
 
+const pickRandomWords = (words, count) => {
+  // get 3 random words from the list
+  const randomWords = [];
+  for (let i = 0; i < count; i++) {
+    const randomIndex = Math.floor(Math.random() * words.length);
+    randomWords.push(words[randomIndex]);
+  }
+  return randomWords;
+}
+
 module.exports = {
   generateId,
   getGameRoom,
   getUsers,
+  pickRandomWords
 };
