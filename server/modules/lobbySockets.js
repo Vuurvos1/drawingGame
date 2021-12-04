@@ -24,7 +24,7 @@ io.on('connection', (socket) => {
     // expand this object with more user specific data
     socket.user = {
       username: data.username,
-      points: 0, // TODO correct points if user was disconected
+      points: 0 // TODO correct points if user was disconected
     };
 
     const users = getUsers(io, socket);

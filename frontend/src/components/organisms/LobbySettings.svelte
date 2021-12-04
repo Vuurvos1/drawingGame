@@ -63,7 +63,7 @@
       // pass custom words to socket
       $socket.emit('gameStart', {
         customTags,
-        customWordsOnly,
+        customWordsOnly
       });
     }}>Start Game</button
   >

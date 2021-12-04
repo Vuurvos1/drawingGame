@@ -32,7 +32,7 @@ const pickRandomWords = (words, count) => {
     randomWords.push(words[randomIndex]);
   }
   return randomWords;
-}
+};
 
 module.exports = {
   generateId,

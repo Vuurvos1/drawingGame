@@ -9,15 +9,12 @@
   $socket.on('gameStart', (data) => {
     console.log('gameStart', data);
 
-    const {
-      word,
-      wordsToPick
-    } = data
+    const { word, wordsToPick } = data;
 
     choosenWord = word;
     wordChoices = wordsToPick;
-    
-    console.log(wordChoices)
+
+    console.log(wordChoices);
     // set timer`
     // totalTime = data;
   });
@@ -37,7 +34,7 @@
   {/if}
 
   {#if wordChoices.length > 0}
-  <h2>Words to pick from</h2>
+    <h2>Words to pick from</h2>
     {#each wordChoices as word}
       <button class="p-4 cursor-pointer">{word}</button>
     {/each}

@@ -1,30 +1,29 @@
 <script>
-    import { MinusIcon } from 'svelte-feather-icons'
-    import { customWords } from '../../stores';
+  import { MinusIcon } from 'svelte-feather-icons';
+  import { customWords } from '../../stores';
 
-    // specify the custom words that the array will have
-    export let words = [];
+  // specify the custom words that the array will have
+  export let words = [];
 
-    // if the words prop is defined update the state with the props array
-    words.length > 0 ? customWords.set(words) : customWords.set([]);
+  // if the words prop is defined update the state with the props array
+  words.length > 0 ? customWords.set(words) : customWords.set([]);
 
-    // used to get the length of array
-    let customWordLength;
+  // used to get the length of array
+  let customWordLength;
 
-    customWords.subscribe(value => {
-        customWordLength = value.length;
-        [...words] = value;
-	});
+  customWords.subscribe((value) => {
+    customWordLength = value.length;
+    [...words] = value;
+  });
 
-    // specify the maxium of tags that are allowed
-    export let maxTags = 10;
+  // specify the maxium of tags that are allowed
+  export let maxTags = 10;
 
-    // show or dont show remaing tags
-    export let remainingVisible = true
+  // show or dont show remaing tags
+  export let remainingVisible = true;
 
-    const addTag = (e) => {
+  const addTag = (e) => {
     if (e.key == 'Enter') {
-
       if (e.target.value.length < 1) {
         return;
       }
@@ -34,68 +33,67 @@
 
       // check if tag has already been added and check length of it
       if (!words.includes(tag)) {
-            tag.forEach(tag => {
-            // this will prevent users to add more tags with a long string with commas
-            words.length < maxTags ? words.push(tag) : null;
-            // reassign so svelte updates the array
-            customWords.set(words)
+        tag.forEach((tag) => {
+          // this will prevent users to add more tags with a long string with commas
+          words.length < maxTags ? words.push(tag) : null;
+          // reassign so svelte updates the array
+          customWords.set(words);
         });
       }
-        // reset input
-        e.target.value = '';
-      }
-  }
+      // reset input
+      e.target.value = '';
+    }
+  };
 
   // set new tag state
   const deleteTag = (index) => {
-    customWords.set(words.filter((_, i) => i !== index))
-  }
+    customWords.set(words.filter((_, i) => i !== index));
+  };
 
   // reset state with empty array
   const deleteAllTags = () => {
-    customWords.set([])
-  }
-
+    customWords.set([]);
+  };
 </script>
-  
+
 <div class="customTags">
-    <div class="title">
-      <h2>Tags</h2>
-    </div>
-    <div class="content">
-      <p>Press enter or add a comma after each tag</p>
-      <div class="tag-box">
-        <ul>
-         {#if words.length > 0}
-            {#each words as word, index}
-              <li>
-                  <span class="word">{word}</span> 
-                    <span on:click={() => deleteTag(index)} class="close">
-                        <MinusIcon size="1x"/>
-                    </span>
-                </li>
-            {/each}
-          {/if}
-          <input 
-            type="text" 
-            name="customWords" 
-            class="input"
-            on:keyup={(e) => addTag(e)}
-            placeholder="Svelte,Mona"
-          >
-        </ul>
-      </div>
-    </div>
-    <div class="details">
-        {#if remainingVisible}
-            <p>{maxTags - customWordLength} tags remaining</p>
+  <div class="title">
+    <h2>Tags</h2>
+  </div>
+  <div class="content">
+    <p>Press enter or add a comma after each tag</p>
+    <div class="tag-box">
+      <ul>
+        {#if words.length > 0}
+          {#each words as word, index}
+            <li>
+              <span class="word">{word}</span>
+              <span on:click={() => deleteTag(index)} class="close">
+                <MinusIcon size="1x" />
+              </span>
+            </li>
+          {/each}
         {/if}
-      <button on:click={() => deleteAllTags()}>Remove all tags</button>
+        <input
+          type="text"
+          name="customWords"
+          class="input"
+          on:keyup={(e) => addTag(e)}
+          placeholder="Svelte,Mona"
+        />
+      </ul>
     </div>
   </div>
-  
+  <div class="details">
+    {#if remainingVisible}
+      <p>{maxTags - customWordLength} tags remaining</p>
+    {/if}
+    <button on:click={() => deleteAllTags()}>Remove all tags</button>
+  </div>
+</div>
+
 <style>
-    .customTags {
+  .customTags {
     width: 490px;
     /* background-color: hotpink; */
     background-color: #f8f9fd;
@@ -131,7 +129,7 @@
   }
   .content ul li {
     list-style: none;
-    background-color:rgb(41, 46, 195);
+    background-color: rgb(41, 46, 195);
     color: white;
     padding: 5px 8px 5px 10px;
     margin: 4px 3px;
@@ -147,7 +145,7 @@
   }
 
   .content ul li .close {
-      cursor: pointer;
+    cursor: pointer;
   }
   .content ul .input {
     flex: 1;
@@ -161,10 +159,9 @@
     justify-content: space-between;
   }
   .customTags .details button {
-    background-color:  red;
+    background-color: red;
     border-radius: 5px;
     color: white;
     padding: 0.5rem;
   }
 </style>
-  

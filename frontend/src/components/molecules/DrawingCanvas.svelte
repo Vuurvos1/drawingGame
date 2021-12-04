@@ -4,7 +4,7 @@
   import {
     setPixel,
     getPixel,
-    colorsMatch,
+    colorsMatch
   } from '../../modules/floodfillUtils';
   import { socket, gameManager } from '../../stores';
 
@@ -16,7 +16,7 @@
   let ctx;
   let current = {
     x: 0,
-    y: 0,
+    y: 0
   };
 
   gameManager.subscribe((value) => {
@@ -97,7 +97,7 @@
       $socket.emit('floodfill', {
         x: mousePos.x / w,
         y: mousePos.y / h,
-        color: color,
+        color: color
       });
       floodFill(ctx, mousePos.x, mousePos.y, color);
       return;
@@ -177,7 +177,7 @@
 
     return {
       x: touch.clientX - canvasRect.left,
-      y: touch.clientY - canvasRect.top,
+      y: touch.clientY - canvasRect.top
     };
   }
 
@@ -213,7 +213,7 @@
       y1: y1 / h,
       color: color,
       width: width,
-      tool: tool,
+      tool: tool
     });
   }
 

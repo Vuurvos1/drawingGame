@@ -4,11 +4,11 @@
   import en from '../src/locales/en.json';
   import nl from '../src/locales/nl.json';
   addMessages('en', en);
-  addMessages('nl', nl)
+  addMessages('nl', nl);
 
   init({
     fallbackLocale: 'en',
-    initialLocale: getLocaleFromNavigator(),
+    initialLocale: getLocaleFromNavigator()
   });
 
   // components

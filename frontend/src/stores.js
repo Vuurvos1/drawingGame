@@ -18,8 +18,8 @@ function createGameManager() {
     tool: {
       color: '#000000',
       tool: 'brush',
-      size: 3,
-    },
+      size: 3
+    }
   });
 
   const setBrushColor = (color) =>
@@ -44,7 +44,7 @@ function createGameManager() {
     subscribe,
     setBrushColor,
     setBrushSize,
-    setTool,
+    setTool
   };
 }
 

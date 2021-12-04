@@ -11,7 +11,7 @@
     if (username != '') {
       // expand object with more user specific data
       $socket.emit('joinLobby', {
-        username: username,
+        username: username
       });
     }
   }
@@ -19,7 +19,7 @@
 
 <div>
   <label for="username">Username</label>
-  <TextInput type="text" id="username" bind:value={username} />
+  <TextInput id="username" bind:value={username} />
 
   <button on:click={joinLobby}>Join game</button>
 </div>
