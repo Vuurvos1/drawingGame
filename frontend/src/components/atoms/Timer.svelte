@@ -1,4 +1,6 @@
 <script>
+  import { onDestroy } from 'svelte';
+
   import { socket } from '../../stores';
 
   let time = 0;
@@ -19,9 +21,31 @@
     // totalTime = data;
   });
 
-  $socket.on('timer', (data) => {
+  let interval;
+
+  $socket.on('setTimer', (data) => {
     // update timer
+    totalTime = data;
     time = data;
+
+    interval = setInterval(() => {
+      time -= 1;
+
+      // TODO ensure time can't go below 0
+    }, 1000);
+  });
+
+  $socket.on('roundEnd', (data) => {
+    // console.log('round end');
+
+    // update timer
+    time = 0;
+
+    clearInterval(interval); // clear interval
+  });
+
+  onDestroy(() => {
+    clearInterval(interval); // clear interval to prevent memory leak
   });
 </script>
 

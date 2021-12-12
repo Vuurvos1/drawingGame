@@ -22,17 +22,23 @@ io.on('connection', (socket) => {
     room.gameManager.time = 30; // get this from data
 
     // maybe move the timer clientside and only send an end signal
-    room.gameManager.timerId = setInterval(() => {
-      room.gameManager.time -= 1;
+    // room.gameManager.timerId = setInterval(() => {
+    //   room.gameManager.time -= 1;
 
-      if (room.gameManager.time < 0) {
-        // stop time
-        clearInterval(room.gameManager.timerId);
-        return;
-      }
+    //   if (room.gameManager.time < 0) {
+    //     // stop time
+    //     clearInterval(room.gameManager.timerId);
+    //     return;
+    //   }
 
-      io.in(socket.roomId).emit('timer', room.gameManager.time);
-    }, 1000);
+    //   io.in(socket.roomId).emit('timer', room.gameManager.time);
+    // }, 1000);
+    io.in(socket.roomId).emit('setTimer', room.gameManager.time);
+
+    // set timeout to fire once the round ends
+    const timeout = setTimeout(() => {
+      io.in(socket.roomId).emit('roundEnd', {});
+    }, room.gameManager.time * 1000);
 
     // update timer
 
