@@ -17,7 +17,7 @@
   import Game from './components/templates/Game.svelte';
 
   // scripts and variables
-  import { socket, users, gameState } from './stores';
+  import { socket, users, gameState, gameManager } from './stores';
   import { onMount } from 'svelte';
 
   onMount(() => {
@@ -32,10 +32,16 @@
 
 <h1 class="font-bold">hello world!</h1>
 
+<!-- {#if $gameManager.gameState == ''} -->
 <Profile />
-
+<!-- {:else if $gameManager.gameState == ''} -->
 <Lobby />
-
+<!-- {:else if $gameManager.gameState == ''} -->
 <Game />
+<!-- {:else if $gameManager.gameState == ''} -->
+<!-- else if content here -->
+<!-- {:else} -->
+<!-- default state -->
 
+<!-- {/if} -->
 <style></style>
