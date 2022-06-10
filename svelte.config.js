@@ -9,7 +9,19 @@ export const webSocketServer = {
 
 		// TODO extract these
 		io.on('connection', (socket) => {
-			socket.emit('serverEvent', 'hello world');
+			// console.log(`New client: ${socket.id}`);
+
+			socket.on('join', (room) => {
+				socket.room = room; // TODO make sure this is a string
+				socket.join(room);
+			});
+
+			socket.on('chat', (message) => {
+				// send message to all users in room
+				socket.in(socket.room).emit('chat', message);
+			});
+
+			socket.on('disconnect', () => {});
 		});
 	}
 };

@@ -1,11 +1,4 @@
 <script>
-	import { io } from 'socket.io-client';
-
-	const socket = io();
-
-	socket.on('serverEvent', (message) => {
-		console.log(message);
-	});
 </script>
 
 <h1>Welcome to SvelteKit</h1>
