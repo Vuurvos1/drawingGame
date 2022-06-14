@@ -1,4 +1,5 @@
 <script>
+	let roomName = '';
 </script>
 
 <h1>Welcome to SvelteKit</h1>

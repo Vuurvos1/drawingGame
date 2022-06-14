@@ -41,3 +41,6 @@
 	<input bind:value={message} on:keydown={handleKeyDown} type="text" />
 	<button on:click={sendChat}>Send</button>
 </div>
+
+<style>
+</style>
