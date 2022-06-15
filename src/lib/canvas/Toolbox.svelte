@@ -1,4 +1,9 @@
 <script>
+	import Bucket from '../icons/Bucket.svelte';
+	import Eraser from '../icons/Erase.svelte';
+	import Pencil from '../icons/Pencil.svelte';
+	import Trash from '../icons/Trash.svelte';
+
 	const colors = [
 		'#FFFFFF',
 		'#C1C1C1',
@@ -23,39 +28,67 @@
 		'#A75574',
 		'#63300D'
 	];
+	let currentColor = colors[0];
 
 	const tools = ['brush', 'erase', 'fill', 'delete'];
+	let currentTool = tools[0];
 
 	const brushes = [3, 5, 10, 15, 20];
+	let currentBrush = brushes[1];
 </script>
 
 <div class="toolbox">
+	<div class="toolbox__colorPreview" style:background-color={currentColor} />
+
 	<div class="toolbox__colors">
 		<!-- change these to radio buttons? -->
 		{#each colors as color}
-			<button class="toolbox__color" style:background-color={color} on:click={() => {}} />
+			<button
+				class="toolbox__color"
+				style:background-color={color}
+				on:click={() => {
+					currentColor = color;
+				}}
+			/>
 		{/each}
 	</div>
 
 	<div class="toolbox__brushes">
 		{#each brushes as brush}
-			<button class="toolbox__brush" class:active={false} on:click={() => {}}
-				><div class="toolbox__brush" style={`width: ${brush}px;height: ${brush}px`} /></button
+			<button
+				class="toolbox__brush"
+				class:active={currentBrush == brush}
+				on:click={() => {
+					currentBrush = brush;
+				}}
 			>
+				<div style:width="{brush}px" style:height="{brush}px" />
+			</button>
 		{/each}
 	</div>
 
 	<div class="toolbox__tools">
 		{#each tools as tool}
-			<button class:active={false} on:click={() => {}}>
+			<button
+				class="toolbox__tool"
+				class:active={currentTool == tool}
+				on:click={() => {
+					if (tool == 'delete') {
+						// delete canvas
+						console.log('delete canvas');
+					} else {
+						currentTool = tool;
+					}
+				}}
+			>
 				{#if tool == 'brush'}
-					<!-- <Edit2Icon size="24" /> -->
+					<Pencil size="24" />
 				{:else if tool == 'erase'}
-					<!-- <Eraser size="24" /> -->
+					<Eraser size="24" />
 				{:else if tool == 'fill'}
-					<!-- <Bucket size="24" /> -->
+					<Bucket size="24" />
 				{:else if tool == 'delete'}
-					<!-- <Trash2Icon size="24" /> -->
+					<Trash size="24" />
 				{/if}
 			</button>
 		{/each}
@@ -64,7 +97,14 @@
 
 <style lang="scss">
 	.toolbox {
+		display: flex;
+		flex-direction: row;
+		column-gap: 0.5rem;
+
 		&__colors {
+			display: grid;
+			grid-template-columns: repeat(11, minmax(0, 1fr));
+			width: fit-content;
 		}
 
 		&__color {
@@ -72,13 +112,40 @@
 			height: 1.25rem;
 		}
 
+		&__colorPreview {
+			width: 2.5rem;
+			height: 2.5rem;
+		}
+
 		&__brushes {
+			display: flex;
+			flex-direction: row;
+		}
+
+		&__brush,
+		&__tool {
+			width: 2.5rem;
+			height: 2.5rem;
+
+			display: flex;
+			justify-content: center;
+			align-items: center;
+
+			&.active {
+				background-color: #f0f0f0;
+			}
 		}
 
 		&__brush {
+			div {
+				background-color: black;
+				border-radius: 24rem;
+			}
 		}
 
 		&__tools {
+			display: flex;
+			flex-direction: row;
 		}
 
 		&__tool {
