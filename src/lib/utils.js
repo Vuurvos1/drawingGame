@@ -24,3 +24,12 @@ export function onInterval(callback, milliseconds) {
 		clearInterval(interval);
 	});
 }
+
+export function isJsonString(str) {
+	try {
+		JSON.parse(str);
+	} catch (e) {
+		return false;
+	}
+	return true;
+}

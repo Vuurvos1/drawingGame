@@ -9,6 +9,9 @@
 	let messages = [];
 
 	$socket.emit('join', room);
+	$socket.on('join', (id) => {
+		$user.id = id;
+	});
 
 	$socket.on('chat', (message) => {
 		messages = [...messages, message];
