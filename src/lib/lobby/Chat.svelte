@@ -1,5 +1,20 @@
 <script>
 	import { socket, user } from '$lib/stores';
+	import Button from '$lib/ui/Button.svelte';
+	import TextInput from '$lib/ui/TextInput.svelte';
+
+	import { beforeUpdate, afterUpdate } from 'svelte';
+
+	let div;
+	let autoscroll;
+
+	beforeUpdate(() => {
+		autoscroll = div && div.offsetHeight + div.scrollTop > div.scrollHeight - 20;
+	});
+
+	afterUpdate(() => {
+		if (autoscroll) div.scrollTo(0, div.scrollHeight);
+	});
 
 	// socket evetns
 	// on chat message
@@ -8,12 +23,16 @@
 	let messages = [];
 	let message = '';
 
+	$socket.on('chat', (message) => {
+		messages = messages.concat(message);
+	});
+
 	function sendMessage() {
-		messages = [...messages, message];
+		messages = messages.concat({ text: message, user: $user });
 		// username could be filled in on the server?
 		$socket.emit('chat', {
-			message,
-			user: $user.name
+			text: message,
+			user: $user
 		});
 
 		message = '';
@@ -26,12 +45,51 @@
 	}
 </script>
 
-{#each messages as message}
-	<article>
-		<span>{message.username}</span>
-		<span>{message.message}</span>
-	</article>
-{/each}
+<div class="chat">
+	<div class="chat__messages scrollable" bind:this={div}>
+		{#each messages as message}
+			<article>
+				<span>{message.user.name}</span>
+				<span>{message.text}</span>
+			</article>
+		{/each}
+	</div>
 
-<input type="text" bind:value={message} on:keydown={handleKeydown} />
-<button on:click={sendMessage}>Send</button>
+	<div class="chat__form">
+		<!-- chage this to be a form? -->
+		<TextInput bind:value={message} on:keydown={handleKeydown} />
+		<Button on:click={sendMessage}>Send</Button>
+	</div>
+</div>
+
+<style lang="scss">
+	.chat {
+		display: flex;
+		flex-direction: column;
+
+		max-width: 320px;
+
+		// TODO remove this
+		max-height: 20rem;
+
+		&__messages {
+			span:first-child {
+				font-weight: bold;
+			}
+		}
+
+		&__form {
+		}
+	}
+
+	article {
+		margin: 0.5em 0;
+	}
+
+	.scrollable {
+		flex: 1 1 auto;
+		border-top: 1px solid #eee;
+		margin: 0 0 0.5em 0;
+		overflow-y: auto;
+	}
+</style>

@@ -3,7 +3,7 @@
 	export let placeholder;
 </script>
 
-<input type="text" {placeholder} bind:value />
+<input type="text" {placeholder} bind:value on:keydown />
 
 <style lang="scss">
 	input {
@@ -16,5 +16,9 @@
 		border-radius: 0.25rem;
 
 		line-height: 1.25;
+
+		&:focus {
+			outline: none;
+		}
 	}
 </style>

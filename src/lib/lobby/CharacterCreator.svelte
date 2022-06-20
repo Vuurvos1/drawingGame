@@ -67,7 +67,10 @@
 
 <Button
 	on:click={() => {
-		$socket.emit('joinRoom', $user);
+		// also do this server side?
+		if ($user.name !== '' || $user.avatar !== '') {
+			$socket.emit('joinRoom', $user);
+		}
 	}}
 >
 	<!-- if already in lobby/game change text to update? -->
