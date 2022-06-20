@@ -1,8 +1,5 @@
 <script>
-	import Bucket from '$lib/icons/Bucket.svelte';
-	import Eraser from '$lib/icons/Erase.svelte';
-	import Pencil from '$lib/icons/Pencil.svelte';
-	import Trash from '$lib/icons/Trash.svelte';
+	import { Bucket, Eraser, Pencil, Trash } from '$lib/icons';
 
 	const colors = [
 		'#FFFFFF',
