@@ -18,3 +18,9 @@ user.subscribe((value) => {
 });
 
 export const users = writable([]);
+
+export const canvasTool = writable({
+	tool: 'brush',
+	size: 2,
+	color: '#000000'
+});

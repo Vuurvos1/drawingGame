@@ -1,5 +1,6 @@
 <script>
 	import { Bucket, Eraser, Pencil, Trash } from '$lib/icons';
+	import { canvasTool } from '$lib/stores';
 
 	const colors = [
 		'#FFFFFF',
@@ -25,41 +26,41 @@
 		'#A75574',
 		'#63300D'
 	];
-	let currentColor = colors[0];
+	$canvasTool.color = colors[11];
 
 	const tools = ['brush', 'erase', 'fill', 'delete'];
-	let currentTool = tools[0];
+	$canvasTool.tool = tools[0];
 
-	const brushes = [3, 5, 10, 15, 20];
-	let currentBrush = brushes[1];
+	const sizes = [3, 5, 10, 15, 20];
+	$canvasTool.size = sizes[1];
 </script>
 
 <div class="toolbox">
-	<div class="toolbox__colorPreview" style:background-color={currentColor} />
+	<div class="toolbox__colorPreview" style:background-color={$canvasTool.color} />
 
 	<div class="toolbox__colors">
-		<!-- change these to radio buttons? -->
+		<!-- TODO change these to radio buttons? -->
 		{#each colors as color}
 			<button
 				class="toolbox__color"
 				style:background-color={color}
 				on:click={() => {
-					currentColor = color;
+					$canvasTool.color = color;
 				}}
 			/>
 		{/each}
 	</div>
 
 	<div class="toolbox__brushes">
-		{#each brushes as brush}
+		{#each sizes as size}
 			<button
 				class="toolbox__brush"
-				class:active={currentBrush == brush}
+				class:active={$canvasTool.size == size}
 				on:click={() => {
-					currentBrush = brush;
+					$canvasTool.size = size;
 				}}
 			>
-				<div style:width="{brush}px" style:height="{brush}px" />
+				<div style:width="{size}px" style:height="{size}px" />
 			</button>
 		{/each}
 	</div>
@@ -68,13 +69,13 @@
 		{#each tools as tool}
 			<button
 				class="toolbox__tool"
-				class:active={currentTool == tool}
+				class:active={$canvasTool.tool == tool}
 				on:click={() => {
 					if (tool == 'delete') {
 						// delete canvas
 						console.log('delete canvas');
 					} else {
-						currentTool = tool;
+						$canvasTool.tool = tool;
 					}
 				}}
 			>
