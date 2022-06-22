@@ -22,7 +22,8 @@
 		if ($canvasTool.tool == 'fill') {
 			const w = canvasWidth;
 			const h = canvasHeight;
-			const color = hexToRgba($canvasTool.color);
+			// const color = hexToRgba($canvasTool.color);
+			const color = $canvasTool.color;
 			$socket.emit('floodfill', {
 				x: mousePos.x / w,
 				y: mousePos.y / h,
