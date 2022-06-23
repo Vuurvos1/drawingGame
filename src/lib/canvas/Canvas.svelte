@@ -1,8 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
-
-	import { floodfill } from './floodfill.js';
-	import { throttle, hexToRgba } from '$lib/utils';
+	import { throttle } from '$lib/utils';
 	import { socket, canvasTool } from '$lib/stores';
 
 	let canvas;
@@ -22,7 +20,6 @@
 		if ($canvasTool.tool == 'fill') {
 			const w = canvasWidth;
 			const h = canvasHeight;
-			// const color = hexToRgba($canvasTool.color);
 			const color = $canvasTool.color;
 			$socket.emit('floodfill', {
 				x: mousePos.x / w,
@@ -139,8 +136,25 @@
 		};
 	}
 
-	onMount(() => {
+	let FloodFill;
+	function floodfill(ctx, x, y, fillColor) {
+		if (FloodFill) {
+			// get image data
+			const imgData = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
+			// Construct flood fill instance
+			const flood = new FloodFill(imgData);
+			// Modify image data
+			flood.fill(fillColor, x, y, 1);
+			// put the modified data back in context
+			ctx.putImageData(flood.imageData, 0, 0);
+		}
+	}
+
+	onMount(async () => {
 		ctx = canvas.getContext('2d');
+
+		const obj = await import('q-floodfill');
+		FloodFill = obj.default;
 	});
 </script>
 
