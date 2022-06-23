@@ -71,9 +71,11 @@
 				class="toolbox__tool"
 				class:active={$canvasTool.tool == tool}
 				on:click={() => {
-					if (tool == 'delete') {
-						// delete canvas
-						console.log('delete canvas');
+					if (tool === 'delete') {
+						const previous = $canvasTool.tool;
+						$canvasTool.tool = tool;
+						// reset tool after delete
+						$canvasTool.tool = previous;
 					} else {
 						$canvasTool.tool = tool;
 					}

@@ -30,6 +30,7 @@ export const socketEvents = (io, socket) => {
 	// once other user joins a room
 	socket.on('joinRoom', async (user) => {
 		user.id = socket.id;
+		user.score = Math.floor(Math.random() * 2000);
 		socket.user = user;
 
 		const sockets = await io.in(socket.room).fetchSockets();

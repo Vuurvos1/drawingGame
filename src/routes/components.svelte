@@ -8,6 +8,7 @@
 	import Chat from '$lib/lobby/Chat.svelte';
 
 	import { socket } from '$lib/stores';
+	import Leaderboard from '../lib/game/Leaderboard.svelte';
 
 	$socket.emit('join', 'components');
 </script>
@@ -21,3 +22,5 @@
 <UserList />
 
 <Chat />
+
+<Leaderboard />
