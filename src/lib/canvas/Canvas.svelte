@@ -6,6 +6,7 @@
 	canvasTool.subscribe((value) => {
 		if (value.tool === 'delete') {
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
+			$socket.emit('clearCanvas', '');
 		}
 	});
 
@@ -81,7 +82,13 @@
 
 	// socket events
 	$socket.on('draw', (data) => {
-		onDrawingEvent(data);
+		const w = canvasWidth;
+		const h = canvasHeight;
+		drawLine(data.x0 * w, data.y0 * h, data.x1 * w, data.y1 * h, data.color, data.width, data.tool);
+	});
+
+	$socket.on('clearCanvas', () => {
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
 	});
 
 	$socket.on('floodfill', (data) => {
@@ -91,25 +98,8 @@
 	});
 
 	// util functions
-	function onDrawingEvent(data) {
-		const w = canvasWidth;
-		const h = canvasHeight;
-		drawLine(data.x0 * w, data.y0 * h, data.x1 * w, data.y1 * h, data.color, data.width, data.tool);
-	}
-
 	function drawLine(x0, y0, x1, y1, color, width, tool, emit) {
-		if (tool === 'delete') {
-			$socket.emit('draw', {
-				x0: x0 / w,
-				y0: y0 / h,
-				x1: x1 / w,
-				y1: y1 / h,
-				color: color,
-				width: width,
-				tool: tool
-			});
-			return;
-		} else if (tool === 'erase') {
+		if (tool === 'erase') {
 			ctx.globalCompositeOperation = 'destination-out';
 		} else {
 			ctx.globalCompositeOperation = 'source-over';

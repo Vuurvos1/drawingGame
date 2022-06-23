@@ -12,6 +12,16 @@ export const webSocketServer = {
 		io.on('connection', (socket) => {
 			socketEvents(io, socket);
 		});
+	},
+	handleHotUpdate({ file, server }) {
+		if (file.includes('/server/')) {
+			console.log('Reloading server...');
+
+			server.ws.send({
+				type: 'full-reload',
+				path: '*'
+			});
+		}
 	}
 };
 

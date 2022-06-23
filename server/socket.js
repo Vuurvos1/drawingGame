@@ -54,6 +54,11 @@ export const socketEvents = (io, socket) => {
 		socket.in(socket.room).emit('draw', data);
 	});
 
+	socket.on('clearCanvas', (data) => {
+		// TODO only emit if user can actually draw
+		socket.in(socket.room).emit('clearCanvas', data);
+	});
+
 	socket.on('floodfill', (data) => {
 		// data: { x, y, color }
 		// TODO only emit if user can actually draw
@@ -61,10 +66,6 @@ export const socketEvents = (io, socket) => {
 	});
 
 	// TODO undo and redo events
-
-	socket.on('clear', (data) => {
-		socket.in(socket.room).emit('clear', '');
-	});
 
 	socket.on('disconnect', () => {
 		console.log(`client disconnected: ${socket.id}`);
