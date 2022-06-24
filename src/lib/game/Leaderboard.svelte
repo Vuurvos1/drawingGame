@@ -1,6 +1,7 @@
 <script>
 	import { users, user as userStore } from '$lib/stores';
 	import { derived } from 'svelte/store';
+	import UserAvatar from '$lib/components/UserAvatar.svelte';
 
 	const userOrder = derived(users, ($users) => [...$users].sort((a, b) => b.score - a.score));
 </script>
@@ -13,7 +14,9 @@
 				#{i + 1}
 			</p>
 
-			<div class="leaderboard__avatar" style:background-color={user.avatar} />
+			<div class="leaderboard__avatar">
+				<UserAvatar size="2rem" avatar={user.avatar} />
+			</div>
 
 			<div>
 				<p>{user.name}{user.id == $userStore.id ? ' [You]' : ''}</p>
@@ -41,12 +44,7 @@
 		}
 
 		&__avatar {
-			width: 2rem;
-			height: 2rem;
-
 			margin-right: 0.75rem;
-
-			border-radius: 64rem;
 		}
 	}
 </style>

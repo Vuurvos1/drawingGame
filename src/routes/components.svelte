@@ -6,6 +6,7 @@
 	import CharacterCreator from '$lib/lobby/CharacterCreator.svelte';
 	import UserList from '$lib/components/UserList.svelte';
 	import Chat from '$lib/lobby/Chat.svelte';
+	import Settings from '$lib/lobby/Settings.svelte';
 
 	import { socket } from '$lib/stores';
 	import Leaderboard from '../lib/game/Leaderboard.svelte';
@@ -24,3 +25,5 @@
 <Chat />
 
 <Leaderboard />
+
+<Settings />
