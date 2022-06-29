@@ -15,7 +15,7 @@ export const webSocketServer = {
 	},
 	handleHotUpdate({ file, server }) {
 		if (file.includes('/server/')) {
-			console.log('Reloading server...');
+			console.log('Restarting server...');
 
 			server.ws.send({
 				type: 'full-reload',
