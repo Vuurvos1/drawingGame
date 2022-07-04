@@ -1,6 +1,6 @@
 import { browser } from '$app/env';
 import { io } from 'socket.io-client';
-import { readable, writable } from 'svelte/store';
+import { readable, writable, get } from 'svelte/store';
 import { isJsonString } from '$lib/utils';
 
 export const socket = readable(io());
@@ -9,7 +9,6 @@ const defaultUser = { name: '', avatar: '' };
 let localUser = browser ? window.localStorage.getItem('user') ?? defaultUser : defaultUser;
 localUser = isJsonString(localUser) ? JSON.parse(localUser) : defaultUser;
 
-// TODO make custom store smarter and readonly?
 export const user = writable(localUser);
 user.subscribe((value) => {
 	if (browser) {
@@ -18,8 +17,22 @@ user.subscribe((value) => {
 	}
 });
 
-// TODO make custom store smarter and readonly?
-export const users = writable([]);
+export const users = readable([], function start(set) {
+	// set all users
+	get(socket).on('setUsers', (data) => {
+		set(data);
+	});
+
+	// user joins room
+	get(socket).on('joinRoom', (data) => {
+		set(data.users);
+	});
+
+	// user leaves room
+	get(socket).on('leaveRoom', (id) => {
+		set(get(users).filter((user) => user.id !== id));
+	});
+});
 
 export const canvasTool = writable({
 	tool: 'brush',

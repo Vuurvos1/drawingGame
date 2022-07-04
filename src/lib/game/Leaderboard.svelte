@@ -26,18 +26,6 @@
 			</div>
 		</li>
 	{/each}
-
-	<!-- TODO remove, used for testing -->
-	<button
-		on:click={() => {
-			$users = $users.map((user) => {
-				user.score = Math.floor(Math.random() * 2000);
-				return user;
-			});
-		}}
-	>
-		shuffle scores
-	</button>
 </ul>
 
 <style lang="scss">
