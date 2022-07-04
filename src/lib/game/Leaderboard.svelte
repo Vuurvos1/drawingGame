@@ -3,13 +3,15 @@
 	import { derived } from 'svelte/store';
 	import UserAvatar from '$lib/components/UserAvatar.svelte';
 
+	import { flip } from 'svelte/animate';
+
 	const userOrder = derived(users, ($users) => [...$users].sort((a, b) => b.score - a.score));
 </script>
 
 <!-- TODO show person currently drawing -->
 <ul class="leaderboard">
-	{#each $userOrder as user, i}
-		<li>
+	{#each $userOrder as user, i (user.id)}
+		<li animate:flip={{ duration: 300 }}>
 			<p class="leaderboard__index">
 				#{i + 1}
 			</p>
@@ -24,6 +26,18 @@
 			</div>
 		</li>
 	{/each}
+
+	<!-- TODO remove, used for testing -->
+	<button
+		on:click={() => {
+			$users = $users.map((user) => {
+				user.score = Math.floor(Math.random() * 2000);
+				return user;
+			});
+		}}
+	>
+		shuffle scores
+	</button>
 </ul>
 
 <style lang="scss">

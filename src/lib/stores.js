@@ -9,6 +9,7 @@ const defaultUser = { name: '', avatar: '' };
 let localUser = browser ? window.localStorage.getItem('user') ?? defaultUser : defaultUser;
 localUser = isJsonString(localUser) ? JSON.parse(localUser) : defaultUser;
 
+// TODO make custom store smarter and readonly?
 export const user = writable(localUser);
 user.subscribe((value) => {
 	if (browser) {
@@ -17,6 +18,7 @@ user.subscribe((value) => {
 	}
 });
 
+// TODO make custom store smarter and readonly?
 export const users = writable([]);
 
 export const canvasTool = writable({
