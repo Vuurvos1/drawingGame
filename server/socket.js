@@ -10,7 +10,7 @@ export const socketEvents = (io, socket) => {
 		const sockets = await io.in(socket.room).fetchSockets();
 		const users = sockets.filter((s) => s.user !== undefined).map((s) => s.user);
 
-		// console.log(socket.rooms); // should never be longer than 2
+		// console.log(socket.rooms); // should never be more than 2?
 
 		io.in(socket.room).emit('setUsers', users);
 	});
@@ -48,6 +48,30 @@ export const socketEvents = (io, socket) => {
 		io.in(socket.room).emit('setUsers', users);
 	});
 
+	// game events
+	socket.on('gameStart', (data) => {
+		// randomize user order
+		//
+		// first user gets to pick word
+		// see pick word event
+	});
+
+	socket.on('roundEnd', (data) => {
+		// next user gets to pick word
+		// basically game start without the shuffeling of users?
+		// start a new timer
+		// NOTE during round word needs to get less encrypted (send more letters to users)
+		//
+		// if this is the last round (last user in last round is finished):
+		// transition to ending screen (show top 3 winners), also set a timer to transition back to lobby?
+	});
+
+	socket.on('pickWord', (data) => {
+		// data is the index of the picked word [0-2]
+		// send encrypted word to all users, send full word to current user
+		// start the round timer
+	});
+
 	// canvas events
 	socket.on('draw', (data) => {
 		// TODO only emit if user can actually draw
@@ -65,10 +89,19 @@ export const socketEvents = (io, socket) => {
 		socket.in(socket.room).emit('floodfill', data);
 	});
 
+	// getCanvas, event for new users to get current drawing
+	// server should have its own virtual canvas as the "truth"?
+
 	// TODO undo and redo events
 
 	socket.on('disconnect', () => {
 		console.log(`client disconnected: ${socket.id}`);
+
+		// if user is host of game
+
+		// if 2nd to last user, end game > back to lobby
+
+		// if last user, cancel game, destroy room
 
 		// emit leave event
 		socket.in(socket.room).emit('leaveRoom', socket.id);
