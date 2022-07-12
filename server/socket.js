@@ -85,6 +85,10 @@ export const socketEvents = (io, socket) => {
 			// if already in room, update user, otherwise join room
 			socket.join('room-' + room);
 			console.log('joining existing room');
+
+			// TODO add logic for when a user accidently disconnected from a game
+			// This could be done by checking if the saved user id is on the leaderboard, and not already in the room
+			// else create new user
 		}
 
 		// let _room = io.sockets.adapter.rooms[room];
