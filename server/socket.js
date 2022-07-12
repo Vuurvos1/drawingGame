@@ -2,7 +2,13 @@
 export const socketEvents = (io, socket) => {
 	console.log(`new client: ${socket.id}`);
 
+	// console.log('adapter', io);
+
+	// get all sockets inside a room
+	// io.sockets.adapter.rooms['roomName'].sockets
+
 	// join room
+	// this could later be removed in favour for the joinRoom event
 	socket.on('join', async (room) => {
 		socket.room = room; // TODO make sure this is a string
 		socket.join(room);
@@ -10,25 +16,80 @@ export const socketEvents = (io, socket) => {
 		const sockets = await io.in(socket.room).fetchSockets();
 		const users = sockets.filter((s) => s.user !== undefined).map((s) => s.user);
 
+		// log which rooms socket currently is in
 		// console.log(socket.rooms); // should never be more than 2?
 
 		io.in(socket.room).emit('setUsers', users);
 	});
 
-	socket.on('chat', (message) => {
-		// send message to all users in room
+	// once other user joins a room
+	socket.on('joinRoom', async (data) => {
+		console.log(data);
+		let { user, room } = data;
 
-		// only check this if in game
-		// if (message === word) {
-		// base score on time left and amount of people that already guessed
-		// 	socket.user.score += 100;
+		// // and not already in another room
+		if (!room || room !== '') {
+			let random = (Math.random() + 1).toString(36).substring(7);
+			room = random;
+		}
+
+		// console.log(io.sockets.adapter.rooms['room-' + room]);
+		// console.log(io.sockets.adapter.rooms.get('room-' + room));
+
+		// 	// validate room value
+		// 	socket.room = room;
+		// 	socket.join(room);
+
+		// 	// send room code back to client
+		// } else {
+		// 	//
 		// }
 
-		socket.in(socket.room).emit('chat', message);
-	});
+		if (!io.sockets.adapter.rooms['room-' + room]) {
+			console.log('creating new room');
 
-	// once other user joins a room
-	socket.on('joinRoom', async (user) => {
+			socket.join('room-' + room);
+
+			let serverRoom = io.sockets.adapter.rooms.get('room-' + room);
+
+			// serverRoom.host = socket.id;
+
+			const defaults = {
+				host: socket.id, // id of room hsot
+				currPlayer: 0, // current player
+				currRound: 0, // current round
+				currWord: '', // current word beeing guesed
+				gaming: false, // if gaming/ playing rounds
+				settings: {
+					// default/empty room settings
+					rounds: 3,
+					duration: 30,
+					userOrder: [],
+					customWords: [],
+					customWordsOnly: false
+				}
+			};
+			// add array to keep track of players?
+			// room time
+			// canvas?
+
+			// set default room values
+			Object.assign(serverRoom, defaults);
+
+			console.log(serverRoom, io.sockets.adapter.rooms.get('room-' + room));
+
+			// send current host to clients
+			socket.emit('setHost');
+		} else {
+			// room already exists
+			// if already in room, update user, otherwise join room
+			socket.join('room-' + room);
+			console.log('joining existing room');
+		}
+
+		// let _room = io.sockets.adapter.rooms[room];
+		// _room.host = socket.id;
+
 		user.id = socket.id;
 		user.score = Math.floor(Math.random() * 2000);
 		socket.user = user;
@@ -48,12 +109,47 @@ export const socketEvents = (io, socket) => {
 		io.in(socket.room).emit('setUsers', users);
 	});
 
+	socket.on('chat', (data) => {
+		// format message
+		data.text = data.text.trim();
+
+		console.log('chat', data);
+		if (data.text == '') return;
+
+		// send message to all users in room
+
+		// TODO format message
+
+		const serverRoom = io.sockets.adapter.rooms.get('room-' + socket.room);
+
+		// only check this if in game
+		if (data.text === serverRoom?.currWord) {
+			// base score on time left and amount of people that already guessed
+			socket.user.score += 100;
+			// update users
+		} else {
+			socket.in(socket.room).emit('chat', data);
+		}
+	});
+
 	// game events
-	socket.on('gameStart', (data) => {
+	socket.on('gameStart', async (data) => {
+		// check if game already started
+
+		// get users
+		const sockets = await io.in(socket.room).fetchSockets();
+		const usersIds = sockets.filter((s) => s.user !== undefined).map((s) => s.id);
+
+		const shuffeledUsers = usersIds.filer((u) => 0.5 - Math.random());
+		console.log(usersIds, shuffeledUsers);
+
+		// set user order
+
 		// randomize user order
 		//
 		// first user gets to pick word
 		// see pick word event
+		// set values
 	});
 
 	socket.on('roundEnd', (data) => {
@@ -94,8 +190,24 @@ export const socketEvents = (io, socket) => {
 
 	// TODO undo and redo events
 
+	socket.on('getHostData', () => {
+		// get data from host socket
+		// and send data from host socket to users in room
+	});
+
 	socket.on('disconnect', () => {
 		console.log(`client disconnected: ${socket.id}`);
+
+		const room = socket.room;
+
+		const serverRoom = io.sockets.adapter.rooms.get('room-' + room);
+
+		if (serverRoom?.host === socket.id) {
+			// TODO pick new host
+			socket.emit('setHost');
+
+			// if no new host availible, destroy room?
+		}
 
 		// if user is host of game
 

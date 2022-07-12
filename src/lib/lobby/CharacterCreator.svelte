@@ -3,6 +3,7 @@
 	import TextInput from '$lib/ui/TextInput.svelte';
 	import { Chevron, RotateCW } from '$lib/icons';
 	import { socket, user } from '$lib/stores';
+	import { page } from '$app/stores';
 
 	let avatarColors = ['#f97316', '#22c55e', '#0ea5e9', '#a855f7', '#ec4899', '#f43f5e'];
 	let colorIndex = 0;
@@ -69,7 +70,7 @@
 	on:click={() => {
 		// also do this server side?
 		if ($user.name !== '' || $user.avatar !== '') {
-			$socket.emit('joinRoom', $user);
+			$socket.emit('joinRoom', { user: $user, room: $page.params.slug });
 		}
 	}}
 >

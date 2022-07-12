@@ -28,6 +28,10 @@
 	});
 
 	function sendMessage() {
+		message = message.trim(); // remove whitespace before and after text
+
+		if (message.trim() == '') return; // if message is empty don't do anything
+
 		messages = messages.concat({ text: message, user: $user });
 		// username could be filled in on the server?
 		$socket.emit('chat', {

@@ -1,5 +1,5 @@
 <script>
-	import { socket, users, user } from '$lib/stores';
+	import { socket, user } from '$lib/stores';
 
 	// global socket events
 
