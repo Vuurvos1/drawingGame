@@ -52,6 +52,9 @@ export const users = readable([], function start(set) {
 	});
 });
 
+// TODO convert this to a more custom store that also contains socket events
+export const gameState = writable('character');
+
 export const canvasTool = writable({
 	tool: 'brush',
 	size: 2,

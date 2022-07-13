@@ -2,11 +2,16 @@
 	import { socket } from '$lib/stores';
 	import CustomTags from '$lib/components/CustomTags.svelte';
 	import Button from '$lib/ui/Button.svelte';
+	import { createEventDispatcher } from 'svelte';
+
+	const dispatch = createEventDispatcher();
 
 	let customTags = ['foo', 'bar'];
 	let customWordsOnly = false;
 	let drawTime = 30;
 	let rounds = 3;
+
+	// TODO change so only host can change these values
 </script>
 
 <div>
@@ -53,6 +58,8 @@
 				customTags,
 				customWordsOnly
 			});
+
+			dispatch('gameStart', '');
 		}}
 	>
 		Start Game

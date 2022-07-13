@@ -33,3 +33,8 @@ export function isJsonString(str) {
 	}
 	return true;
 }
+
+export function randomString(length = 7) {
+	// random string containing numbers and letters
+	return (Math.random() + 1).toString(36).substring(length);
+}

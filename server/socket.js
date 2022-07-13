@@ -1,3 +1,5 @@
+import { randomInts } from './utils.js';
+
 // TODO change this to be default?
 export const socketEvents = (io, socket) => {
 	console.log(`new client: ${socket.id}`);
@@ -24,13 +26,16 @@ export const socketEvents = (io, socket) => {
 
 	// once other user joins a room
 	socket.on('joinRoom', async (data) => {
-		console.log(data);
+		// console.log(data);
 		let { user, room } = data;
 
-		// // and not already in another room
-		if (!room || room !== '') {
-			let random = (Math.random() + 1).toString(36).substring(7);
+		// and not already in another room
+		if (!room || room == '') {
+			console.log('random room');
+			const random = (Math.random() + 1).toString(36).substring(7);
 			room = random;
+
+			// send room back to user?
 		}
 
 		// console.log(io.sockets.adapter.rooms['room-' + room]);
@@ -59,6 +64,7 @@ export const socketEvents = (io, socket) => {
 				currPlayer: 0, // current player
 				currRound: 0, // current round
 				currWord: '', // current word beeing guesed
+				words: [], // array with words user can pick from
 				gaming: false, // if gaming/ playing rounds
 				settings: {
 					// default/empty room settings
@@ -76,8 +82,6 @@ export const socketEvents = (io, socket) => {
 			// set default room values
 			Object.assign(serverRoom, defaults);
 
-			console.log(serverRoom, io.sockets.adapter.rooms.get('room-' + room));
-
 			// send current host to clients
 			socket.emit('setHost');
 		} else {
@@ -85,6 +89,8 @@ export const socketEvents = (io, socket) => {
 			// if already in room, update user, otherwise join room
 			socket.join('room-' + room);
 			console.log('joining existing room');
+
+			// send canvas to user if game already started
 
 			// TODO add logic for when a user accidently disconnected from a game
 			// This could be done by checking if the saved user id is on the leaderboard, and not already in the room
@@ -114,16 +120,12 @@ export const socketEvents = (io, socket) => {
 	});
 
 	socket.on('chat', (data) => {
-		// format message
-		data.text = data.text.trim();
+		data.text = data.text.trim(); // format message
+		// TODO further/better format message?
 
-		console.log('chat', data);
-		if (data.text == '') return;
+		if (data.text == '') return; // don't send empty messages
 
 		// send message to all users in room
-
-		// TODO format message
-
 		const serverRoom = io.sockets.adapter.rooms.get('room-' + socket.room);
 
 		// only check this if in game
@@ -144,16 +146,27 @@ export const socketEvents = (io, socket) => {
 		const sockets = await io.in(socket.room).fetchSockets();
 		const usersIds = sockets.filter((s) => s.user !== undefined).map((s) => s.id);
 
-		const shuffeledUsers = usersIds.filer((u) => 0.5 - Math.random());
+		// randomize user order
+		const shuffeledUsers = usersIds.sort((u) => 0.5 - Math.random()); // randomize user list (broken?, also seems to be biased)
 		console.log(usersIds, shuffeledUsers);
-
 		// set user order
 
-		// randomize user order
-		//
+		// get server room
+		const room = socket.room;
+		const serverRoom = io.sockets.adapter.rooms.get('room-' + room);
+
 		// first user gets to pick word
 		// see pick word event
 		// set values
+
+		const jsonWords = ['cheese', 'bacon', 'eggs', 'burger', 'water']; // actually fetch these from json file
+		const indexes = randomInts(3, jsonWords.length);
+		const words = indexes.map((index) => jsonWords[index]);
+		// send words to user
+
+		serverRoom.words = words;
+
+		socket.in(socket.room).emit('gameStart', '');
 	});
 
 	socket.on('roundEnd', (data) => {
@@ -166,10 +179,24 @@ export const socketEvents = (io, socket) => {
 		// transition to ending screen (show top 3 winners), also set a timer to transition back to lobby?
 	});
 
-	socket.on('pickWord', (data) => {
+	socket.on('pickWord', (index) => {
 		// data is the index of the picked word [0-2]
+
+		// data validation
+		if (typeof index !== 'number' && index >= 0 && index < 3) {
+			index = Math.floor(Math.random() * 3); // pick random word index if not valid
+		}
+
+		const room = socket.room;
+		const serverRoom = io.sockets.adapter.rooms.get('room-' + room);
+
+		serverRoom.currWord = serverRoom.words[index];
+		serverRoom.words = [];
+
 		// send encrypted word to all users, send full word to current user
 		// start the round timer
+
+		// setTimeout()
 	});
 
 	// canvas events

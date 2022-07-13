@@ -4,6 +4,9 @@
 	import { Chevron, RotateCW } from '$lib/icons';
 	import { socket, user } from '$lib/stores';
 	import { page } from '$app/stores';
+	import { createEventDispatcher } from 'svelte';
+
+	const dispatch = createEventDispatcher();
 
 	let avatarColors = ['#f97316', '#22c55e', '#0ea5e9', '#a855f7', '#ec4899', '#f43f5e'];
 	let colorIndex = 0;
@@ -71,6 +74,8 @@
 		// also do this server side?
 		if ($user.name !== '' || $user.avatar !== '') {
 			$socket.emit('joinRoom', { user: $user, room: $page.params.slug });
+
+			dispatch('joinRoom', '');
 		}
 	}}
 >
