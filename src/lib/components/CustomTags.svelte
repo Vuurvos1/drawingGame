@@ -12,6 +12,7 @@
 	let inputValue = '';
 
 	function handleKeydown(ev) {
+		// also trigger when pressing comma?
 		if (ev.key === 'Enter') {
 			if (inputValue < 1) {
 				return;

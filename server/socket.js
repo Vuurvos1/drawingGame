@@ -1,7 +1,7 @@
-import { randomInts } from './utils.js';
+import { randomInts, getJsonWords } from './utils.js';
 
 // TODO change this to be default?
-export const socketEvents = (io, socket) => {
+export const socketEvents = async (io, socket) => {
 	console.log(`new client: ${socket.id}`);
 
 	// console.log('adapter', io);
@@ -29,6 +29,8 @@ export const socketEvents = (io, socket) => {
 		// console.log(data);
 		let { user, room } = data;
 
+		// console.log(user, room);
+
 		// and not already in another room
 		if (!room || room == '') {
 			console.log('random room');
@@ -38,7 +40,7 @@ export const socketEvents = (io, socket) => {
 			// send room back to user?
 		}
 
-		// console.log(io.sockets.adapter.rooms['room-' + room]);
+		// console.log(io.sockets.adapter.rooms);
 		// console.log(io.sockets.adapter.rooms.get('room-' + room));
 
 		// 	// validate room value
@@ -50,7 +52,7 @@ export const socketEvents = (io, socket) => {
 		// 	//
 		// }
 
-		if (!io.sockets.adapter.rooms['room-' + room]) {
+		if (!io.sockets.adapter.rooms.get('room-' + room)) {
 			console.log('creating new room');
 
 			socket.join('room-' + room);
@@ -141,6 +143,7 @@ export const socketEvents = (io, socket) => {
 	// game events
 	socket.on('gameStart', async (data) => {
 		// check if game already started
+		// check if host started the game
 
 		// get users
 		const sockets = await io.in(socket.room).fetchSockets();
@@ -148,7 +151,7 @@ export const socketEvents = (io, socket) => {
 
 		// randomize user order
 		const shuffeledUsers = usersIds.sort((u) => 0.5 - Math.random()); // randomize user list (broken?, also seems to be biased)
-		console.log(usersIds, shuffeledUsers);
+		// console.log(usersIds, shuffeledUsers);
 		// set user order
 
 		// get server room
@@ -159,11 +162,12 @@ export const socketEvents = (io, socket) => {
 		// see pick word event
 		// set values
 
-		const jsonWords = ['cheese', 'bacon', 'eggs', 'burger', 'water']; // actually fetch these from json file
-		const indexes = randomInts(3, jsonWords.length);
-		const words = indexes.map((index) => jsonWords[index]);
-		// send words to user
+		const jsonWords = await getJsonWords();
 
+		const indexes = randomInts(3, jsonWords.length); // generate 3 random indexes for word array
+		const words = indexes.map((index) => jsonWords[index]); // get indexes from word array
+		// send words to first user
+		io.in(shuffeledUsers[0]).emit('pickWord', words); // send words to user (io.in to also send to self)
 		serverRoom.words = words;
 
 		socket.in(socket.room).emit('gameStart', '');
@@ -181,17 +185,20 @@ export const socketEvents = (io, socket) => {
 
 	socket.on('pickWord', (index) => {
 		// data is the index of the picked word [0-2]
-
-		// data validation
-		if (typeof index !== 'number' && index >= 0 && index < 3) {
-			index = Math.floor(Math.random() * 3); // pick random word index if not valid
-		}
-
 		const room = socket.room;
 		const serverRoom = io.sockets.adapter.rooms.get('room-' + room);
 
-		serverRoom.currWord = serverRoom.words[index];
-		serverRoom.words = [];
+		if (serverRoom.words.length < 1) return; // no words to pick from
+
+		// index/data validation
+		if (typeof index !== 'number' && index >= 0 && index < serverRoom.words.length) {
+			index = Math.floor(Math.random() * 3); // pick random word index if not valid
+		}
+
+		serverRoom.currWord = serverRoom.words[index]; // set current word
+		serverRoom.words = []; // clear server word selection
+
+		console.log('user picked:', serverRoom.currWord);
 
 		// send encrypted word to all users, send full word to current user
 		// start the round timer

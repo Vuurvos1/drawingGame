@@ -10,6 +10,7 @@
 	import Canvas from '$lib/canvas/Canvas.svelte';
 	import Toolbox from '$lib/canvas/Toolbox.svelte';
 
+	let words = [];
 	let room = $page.params.slug;
 	let gameState = 'character'; // TODO change this to be a store?
 
@@ -17,6 +18,14 @@
 
 	$socket.on('gameStart', (data) => {
 		gameState = 'game';
+	});
+
+	$socket.on('pickWord', (data) => {
+		words = data;
+	});
+
+	$socket.on('setWord', (word) => {
+		// encrypted word from server
 	});
 </script>
 
@@ -46,7 +55,10 @@
 
 	<Chat />
 
-	<!-- <WordModal /> -->
+	<h2>{words.join(', ')}</h2>
+	{#if words.length > 0}
+		<WordModal {words} />
+	{/if}
 {:else}
 	<h1>Invalid game state</h1>
 {/if}

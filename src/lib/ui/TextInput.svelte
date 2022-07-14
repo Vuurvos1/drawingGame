@@ -1,6 +1,6 @@
 <script>
 	export let value = '';
-	export let placeholder;
+	export let placeholder = undefined;
 </script>
 
 <input type="text" {placeholder} bind:value on:keydown />

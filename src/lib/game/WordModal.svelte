@@ -2,7 +2,7 @@
 	import { socket } from '$lib/stores';
 	import Button from '$lib/ui/Button.svelte';
 
-	export let words;
+	export let words = [];
 </script>
 
 <!-- if timer runs out, pick random ( server side) -->
