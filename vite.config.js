@@ -2,28 +2,37 @@ import { sveltekit } from '@sveltejs/kit/vite';
 import removeConsole from 'vite-plugin-svelte-console-remover';
 
 import { Server } from 'socket.io';
-import { socketEvents } from './server/socket.js';
+let socketEvents;
 
 export const webSocketServer = {
 	name: 'webSocketServer',
-	configureServer(server) {
+	configureServer: async (server) => {
+		// if no socket events import for the first time
+		if (!socketEvents) {
+			const events = await import(`./server/socket.js?version=${Number(new Date())}`);
+			socketEvents = events.socketEvents;
+		}
+
 		const io = new Server(server.httpServer);
 
 		io.on('connection', (socket) => {
 			socketEvents(io, socket);
 		});
 	},
-	handleHotUpdate({ file, server }) {
-		console.log(file);
-
+	handleHotUpdate: async ({ file, server }) => {
+		// if a file changes in server directory
 		if (file.includes('/server/')) {
-			// not 100% if this actually restarts the web socket server
-			console.log('changed server file');
+			console.log('Server change');
 
-			// server.ws.send({
-			// 	type: 'full-reload',
-			// 	path: '*'
-			// });
+			// reimport socket events with version to get around caching
+			const events = await import(`./server/socket.js?version=${Number(new Date())}`);
+			socketEvents = events.socketEvents;
+
+			// reload client
+			server.ws.send({
+				type: 'full-reload',
+				path: '*'
+			});
 		}
 
 		return [];
