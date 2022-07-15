@@ -1,10 +1,8 @@
 import { randomInts, getJsonWords } from './utils.js';
 
-// TODO change this to be default?
+// TODO change this to be default export?
 export const socketEvents = async (io, socket) => {
 	console.log(`new client: ${socket.id}`);
-
-	// console.log('adapter', io);
 
 	// get all sockets inside a room
 	// io.sockets.adapter.rooms['roomName'].sockets
@@ -29,32 +27,26 @@ export const socketEvents = async (io, socket) => {
 		// console.log(data);
 		let { user, room } = data;
 
-		// console.log(user, room);
+		// validate room value
 
 		// and not already in another room
 		if (!room || room == '') {
 			console.log('random room');
 			const random = (Math.random() + 1).toString(36).substring(7);
 			room = random;
+			// test if room doesn't already exists
 
-			// send room back to user?
+			// send room code back to client
 		}
 
 		// console.log(io.sockets.adapter.rooms);
 		// console.log(io.sockets.adapter.rooms.get('room-' + room));
 
-		// 	// validate room value
 		// 	socket.room = room;
 		// 	socket.join(room);
 
-		// 	// send room code back to client
-		// } else {
-		// 	//
-		// }
-
 		if (!io.sockets.adapter.rooms.get('room-' + room)) {
 			console.log('creating new room');
-
 			socket.join('room-' + room);
 
 			let serverRoom = io.sockets.adapter.rooms.get('room-' + room);
@@ -89,8 +81,8 @@ export const socketEvents = async (io, socket) => {
 		} else {
 			// room already exists
 			// if already in room, update user, otherwise join room
-			socket.join('room-' + room);
 			console.log('joining existing room');
+			socket.join('room-' + room);
 
 			// send canvas to user if game already started
 
@@ -99,8 +91,8 @@ export const socketEvents = async (io, socket) => {
 			// else create new user
 		}
 
-		// let _room = io.sockets.adapter.rooms[room];
-		// _room.host = socket.id;
+		// let room = io.sockets.adapter.rooms[room];
+		// room.host = socket.id;
 
 		user.id = socket.id;
 		user.score = Math.floor(Math.random() * 2000);
@@ -134,6 +126,7 @@ export const socketEvents = async (io, socket) => {
 		if (data.text === serverRoom?.currWord) {
 			// base score on time left and amount of people that already guessed
 			socket.user.score += 100;
+			// update server value
 			// update users
 		} else {
 			socket.in(socket.room).emit('chat', data);

@@ -14,15 +14,19 @@ export const webSocketServer = {
 		});
 	},
 	handleHotUpdate({ file, server }) {
+		console.log(file);
+
 		if (file.includes('/server/')) {
 			// not 100% if this actually restarts the web socket server
-			console.log('Restarting server...');
+			console.log('changed server file');
 
-			server.ws.send({
-				type: 'full-reload',
-				path: '*'
-			});
+			// server.ws.send({
+			// 	type: 'full-reload',
+			// 	path: '*'
+			// });
 		}
+
+		return [];
 	}
 };
 
