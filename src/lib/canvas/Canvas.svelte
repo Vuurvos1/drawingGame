@@ -37,7 +37,7 @@
 				y: mousePos.y / h,
 				color: color
 			});
-			floodfill(ctx, mousePos.x, mousePos.y, color);
+			floodfill(ctx, Math.round(mousePos.x), Math.round(mousePos.y), color);
 			return;
 		}
 
@@ -159,47 +159,29 @@
 		}
 	}
 
-	// $: {
-	// 	if (canvasWidth > 0 && canvasHeight > 0) {
-	// 		console.log(canvasWidth, canvasHeight);
-	// 	}
-	// }
-
-	// $: canvasWidth, console.log(canvasWidth);
-
-	// make canvas responsive
-	// const canvas = document.getElementById('canvas');
-	// const ctx = canvas.getContext('2d');
-	// const canvasWidth = canvas.width;
-	// const canvasHeight = canvas.height;
-
 	function resizeCanvas() {
 		canvasRect = canvas.getBoundingClientRect();
-		canvasWidth = canvasRect.width;
-		canvasHeight = canvasRect.height;
 
-		canvas.width = canvasWidth;
-		canvas.height = canvasHeight;
+		const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
 
-		// canvasWidth = Math.round(canvasRect.width);
-		// canvasHeight = Math.round(canvasRect.height);
+		// create copy of image data to draw back later
+		const dataCopy = ctx.createImageData(imageData.width, imageData.height);
+		dataCopy.data.set(imageData.data);
 
-		// ctx.canvas.width = canvasWidth;
-		// ctx.canvas.height = canvasHeight;
+		// set new canvas size (this clears the canvas)
+		canvas.width = Math.round(canvasRect.width);
+		canvas.height = Math.round(canvasRect.height);
 
-		console.log('resize');
+		// put iamge back onto canvas, change this to drawImage for better resizing?
+		ctx.putImageData(dataCopy, 0, 0, 0, 0, dataCopy.width, dataCopy.height);
 	}
 
 	onMount(async () => {
 		ctx = canvas.getContext('2d');
-		// console.log(ctx);
 
-		// canvasRect = canvas.getBoundingClientRect();
-
-		// canvasWidth = canvasRect.width;
-		// canvasHeight = canvasRect.height;
-
-		// console.log(canvasWidth, canvasHeight);
+		canvasRect = canvas.getBoundingClientRect();
+		canvas.width = canvasRect.width;
+		canvas.height = canvasRect.height;
 
 		const obj = await import('q-floodfill');
 		FloodFill = obj.default;
@@ -210,10 +192,6 @@
 
 <p>{canvasWidth}px / {canvasHeight}px</p>
 
-<!-- width={canvasWidth}
-height={canvasHeight} -->
-<!-- width={canvasWidth}
-	height={canvasHeight} -->
 <canvas
 	bind:this={canvas}
 	bind:clientWidth={canvasWidth}

@@ -32,12 +32,12 @@
 		padding: 0 2rem;
 
 		& > div {
-			background-color: #efefef;
 			border-radius: 0.5rem;
 		}
 
 		&__leaderboard {
 			grid-column: span 2;
+			background-color: #efefef;
 		}
 
 		&__canvas {
@@ -46,6 +46,7 @@
 
 		&__chat {
 			grid-column: span 2;
+			background-color: #efefef;
 		}
 
 		:global(canvas) {
