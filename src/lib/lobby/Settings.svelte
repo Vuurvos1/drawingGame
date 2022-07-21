@@ -6,6 +6,7 @@
 
 	const dispatch = createEventDispatcher();
 
+	// TODO empty tags
 	let customTags = ['foo', 'bar'];
 	let customWordsOnly = false;
 	let drawTime = 30;
@@ -15,8 +16,6 @@
 </script>
 
 <div>
-	<h1>Room settings</h1>
-
 	<div class="rounds">
 		<label for="rounds">Rounds</label>
 		<input
@@ -67,4 +66,17 @@
 </div>
 
 <style lang="scss">
+	.rounds,
+	.drawTime {
+		// display: flex;
+		// flex-direction: row;
+
+		input {
+			width: 100%;
+			padding: 0.75rem 1rem;
+			border-radius: 0.25rem;
+			outline: none;
+			border: 1px solid #000;
+		}
+	}
 </style>

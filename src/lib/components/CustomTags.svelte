@@ -53,23 +53,21 @@
 		<p>Press enter or add a comma after each tag</p>
 		<div class="tag-box">
 			<ul>
-				{#if words.length > 0}
-					{#each words as word, index}
-						<li>
-							<span class="word">{word}</span>
-							<button on:click={() => deleteTag(index)} class="close">
-								<MinusIcon />
-							</button>
-						</li>
-					{/each}
-				{/if}
+				{#each words as word, index}
+					<li>
+						<span class="word">{word}</span>
+						<button on:click={() => deleteTag(index)} class="close">
+							<MinusIcon />
+						</button>
+					</li>
+				{/each}
 				<input
 					type="text"
 					name="customWords"
 					class="input"
 					on:keydown={handleKeydown}
 					bind:value={inputValue}
-					placeholder="Type your custom words here, separated by commas"
+					placeholder="Custom words, separated by commas"
 				/>
 			</ul>
 		</div>
@@ -81,7 +79,7 @@
 
 <style lang="scss">
 	/* TODO rewrite this */
-
+	/* TODO fix tags beeing out of bounds */
 	.customTags {
 		max-width: 24rem;
 
@@ -90,9 +88,8 @@
 			align-items: center;
 
 			h2 {
-				font-size: 21px;
+				font-size: 1rem;
 				font-weight: 600;
-				margin-left: 8px;
 			}
 		}
 
@@ -104,22 +101,23 @@
 		ul {
 			display: flex;
 			flex-wrap: wrap;
-			padding: 7px;
-			border: 1px solid #a6a6a6;
-			border-radius: 5px;
-			margin: 12px 0px;
+			border-radius: 0.25rem;
+			margin: 0.75rem 0;
+
+			background-color: #fff;
 		}
 
 		.content ul li {
-			list-style: none;
-			background-color: rgb(41, 46, 195);
-			color: white;
-			padding: 5px 8px 5px 10px;
-			margin: 4px 3px;
-			border-radius: 5px;
-			border: 1px solid #e3d1e1;
 			display: flex;
 			align-items: center;
+
+			margin: 4px 3px;
+			padding: 0.125rem 0.5rem 0.125rem 10px;
+
+			list-style: none;
+			background-color: rgb(41, 46, 195);
+			color: #fff;
+			border-radius: 0.25rem;
 		}
 
 		.word {
@@ -129,6 +127,7 @@
 
 		.close {
 			color: white;
+			line-height: 0;
 		}
 
 		ul .input {

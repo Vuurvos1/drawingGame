@@ -53,7 +53,7 @@
 	<div class="chat__messages scrollable" bind:this={div}>
 		{#each messages as message}
 			<article>
-				<span>{message.user.name}</span>
+				<span>{message.user.name}:</span>
 				<span>{message.text}</span>
 			</article>
 		{/each}
@@ -61,7 +61,7 @@
 
 	<div class="chat__form">
 		<!-- chage this to be a form? -->
-		<TextInput bind:value={message} on:keydown={handleKeydown} />
+		<TextInput bind:value={message} on:keydown={handleKeydown} placeholder="Type your message" />
 		<Button on:click={sendMessage}>Send</Button>
 	</div>
 </div>
@@ -71,10 +71,8 @@
 		display: flex;
 		flex-direction: column;
 
+		height: 100%;
 		max-width: 320px;
-
-		// TODO remove this
-		max-height: 20rem;
 
 		&__messages {
 			span:first-child {

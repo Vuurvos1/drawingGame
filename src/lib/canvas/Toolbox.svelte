@@ -99,9 +99,13 @@
 	.toolbox {
 		display: flex;
 		flex-direction: row;
-		column-gap: 0.5rem;
+		column-gap: 0.75rem;
+
+		justify-content: center;
 
 		&__colors {
+			border-radius: 0.25rem;
+
 			display: grid;
 			grid-template-columns: repeat(11, minmax(0, 1fr));
 			width: fit-content;
@@ -110,16 +114,27 @@
 		&__color {
 			width: 1.25rem;
 			height: 1.25rem;
+
+			button {
+				border: 1px solid black;
+			}
 		}
 
 		&__colorPreview {
 			width: 2.5rem;
 			height: 2.5rem;
+			border-radius: 0.25rem;
 		}
 
 		&__brushes {
 			display: flex;
 			flex-direction: row;
+			column-gap: 0.25rem;
+
+			button {
+				border: 1px solid black;
+				border-radius: 0.25rem;
+			}
 		}
 
 		&__brush,
@@ -146,6 +161,12 @@
 		&__tools {
 			display: flex;
 			flex-direction: row;
+			column-gap: 0.25rem;
+
+			button {
+				border: 1px solid black;
+				border-radius: 0.25rem;
+			}
 		}
 
 		&__tool {

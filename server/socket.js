@@ -43,7 +43,6 @@ export const socketEvents = async (io, socket) => {
 		// console.log(io.sockets.adapter.rooms.get('room-' + room));
 
 		// 	socket.room = room;
-		// 	socket.join(room);
 
 		if (!io.sockets.adapter.rooms.get('room-' + room)) {
 			console.log('creating new room');

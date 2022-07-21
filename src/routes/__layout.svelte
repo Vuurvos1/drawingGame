@@ -10,4 +10,5 @@
 
 <style lang="scss" global>
 	@import '../lib/reset.scss';
+	@import '../lib/main.scss';
 </style>

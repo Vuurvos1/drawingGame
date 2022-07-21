@@ -1,5 +1,15 @@
-// import fs from 'node:fs';
 import { readFile } from 'fs/promises';
+import crypto from 'node:crypto';
+
+/**
+ * Generate a random id
+ *
+ * @param {number} [length=8] - Length of id
+ * @return {string} Random id
+ */
+export function generateId(length = 8) {
+	return crypto.randomBytes(length).toString('hex');
+}
 
 /**
  * Generate different random numbers in a range from [0, maxValue)

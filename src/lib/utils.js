@@ -25,6 +25,12 @@ export function onInterval(callback, milliseconds) {
 	});
 }
 
+/**
+ * Test if a string is valid JSON
+ *
+ * @param {string} str - string
+ * @return {boolean} If string is valid json
+ */
 export function isJsonString(str) {
 	try {
 		JSON.parse(str);

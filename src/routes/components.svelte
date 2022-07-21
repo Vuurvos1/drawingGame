@@ -9,12 +9,19 @@
 	import Settings from '$lib/lobby/Settings.svelte';
 
 	import { socket } from '$lib/stores';
-	import Leaderboard from '../lib/game/Leaderboard.svelte';
+	import Leaderboard from '$lib/game/Leaderboard.svelte';
+
+	import Lobby from '$lib/templates/Lobby.svelte';
+	import Game from '$lib/templates/Game.svelte';
 
 	$socket.emit('join', 'components');
 </script>
 
-<Canvas />
+<!-- <Lobby /> -->
+
+<Game />
+
+<!-- <Canvas />
 
 <Toolbox />
 
@@ -24,6 +31,6 @@
 
 <Chat />
 
-<Leaderboard />
+<Leaderboard /> -->
 
-<Settings />
+<!-- <Settings /> -->
