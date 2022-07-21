@@ -34,8 +34,6 @@ export const webSocketServer = {
 				path: '*'
 			});
 		}
-
-		return [];
 	}
 };
 
