@@ -13,6 +13,7 @@
 	let canvas;
 	let canvasWidth;
 	let canvasHeight;
+	// let canvasRect;
 	let drawing;
 	let ctx;
 	let current = {
@@ -20,8 +21,11 @@
 		y: 0
 	};
 
-	function onMouseDown(e) {
-		const mousePos = getMouseCanvasCords(e);
+	// TODO this could probably done more "svelte"?
+	$: canvasRect = canvas?.getBoundingClientRect();
+
+	function onMouseDown(ev) {
+		const mousePos = getMouseCanvasCords(ev);
 		if (mousePos === -1) return;
 
 		if ($canvasTool.tool == 'fill') {
@@ -130,8 +134,6 @@
 		});
 	}
 
-	// TODO this could probably done more "svelte"
-	$: canvasRect = canvas?.getBoundingClientRect();
 	function getMouseCanvasCords(e) {
 		const touch = e.touches ? e.touches[0] : e;
 		if (typeof touch === 'undefined') {
@@ -157,14 +159,61 @@
 		}
 	}
 
+	// $: {
+	// 	if (canvasWidth > 0 && canvasHeight > 0) {
+	// 		console.log(canvasWidth, canvasHeight);
+	// 	}
+	// }
+
+	// $: canvasWidth, console.log(canvasWidth);
+
+	// make canvas responsive
+	// const canvas = document.getElementById('canvas');
+	// const ctx = canvas.getContext('2d');
+	// const canvasWidth = canvas.width;
+	// const canvasHeight = canvas.height;
+
+	function resizeCanvas() {
+		canvasRect = canvas.getBoundingClientRect();
+		canvasWidth = canvasRect.width;
+		canvasHeight = canvasRect.height;
+
+		canvas.width = canvasWidth;
+		canvas.height = canvasHeight;
+
+		// canvasWidth = Math.round(canvasRect.width);
+		// canvasHeight = Math.round(canvasRect.height);
+
+		// ctx.canvas.width = canvasWidth;
+		// ctx.canvas.height = canvasHeight;
+
+		console.log('resize');
+	}
+
 	onMount(async () => {
 		ctx = canvas.getContext('2d');
+		// console.log(ctx);
+
+		// canvasRect = canvas.getBoundingClientRect();
+
+		// canvasWidth = canvasRect.width;
+		// canvasHeight = canvasRect.height;
+
+		// console.log(canvasWidth, canvasHeight);
 
 		const obj = await import('q-floodfill');
 		FloodFill = obj.default;
 	});
 </script>
 
+<svelte:window on:resize={throttle(resizeCanvas, 10)} />
+
+<p>{canvasWidth}px / {canvasHeight}px</p>
+
+<!-- width={canvasWidth}
+height={canvasHeight} -->
+<!-- width={canvasWidth}
+	height={canvasHeight} -->
 <canvas
 	bind:this={canvas}
 	bind:clientWidth={canvasWidth}
@@ -179,3 +228,10 @@
 	on:touchcancel={onMouseUp}
 	on:touchmove={throttle(onMouseMove, 10)}
 />
+
+<style lang="scss">
+	canvas {
+		width: 100%;
+		// height: 100%;
+	}
+</style>
