@@ -1,5 +1,5 @@
 <script>
-	// this page is for testing only
+	// A page to test components (dev/testing only)
 
 	import Toolbox from '$lib/canvas/Toolbox.svelte';
 	import Canvas from '$lib/canvas/Canvas.svelte';

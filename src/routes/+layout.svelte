@@ -1,9 +1,6 @@
 <script>
 	import { socket } from '$lib/stores';
-
 	// global socket events
-
-	// Move events to [slug] route?
 </script>
 
 <slot />
