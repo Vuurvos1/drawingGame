@@ -1,4 +1,4 @@
-import { browser } from '$app/env';
+import { browser } from '$app/environment';
 import { io } from 'socket.io-client';
 import { readable, writable, get } from 'svelte/store';
 import { isJsonString } from '$lib/utils';
