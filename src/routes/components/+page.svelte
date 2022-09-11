@@ -13,13 +13,16 @@
 
 	import Lobby from '$lib/templates/Lobby.svelte';
 	import Game from '$lib/templates/Game.svelte';
+	import CustomTags from '../../lib/components/CustomTags.svelte';
 
 	$socket.emit('join', 'components');
 </script>
 
-<!-- <Lobby /> -->
+<Lobby />
 
-<Game />
+<!-- <CustomTags /> -->
+
+<!-- <Game /> -->
 
 <!-- <Canvas />
 
