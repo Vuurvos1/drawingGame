@@ -1,39 +1,36 @@
 {
-  "name": "multiplayer-game",
-  "version": "1.0.0",
-  "engines": {
-    "node": "12.16.3",
-    "npm": "6.14.4"
-  },
-  "description": "This is an example for how to use sockets",
-  "main": "server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "npx npm-run-all --parallel watch-sass startn",
-    "startn": "npx nodemon server.js",
-    "build-sass": "npx node-sass -o public/css assets/scss/main.scss",
-    "watch-sass": "npx node-sass -o public/css assets/scss/main.scss -w"
-  },
-  "homepage": "https://github.com/Vuurvos1/drawingGame#multiplayer-gameing",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Vuurvos1/drawingGame.git"
-  },
-  "bugs": {
-    "url": "https://github.com/Vuurvos1/drawingGame/issues"
-  },
-  "author": "Sam de Kanter",
-  "contributors": [
-    "Rowin Ruizendaal"
-  ],
-  "license": "ISC",
-  "dependencies": {
-    "dotenv": "^8.2.0",
-    "express": "^4.13.4",
-    "socket.io": "^2.4.0"
-  },
-  "devDependencies": {
-    "node-sass": "^7.0.0",
-    "npm-run-all": "^4.1.5"
-  }
+	"name": "drawing-game",
+	"version": "3.0.0",
+	"scripts": {
+		"dev": "vite dev",
+		"build": "vite build",
+		"start": "node ./server",
+		"package": "svelte-kit package",
+		"preview": "vite preview",
+		"lint": "prettier --check --plugin-search-dir=. . && eslint .",
+		"format": "prettier --write --plugin-search-dir=. ."
+	},
+	"devDependencies": {
+		"@sveltejs/adapter-node": "1.0.0-next.88",
+		"@sveltejs/kit": "next",
+		"eslint": "^8.23.0",
+		"eslint-config-prettier": "^8.5.0",
+		"eslint-plugin-svelte3": "^4.0.0",
+		"prettier": "^2.7.1",
+		"prettier-plugin-svelte": "^2.7.0",
+		"sass": "^1.54.9",
+		"svelte": "^3.50.1",
+		"svelte-preprocess": "^4.10.7",
+		"typescript": "^4.8.3",
+		"vite": "^3.1.0",
+		"vite-plugin-svelte-console-remover": "^1.0.10"
+	},
+	"type": "module",
+	"dependencies": {
+		"dotenv": "^16.0.2",
+		"express": "^4.18.1",
+		"q-floodfill": "^1.3.1",
+		"socket.io": "^4.5.2",
+		"socket.io-client": "^4.5.2"
+	}
 }
